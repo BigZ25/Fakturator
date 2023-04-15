@@ -3,8 +3,8 @@
 namespace App\Services\Modules;
 
 use App\Http\Requests\Modules\Adverts\AdvertRequest;
-use App\Models\Modules\Adverts\Advert;
-use App\Models\Modules\Adverts\AdvertPhoto;
+use App\Models\Modules\Invoices\Advert;
+use App\Models\Modules\Invoices\AdvertPhoto;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Http\Controllers\Controller;
-use App\Models\Modules\Adverts\Advert;
-use App\Models\Modules\Adverts\AdvertPhoto;
+use App\Models\Modules\Invoices\Advert;
+use App\Models\Modules\Invoices\AdvertPhoto;
 use Illuminate\Support\Facades\Storage;
 
 class AdvertPhotosController extends Controller

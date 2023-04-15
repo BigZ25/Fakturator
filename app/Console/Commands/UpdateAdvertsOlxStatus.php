@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Enum\Modules\Adverts\AdvertStatusesEnum;
 use App\Enum\OlxApi\AdvertOlxStatusesEnum;
 use App\Http\APIClient;
-use App\Models\Modules\Adverts\Advert;
+use App\Models\Modules\Invoices\Advert;
 use Illuminate\Console\Command;
 use Illuminated\Console\WithoutOverlapping;
 use Symfony\Component\Console\Helper\ProgressBar;

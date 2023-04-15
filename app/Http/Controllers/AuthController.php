@@ -30,7 +30,7 @@ class AuthController extends Controller
 
     public function auth(AuthRequest $request)
     {
-        $credentials = $request->only('login', 'password');
+        $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
 
             AppClass::addMessage('Zostałeś zalogowany.');

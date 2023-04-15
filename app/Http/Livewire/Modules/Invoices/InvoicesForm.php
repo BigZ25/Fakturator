@@ -1,59 +1,59 @@
 <?php
 
-namespace App\Http\Livewire\Modules\Adverts;
+namespace App\Http\Livewire\Modules\Invoices;
 
 use App\Http\Livewire\BaseComponents\BaseFormComponent;
-use App\Models\Modules\Adverts\Advert;
+use App\Models\Modules\Invoices\Invoice;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class AdvertsForm extends BaseFormComponent
+class InvoicesForm extends BaseFormComponent
 {
     use  AuthorizesRequests;
 
-    public $advert;
+    public $invoice;
     public $import;
     public $deleteSingleModal;
 
     public function mount(int $entity_id = null)
     {
         $this->title = 'Nowe ogłoszenie';
-        $this->view_path = 'modules.adverts.form';
-        $this->currentModule = 'adverts';
+        $this->view_path = 'modules.invoices.form';
+        $this->currentModule = 'invoices';
         $this->entity_id = $entity_id;
         $this->deleteSingleModal = false;
         $this->import = 0;
-        $this->advert = new Advert();
+        $this->invoice = new Invoice();
 
-        $advert = new Advert();
+        $invoice = new Invoice();
 
         if ($this->entity_id !== null) {
-            $this->advert = Advert::find($this->entity_id);
+            $this->invoice = Invoice::find($this->entity_id);
         }
 
-        $this->authorize('edit', $this->advert);
+        $this->authorize('edit', $this->invoice);
 
         if (request()->has('import') && $this->entity_id === null) {
             $this->import = 1;
         } elseif (request()->has('copy') && $entity_id === null) {
-            $advert = Advert::find(request()->input('copy'));
-            $advert->id = null;
+            $invoice = Invoice::find(request()->input('copy'));
+            $invoice->id = null;
         }
 
-        $this->data = compact('advert');
+        $this->data = compact('invoice');
     }
 
     public function render()
     {
 //        if ($this->entity_id !== null) {
-//            $this->data = ['advert' => Advert::find($this->entity_id)];
+//            $this->data = ['invoice' => Invoice::find($this->entity_id)];
 //        }
 
-        $this->data['advert'] = $this->advert;
+        $this->data['invoice'] = $this->invoice;
 
         return parent::render();
     }
 
-    public function openDeleteSingleModal($advertId)
+    public function openDeleteSingleModal($invoiceId)
     {
         $this->deleteSingleModal = true;
     }

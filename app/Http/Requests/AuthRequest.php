@@ -23,7 +23,7 @@ class AuthRequest extends FormRequest
     public function rules()
     {
         return [
-            'login' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
             'password' => 'required|string',
         ];
     }

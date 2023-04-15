@@ -8,12 +8,12 @@ use App\Enum\Modules\Adverts\AdvertStatusesEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Modules\Adverts\AdvertOperationRequest;
 use App\Http\Requests\Modules\Adverts\AdvertRequest;
-use App\Models\Modules\Adverts\Advert;
+use App\Models\Modules\Invoices\Advert;
 use App\Services\Modules\AdvertPhotosService;
 use App\Services\Modules\AdvertsService;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AdvertsController extends Controller
+class InvoicesController extends Controller
 {
     public function store(AdvertRequest $request)
     {
@@ -71,7 +71,7 @@ class AdvertsController extends Controller
             if ($advert) {
                 $this->authorize('operation', $advert);
 
-                //jeśli ogłoszenie nie wystawione na OLX to odrazu usuwamy z wystawiacza
+                //jeśli ogłoszenie nie wystawione na OLX to odrazu usuwamy z fakturatora
                 if ($operation === AdvertOperationsEnum::DELETE && $advert->is_active === false) {
                     $advert->delete();
                 } else {

@@ -2,7 +2,7 @@
 
 namespace App\Policies\Modules\Adverts;
 
-use App\Models\Modules\Adverts\Advert;
+use App\Models\Modules\Invoices\Advert;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 

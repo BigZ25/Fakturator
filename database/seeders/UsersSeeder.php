@@ -11,10 +11,10 @@ class UsersSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => "Mateusz",
-            'surname' => "Zięba",
+            'name' => "John",
+            'surname' => "Doe",
             'password' => Hash::make('password'),
-            'login' => 'mati',
+            'email' => 'john.doe@mail.com',
         ]);
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Enum\Modules\Adverts\AdvertOperationsEnum;
-use App\Models\Modules\Adverts\QueueOfAdvert;
+use App\Models\Modules\Invoices\QueueOfAdvert;
 use App\Services\Modules\AdvertsService;
 use Illuminate\Console\Command;
 use Illuminated\Console\WithoutOverlapping;

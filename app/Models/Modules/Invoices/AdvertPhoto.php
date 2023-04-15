@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Modules\Adverts;
+namespace App\Models\Modules\Invoices;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

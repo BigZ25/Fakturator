@@ -10,9 +10,9 @@
     @livewireStyles
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @if(isset($title))
-        <title>{{$title}} | Wystawiacz</title>
+        <title>{{$title}} | Fakturator</title>
     @else
-        <title>Wystawiacz</title>
+        <title>Fakturator</title>
     @endif
 </head>
 <body @if(session()->has('message')) data-notification-content="{{session()->get('message')['content']}}" data-notification-type="{{session()->get('message')['type']}}" @endif>

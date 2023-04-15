@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Modules\Adverts;
+namespace App\Models\Modules\Invoices;
 
 use App\Enum\Modules\Adverts\AdvertStatusesEnum;
 use App\Enum\OlxApi\AdvertOlxStatusesEnum;
@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 use Wildside\Userstamps\Userstamps;
 
-class Advert extends Model
+class Invoice extends Model
 {
     use HasFactory, Userstamps, SoftDeletes;
 

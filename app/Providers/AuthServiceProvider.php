@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Modules\Adverts\Advert;
+use App\Models\Modules\Invoices\Advert;
 use App\Policies\Modules\Adverts\AdvertPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;

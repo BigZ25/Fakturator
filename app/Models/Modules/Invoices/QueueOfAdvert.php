@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Modules\Adverts;
+namespace App\Models\Modules\Invoices;
 
 use App\Enum\Modules\Adverts\AdvertOperationsEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

@@ -3,8 +3,8 @@
 namespace App\Http\Livewire\Modules\Queue;
 
 use App\Http\Livewire\BaseComponents\BaseShowComponent;
-use App\Models\Modules\Adverts\Advert;
-use App\Models\Modules\Adverts\QueueOfAdvert;
+use App\Models\Modules\Invoices\Advert;
+use App\Models\Modules\Invoices\QueueOfAdvert;
 
 class QueueShow extends BaseShowComponent
 {

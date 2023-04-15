@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Modules\Queue;
 
 use App\Enum\Modules\Adverts\AdvertOperationsEnum;
 use App\Http\Livewire\BaseComponents\BaseIndexComponent;
-use App\Models\Modules\Adverts\QueueOfAdvert;
+use App\Models\Modules\Invoices\QueueOfAdvert;
 
 class QueueIndex extends BaseIndexComponent
 {
