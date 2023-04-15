@@ -25,6 +25,7 @@ class InvoicesIndex extends BaseIndexComponent
         $this->addToOlxSingleModal = false;
         $this->category_tmp = InvoiceCategoriesEnum::ANTIQUES_AND_COLLECTIONS_OTHER_COLLECTIONS;
 
+
         $this->lists = [
             'statuses' => InvoiceStatusesEnum::getSelectList(),
             'olx_statuses' => InvoiceOlxStatusesEnum::getSelectList(),
