@@ -2,7 +2,7 @@
     <form method="POST" action="{{$item?->deletion->url}}" id="deleteSingleForm" class="ajax-form">
         @method('DELETE')
         @csrf
-        @include('templates.form.hidden',['name' => 'operation', 'value' => \App\Enum\Modules\Adverts\AdvertOperationsEnum::DELETE])
+        @include('templates.form.hidden',['name' => 'operation', 'value' => \App\Enum\Modules\Invoices\InvoiceOperationsEnum::DELETE])
         @include('templates.form.hidden',['name' => 'mode', 'value' => 2])
         @include('templates.form.hidden',['name' => 'ids[]', 'value' => $item?->id])
         <div>

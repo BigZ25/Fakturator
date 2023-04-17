@@ -6,17 +6,17 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class AdvertImport implements ToCollection, WithHeadingRow
+class InvoiceImport implements ToCollection, WithHeadingRow
 {
-    private $adverts;
+    private $invoices;
 
     public function collection(Collection $rows)
     {
-        $adverts = [];
+        $invoices = [];
 
         foreach ($rows as $row) {
             if (!strlen(implode($row->toArray())) == 0) {
-                $adverts[] = [
+                $invoices[] = [
                     'production' => $row['produkcja'],
                     'production_number' => $row['numer'],
                     'name' => $row['nazwa'],
@@ -27,12 +27,12 @@ class AdvertImport implements ToCollection, WithHeadingRow
             }
         }
 
-        $this->adverts = $adverts;
+        $this->invoices = $invoices;
     }
 
-    public function getAdverts()
+    public function getInvoices()
     {
-        return $this->adverts;
+        return $this->invoices;
     }
 }
 

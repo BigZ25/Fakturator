@@ -2,17 +2,17 @@
 
 namespace App\Services\Modules;
 
-use App\Http\Requests\Modules\Adverts\AdvertRequest;
-use App\Models\Modules\Invoices\Advert;
-use App\Models\Modules\Invoices\AdvertPhoto;
+use App\Http\Requests\Modules\Invoices\InvoiceRequest;
+use App\Models\Modules\Invoices\Invoice;
+use App\Models\Modules\Invoices\InvoicePhoto;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class AdvertPhotosService
+class InvoicePhotosService
 {
-    public static function storePhotos(AdvertRequest $request, Advert $advert)
+    public static function storePhotos(InvoiceRequest $request, Invoice $invoice)
     {
-        $advert->photos()->delete();
+        $invoice->photos()->delete();
 
         if ($request->hasFile('photos')) {
             $allowedFileExtension = ['png', 'jpg', 'jpeg', 'PNG', 'JPG', 'JPEG'];
@@ -24,14 +24,14 @@ class AdvertPhotosService
                 $check = in_array($extension, $allowedFileExtension);
 
                 if ($check === true) {
-                    $advertPhoto = AdvertPhoto::create([
-                        'advert_id' => $advert->id,
+                    $invoicePhoto = InvoicePhoto::create([
+                        'invoice_id' => $invoice->id,
                         'original_name' => $original_name,
                         'key' => md5(Str::random()),
                     ]);
 
-                    if ($advertPhoto) {
-                        Storage::disk('photos')->put($advertPhoto->key, $file->getContent());
+                    if ($invoicePhoto) {
+                        Storage::disk('photos')->put($invoicePhoto->key, $file->getContent());
                     }
                 }
             }

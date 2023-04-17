@@ -3,8 +3,8 @@
 namespace App\Http\Livewire\Modules\Queue;
 
 use App\Http\Livewire\BaseComponents\BaseShowComponent;
-use App\Models\Modules\Invoices\Advert;
-use App\Models\Modules\Invoices\QueueOfAdvert;
+use App\Models\Modules\Invoices\Invoice;
+use App\Models\Modules\Invoices\QueueOfInvoice;
 
 class QueueShow extends BaseShowComponent
 {
@@ -21,7 +21,7 @@ class QueueShow extends BaseShowComponent
 
     public function render()
     {
-        $this->data = ['item' => QueueOfAdvert::find($this->entity_id)];
+        $this->data = ['item' => QueueOfInvoice::find($this->entity_id)];
 
         return parent::render();
     }

@@ -17,32 +17,32 @@ class InvoicesIndex extends BaseIndexComponent
 
     public function mount()
     {
-        $this->title = 'Lista ogłoszeń';
+        $this->title = 'Lista faktur';
         $this->view_path = 'modules.invoices.index';
         $this->currentModule = 'invoices';
         $this->item = null;
-        $this->deleteSingleModal = false;
-        $this->addToOlxSingleModal = false;
-        $this->category_tmp = InvoiceCategoriesEnum::ANTIQUES_AND_COLLECTIONS_OTHER_COLLECTIONS;
+//        $this->deleteSingleModal = false;
+//        $this->addToOlxSingleModal = false;
+//        $this->category_tmp = InvoiceCategoriesEnum::ANTIQUES_AND_COLLECTIONS_OTHER_COLLECTIONS;
 
-        $this->lists = [
-            'statuses' => InvoiceStatusesEnum::getSelectList(),
-            'olx_statuses' => InvoiceOlxStatusesEnum::getSelectList(),
-            'categories' => InvoiceCategoriesEnum::getSelectList(),
-        ];
+//        $this->lists = [
+//            'statuses' => InvoiceStatusesEnum::getSelectList(),
+//            'olx_statuses' => InvoiceOlxStatusesEnum::getSelectList(),
+//            'categories' => InvoiceCategoriesEnum::getSelectList(),
+//        ];
 
-        $this->forms = [
-            'phrase' => ['field' => Invoice::searchField(), 'operator' => 'like', 'value' => null],
-            'status' => ['field' => 'status', 'operator' => '=', 'value' => null],
-            'olx_status' => ['field' => 'olx_status', 'operator' => '=', 'value' => null],
-        ];
+//        $this->forms = [
+//            'phrase' => ['field' => Invoice::searchField(), 'operator' => 'like', 'value' => null],
+//            'status' => ['field' => 'status', 'operator' => '=', 'value' => null],
+//            'olx_status' => ['field' => 'olx_status', 'operator' => '=', 'value' => null],
+//        ];
 
         $this->original_forms = $this->forms;
     }
 
     public function render()
     {
-        $invoices = $this->searchForm(Invoice::query());
+        $invoices = $this->searchForm(Invoice::query()->where('created_by', '=', auth()->user()->id));
 
         $i = 0;
 

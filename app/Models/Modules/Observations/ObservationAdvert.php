@@ -5,7 +5,7 @@ namespace App\Models\Modules\Observations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ObservationAdvert extends Model
+class ObservationInvoice extends Model
 {
     use HasFactory;
 
@@ -13,7 +13,7 @@ class ObservationAdvert extends Model
 
     protected $fillable = [
         'observation_id',
-        'advert_id',
+        'invoice_id',
         'was_viewed',
         'link',
         'name',

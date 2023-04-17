@@ -24,7 +24,7 @@
                 @foreach($items as $item)
                     <tr>
                         @if(!$inject)
-                            @include('templates.table.show.text',['align' => 'left','rows' => [['route' => !$item->advert->deleted_at ? route('adverts.show',$item->advert_id) : null,'text' => \Illuminate\Support\Str::limit($item->advert?->full_name, 50, $end='...') ?? "-"]]])
+                            @include('templates.table.show.text',['align' => 'left','rows' => [['route' => !$item->invoice->deleted_at ? route('invoices.show',$item->invoice_id) : null,'text' => \Illuminate\Support\Str::limit($item->invoice?->full_name, 50, $end='...') ?? "-"]]])
                         @endif
                         @include('templates.table.show.text',['rows' => [['text' => $item->operation_text]]])
                         @include('templates.table.show.text',['rows' => [['text' => $item->success_text]]])

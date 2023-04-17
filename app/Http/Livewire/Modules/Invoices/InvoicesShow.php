@@ -23,7 +23,7 @@ class InvoicesShow extends BaseShowComponent
 
     public function mount(int $entity_id)
     {
-        $this->title = 'Podgląd ogłoszenia';
+        $this->title = 'Podgląd faktury';
         $this->view_path = 'modules.invoices.show';
         $this->currentModule = 'invoices';
         $this->entity_id = $entity_id;

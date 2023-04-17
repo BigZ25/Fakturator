@@ -1,6 +1,6 @@
 <div class="pb-3">
     <x-card title="Ogłoszenia" color="bg-white" rounded="rounded-sm" cardClasses="card-body">
-        @if(count($adverts) > 0)
+        @if(count($invoices) > 0)
             {{--            <div class="pb-3">--}}
             {{--                <x-card padding="p-2" color="bg-gray-100" rounded="rounded-sm">--}}
             {{--                    <x-button red label="Usuń wszystko" icon="trash" onclick="$openModal('deleteAllModal')"/>--}}
@@ -17,7 +17,7 @@
             {{--            </div>--}}
 
             <div class="mb-2">
-                {!! $adverts->links() !!}
+                {!! $invoices->links() !!}
             </div>
 
             <table class="w-full table-auto text-left border">
@@ -36,25 +36,25 @@
                 </tr>
                 </thead>
                 <tbody class="border">
-                @foreach($adverts as $advert)
-                    <tr @if(!$advert->was_viewed) class="bg-primary-500" @endif>
+                @foreach($invoices as $invoice)
+                    <tr @if(!$invoice->was_viewed) class="bg-primary-500" @endif>
                         {{--                        @include('templates.table.form.checkbox',['id' => $loop->index,'value' => ($checkboxes[$loop->index]['value'] ?? 0) === 0 ? 1 : 0])--}}
                         @include('templates.table.show.text',['rows' => [['text' => $loop->index + 1]]])
-                        @include('templates.table.show.image',['url' => $advert->photo_link])
-                        @include('templates.table.show.text',['align' => 'left','rows' => [['text' => formatPriceShow($advert->price)]]])
-                        @include('templates.table.show.text',['align' => 'left','rows' => [['route' => $advert->link,'text' => $advert->name,'blank' => true]]])
-                        @include('templates.table.show.button',['label' => 'Zobacz','color' => 'lime','icon' => 'eye','route' => $advert->link,'blank' => true])
+                        @include('templates.table.show.image',['url' => $invoice->photo_link])
+                        @include('templates.table.show.text',['align' => 'left','rows' => [['text' => formatPriceShow($invoice->price)]]])
+                        @include('templates.table.show.text',['align' => 'left','rows' => [['route' => $invoice->link,'text' => $invoice->name,'blank' => true]]])
+                        @include('templates.table.show.button',['label' => 'Zobacz','color' => 'lime','icon' => 'eye','route' => $invoice->link,'blank' => true])
 
-                        {{--                        @include('templates.table.show.button',['label' => 'Szczegóły','color' => 'info','icon' => 'document-text','route' => route('observations.show',$advert->id)])--}}
-                        {{--                        @include('templates.table.show.button',['label' => 'Edycja','color' => 'amber','icon' => 'pencil','route' => route('observations.edit',$advert->id), 'disabled' => $advert->is_active || $advert->is_in_queue])--}}
-                        {{--                        @include('templates.table.show.button',['label' => 'Kopiuj','color' => 'fuchsia','icon' => 'clipboard-copy','route' => route('observations.create') . "?copy=" . $advert->id, 'disabled' => $advert->is_in_queue])--}}
-                        {{--                        @include('templates.table.show.button',['label' => 'Usuń','color' => 'red','icon' => 'trash','action' => 'openDeleteSingleModal('.$advert->id.')','disabled' => $advert->is_in_queue])--}}
+                        {{--                        @include('templates.table.show.button',['label' => 'Szczegóły','color' => 'info','icon' => 'document-text','route' => route('observations.show',$invoice->id)])--}}
+                        {{--                        @include('templates.table.show.button',['label' => 'Edycja','color' => 'amber','icon' => 'pencil','route' => route('observations.edit',$invoice->id), 'disabled' => $invoice->is_active || $invoice->is_in_queue])--}}
+                        {{--                        @include('templates.table.show.button',['label' => 'Kopiuj','color' => 'fuchsia','icon' => 'clipboard-copy','route' => route('observations.create') . "?copy=" . $invoice->id, 'disabled' => $invoice->is_in_queue])--}}
+                        {{--                        @include('templates.table.show.button',['label' => 'Usuń','color' => 'red','icon' => 'trash','action' => 'openDeleteSingleModal('.$invoice->id.')','disabled' => $invoice->is_in_queue])--}}
                     </tr>
                 @endforeach
                 </tbody>
             </table>
             <div class="mt-2">
-                {!! $adverts->links() !!}
+                {!! $invoices->links() !!}
             </div>
         @else
             <p>Brak ogłoszeń</p>

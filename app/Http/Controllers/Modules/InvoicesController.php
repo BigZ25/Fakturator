@@ -3,56 +3,56 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Classes\App\AppClass;
-use App\Enum\Modules\Adverts\AdvertOperationsEnum;
-use App\Enum\Modules\Adverts\AdvertStatusesEnum;
+use App\Enum\Modules\Invoices\InvoiceOperationsEnum;
+use App\Enum\Modules\Invoices\InvoiceStatusesEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Modules\Adverts\AdvertOperationRequest;
-use App\Http\Requests\Modules\Adverts\AdvertRequest;
-use App\Models\Modules\Invoices\Advert;
-use App\Services\Modules\AdvertPhotosService;
-use App\Services\Modules\AdvertsService;
+use App\Http\Requests\Modules\Invoices\InvoiceOperationRequest;
+use App\Http\Requests\Modules\Invoices\InvoiceRequest;
+use App\Models\Modules\Invoices\Invoice;
+use App\Services\Modules\InvoicePhotosService;
+use App\Services\Modules\InvoicesService;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 class InvoicesController extends Controller
 {
-    public function store(AdvertRequest $request)
+    public function store(InvoiceRequest $request)
     {
         if ($request->has('import')) {
             if ($request->input('import') === "0") {
-                $advert = Advert::create($request->validated() + ['status' => AdvertStatusesEnum::NOT_POSTED]);
+                $invoice = Invoice::create($request->validated() + ['status' => InvoiceStatusesEnum::NOT_POSTED]);
 
-                AdvertPhotosService::storePhotos($request, $advert);
+                InvoicePhotosService::storePhotos($request, $invoice);
                 AppClass::addMessage('Ogłoszenie zostało zapisane');
 
-                return response()->json(route('adverts.show', $advert->id));
+                return response()->json(route('invoices.show', $invoice->id));
             } elseif ($request->input('import') === "1") {
-                AdvertsService::importAdverts($request);
+                InvoicesService::importInvoices($request);
                 AppClass::addMessage('Ogłoszenia zostały zaimportowane');
 
-                return response()->json(route('adverts.index'));
+                return response()->json(route('invoices.index'));
             }
         }
 
-        return response()->json(route('adverts.index'));
+        return response()->json(route('invoices.index'));
     }
 
-    public function update(AdvertRequest $request, Advert $advert)
+    public function update(InvoiceRequest $request, Invoice $invoice)
     {
-        $this->authorize('update', $advert);
+        $this->authorize('update', $invoice);
 
-        $advert->update($request->validated());
+        $invoice->update($request->validated());
 
-        AdvertPhotosService::storePhotos($request, $advert);
+        InvoicePhotosService::storePhotos($request, $invoice);
         AppClass::addMessage('Zmiany zostały zapisane');
 
-        return response()->json(route('adverts.show', $advert->id));
+        return response()->json(route('invoices.show', $invoice->id));
     }
 
     /**
      * @throws \Illuminate\Auth\Access\AuthorizationException
      * @throws \Exception
      */
-    public function handleOperation(AdvertOperationRequest $request)
+    public function handleOperation(InvoiceOperationRequest $request)
     {
         $counter = 0;
         $mode = (int)$request->input('mode');
@@ -62,25 +62,25 @@ class InvoicesController extends Controller
         $params = $request->has('category') ? ['category' => $request->input('category')] : [];
 
         if ($mode === 0) {
-            $ids = Advert::all()->pluck('id')->toArray();
+            $ids = Invoice::all()->pluck('id')->toArray();
         }
 
-        foreach ($ids as $advertId) {
-            $advert = Advert::find($advertId);
+        foreach ($ids as $invoiceId) {
+            $invoice = Invoice::find($invoiceId);
 
-            if ($advert) {
-                $this->authorize('operation', $advert);
+            if ($invoice) {
+                $this->authorize('operation', $invoice);
 
                 //jeśli ogłoszenie nie wystawione na OLX to odrazu usuwamy z fakturatora
-                if ($operation === AdvertOperationsEnum::DELETE && $advert->is_active === false) {
-                    $advert->delete();
+                if ($operation === InvoiceOperationsEnum::DELETE && $invoice->is_active === false) {
+                    $invoice->delete();
                 } else {
-                    if (AdvertsService::addToQueue($advert, $operation, $params) === true) {
+                    if (InvoicesService::addToQueue($invoice, $operation, $params) === true) {
                         $counter++;
                     };
                 }
             } else {
-                throw new HttpResponseException(response()->json(['message' => "Ogłoszenie #$advertId nie istnieje."], 403));
+                throw new HttpResponseException(response()->json(['message' => "Ogłoszenie #$invoiceId nie istnieje."], 403));
             }
         }
 
@@ -93,11 +93,11 @@ class InvoicesController extends Controller
         }
 
         if ($counter !== 0) {
-            if ($operation === AdvertOperationsEnum::DELETE) {
+            if ($operation === InvoiceOperationsEnum::DELETE) {
                 $postfix = " Wkrótce zostaną usunięte.";
-            } elseif ($operation === AdvertOperationsEnum::ADD_TO_OLX) {
+            } elseif ($operation === InvoiceOperationsEnum::ADD_TO_OLX) {
                 $postfix = " Wkrótce zostaną wystawione.";
-            } elseif ($operation === AdvertOperationsEnum::MARK_AS_NOT_POSTED) {
+            } elseif ($operation === InvoiceOperationsEnum::MARK_AS_NOT_POSTED) {
                 $postfix = " Wkrótce zostaną oznaczone.";
             }
         } else {
@@ -109,9 +109,9 @@ class InvoicesController extends Controller
         AppClass::addMessage($message);
 
         if ($id) {
-            return response()->json(route('adverts.show', $id));
+            return response()->json(route('invoices.show', $id));
         }
 
-        return response()->json(route('adverts.index'));
+        return response()->json(route('invoices.index'));
     }
 }

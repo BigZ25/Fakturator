@@ -48,15 +48,15 @@ class Observation extends Model
         return $this->pushover_notification ? "Tak" : "Nie";
     }
 
-    public function getNumberOfAdvertsTextAttribute()
+    public function getNumberOfInvoicesTextAttribute()
     {
-        $numberOfNotViewedAdverts = $this->adverts()->where('was_viewed', '=', 0)->count();
+        $numberOfNotViewedInvoices = $this->invoices()->where('was_viewed', '=', 0)->count();
 
-        if ($numberOfNotViewedAdverts > 0) {
-            return $this->adverts()->count() . ' (w tym ' . $numberOfNotViewedAdverts . ' nowych)';
+        if ($numberOfNotViewedInvoices > 0) {
+            return $this->invoices()->count() . ' (w tym ' . $numberOfNotViewedInvoices . ' nowych)';
         }
 
-        return $this->adverts()->count();
+        return $this->invoices()->count();
     }
 
     public function  getNumberOfLinksAttribute()
@@ -64,9 +64,9 @@ class Observation extends Model
         return $this->links()->count();
     }
 
-    public function adverts()
+    public function invoices()
     {
-        return $this->hasMany(ObservationAdvert::class);
+        return $this->hasMany(ObservationInvoice::class);
     }
 
     public function links()

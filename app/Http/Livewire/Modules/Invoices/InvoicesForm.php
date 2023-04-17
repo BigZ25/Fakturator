@@ -11,12 +11,11 @@ class InvoicesForm extends BaseFormComponent
     use  AuthorizesRequests;
 
     public $invoice;
-    public $import;
     public $deleteSingleModal;
 
     public function mount(int $entity_id = null)
     {
-        $this->title = 'Nowe ogłoszenie';
+        $this->title = 'Nowa faktura';
         $this->view_path = 'modules.invoices.form';
         $this->currentModule = 'invoices';
         $this->entity_id = $entity_id;

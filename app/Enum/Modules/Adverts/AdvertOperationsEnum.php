@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Enum\Modules\Adverts;
+namespace App\Enum\Modules\Invoices;
 
 use App\Enum\BaseEnum;
 
-class AdvertOperationsEnum implements BaseEnum
+class InvoiceOperationsEnum implements BaseEnum
 {
     const ADD_TO_OLX = 0;
     const DELETE = 1;

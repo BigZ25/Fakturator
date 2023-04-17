@@ -2,16 +2,16 @@
 
 namespace App\Console\Commands;
 
-use App\Enum\Modules\Adverts\AdvertStatusesEnum;
-use App\Enum\OlxApi\AdvertOlxStatusesEnum;
+use App\Enum\Modules\Invoices\InvoiceStatusesEnum;
+use App\Enum\OlxApi\InvoiceOlxStatusesEnum;
 use App\Http\APIClient;
-use App\Models\Modules\Invoices\Advert;
+use App\Models\Modules\Invoices\Invoice;
 use Illuminate\Console\Command;
 use Illuminated\Console\WithoutOverlapping;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
-class UpdateAdvertsOlxStatus extends Command
+class UpdateInvoicesOlxStatus extends Command
 {
     use WithoutOverlapping;
 
@@ -20,14 +20,14 @@ class UpdateAdvertsOlxStatus extends Command
      *
      * @var string
      */
-    protected $signature = 'adverts:update_olx_status {id?}';
+    protected $signature = 'invoices:update_olx_status {id?}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Updating adverts OLX status';
+    protected $description = 'Updating invoices OLX status';
 
     /**
      * Create a new command instance.
@@ -46,27 +46,27 @@ class UpdateAdvertsOlxStatus extends Command
      */
     public function handle()
     {
-        $advertId = $this->argument('id');
+        $invoiceId = $this->argument('id');
 
-        if ($advertId === null) {
+        if ($invoiceId === null) {
             $counter = 0;
-            $postedAdverts = Advert::query()
-                ->where('status', '=', AdvertStatusesEnum::POSTED)
+            $postedInvoices = Invoice::query()
+                ->where('status', '=', InvoiceStatusesEnum::POSTED)
                 ->orderBy('last_olx_update_at')
                 ->limit(4500)
                 ->get();
 
-            $this->info("Adverts to check: " . $postedAdverts->count());
+            $this->info("Invoices to check: " . $postedInvoices->count());
 
             $out = new ConsoleOutput();
 
-            $bar = new ProgressBar($out, $postedAdverts->count());
+            $bar = new ProgressBar($out, $postedInvoices->count());
 
             $bar->start();
 
-            foreach ($postedAdverts as $postedAdvert) {
+            foreach ($postedInvoices as $postedInvoice) {
 
-                $this->updateAdvertOlxStatus($postedAdvert);
+                $this->updateInvoiceOlxStatus($postedInvoice);
 
                 $counter++;
 
@@ -76,18 +76,18 @@ class UpdateAdvertsOlxStatus extends Command
             $bar->finish();
 
             $this->info("");
-            $this->info("Updated adverts: " . $counter . " / " . $postedAdverts->count());
+            $this->info("Updated invoices: " . $counter . " / " . $postedInvoices->count());
         } else {
-            $postedAdvert = Advert::find($advertId);
+            $postedInvoice = Invoice::find($invoiceId);
 
-            if ($postedAdvert) {
-                $this->info("Advert #" . $advertId . " checking");
+            if ($postedInvoice) {
+                $this->info("Invoice #" . $invoiceId . " checking");
 
-                $this->updateAdvertOlxStatus($postedAdvert);
+                $this->updateInvoiceOlxStatus($postedInvoice);
 
-                $this->info("Advert #" . $advertId . " updated");
+                $this->info("Invoice #" . $invoiceId . " updated");
             } else {
-                $this->info("Advert #" . $advertId . " not found");
+                $this->info("Invoice #" . $invoiceId . " not found");
 
                 return false;
             }
@@ -96,15 +96,15 @@ class UpdateAdvertsOlxStatus extends Command
         return true;
     }
 
-    private function updateAdvertOlxStatus($postedAdvert)
+    private function updateInvoiceOlxStatus($postedInvoice)
     {
         //TODO: Punkt 11 tutaj - https://developer.olx.ua/articles/faq
-        if ($postedAdvert->olx_id) {
-            $result = APIClient::getAdvert($postedAdvert->olx_id);
+        if ($postedInvoice->olx_id) {
+            $result = APIClient::getInvoice($postedInvoice->olx_id);
 
             if (!$result->isOk()) {
                 if ($result->getStatusCode() === 404) {
-                    $newOlxStatus = AdvertOlxStatusesEnum::DELETED_PERMANENTLY;
+                    $newOlxStatus = InvoiceOlxStatusesEnum::DELETED_PERMANENTLY;
                 }
             } else {
                 $data = $result->getData();
@@ -113,13 +113,13 @@ class UpdateAdvertsOlxStatus extends Command
             }
 
             if ($result->getStatusCode() !== 500) {
-                if ($newOlxStatus === AdvertOlxStatusesEnum::ACTIVE || $newOlxStatus === AdvertOlxStatusesEnum::NEW) {
-                    $newStatus = AdvertStatusesEnum::POSTED;
+                if ($newOlxStatus === InvoiceOlxStatusesEnum::ACTIVE || $newOlxStatus === InvoiceOlxStatusesEnum::NEW) {
+                    $newStatus = InvoiceStatusesEnum::POSTED;
                 } else {
-                    $newStatus = AdvertStatusesEnum::NOT_POSTED;
+                    $newStatus = InvoiceStatusesEnum::NOT_POSTED;
                 }
 
-                $postedAdvert->update([
+                $postedInvoice->update([
                     'olx_status' => $newOlxStatus,
                     'status' => $newStatus,
                     'last_olx_update_at' => currentDateTime(),

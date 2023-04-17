@@ -12,9 +12,9 @@
             @include('templates.show.row',['label' => 'Wyślij powiadomienia na telefon','value' => $observation->phone_notification_text])
             @include('templates.show.row',['label' => 'Pokaż powiadomienia w przeglądarce','value' => $observation->browser_notification_text])
             @include('templates.show.row',['label' => 'Powiadomienia w aplikacji Pushover','value' => $observation->pushover_notification_text])
-            @include('templates.show.row',['label' => 'Ilość ogłoszeń','value' => $observation->number_of_adverts_text])
+            @include('templates.show.row',['label' => 'Ilość ogłoszeń','value' => $observation->number_of_invoices_text])
         </x-card>
     </div>
-    @livewire('modules.observations.adverts.observation-adverts-index',[$observation->id])
+    @livewire('modules.observations.invoices.observation-invoices-index',[$observation->id])
     @livewire('modules.observations.links.observation-links-show',[$observation->id])
 </div>

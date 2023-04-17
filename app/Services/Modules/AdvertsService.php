@@ -3,23 +3,23 @@
 namespace App\Services\Modules;
 
 use App\Classes\App\AppClass;
-use App\Enum\Modules\Adverts\AdvertCategoriesEnum;
-use App\Enum\Modules\Adverts\AdvertStatusesEnum;
-use App\Enum\Modules\Adverts\AdvertOperationsEnum;
+use App\Enum\Modules\Invoices\InvoiceCategoriesEnum;
+use App\Enum\Modules\Invoices\InvoiceStatusesEnum;
+use App\Enum\Modules\Invoices\InvoiceOperationsEnum;
 use App\Enum\Modules\DescriptionTemplates\DescriptionTemplateParametersEnum;
-use App\Enum\OlxApi\AdvertOlxStatusesEnum;
-use App\Http\AdvertImport;
+use App\Enum\OlxApi\InvoiceOlxStatusesEnum;
+use App\Http\InvoiceImport;
 use App\Http\APIClient;
-use App\Http\Requests\Modules\Adverts\AdvertRequest;
-use App\Models\Modules\Invoices\Advert;
-use App\Models\Modules\Invoices\QueueOfAdvert;
+use App\Http\Requests\Modules\Invoices\InvoiceRequest;
+use App\Models\Modules\Invoices\Invoice;
+use App\Models\Modules\Invoices\QueueOfInvoice;
 use App\Models\Modules\DescriptionTemplates\DescriptionTemplate;
 use Maatwebsite\Excel\Facades\Excel;
 use Exception;
 
-class AdvertsService
+class InvoicesService
 {
-    public static function importAdverts(AdvertRequest $request)
+    public static function importInvoices(InvoiceRequest $request)
     {
         if ($request->hasFile('files')) {
             $allowedFileExtension = ['csv', 'xls', 'xlsx'];
@@ -32,11 +32,11 @@ class AdvertsService
                 $check = in_array($extension, $allowedFileExtension);
 
                 if ($check === true) {
-                    $import = new AdvertImport;
+                    $import = new InvoiceImport;
                     Excel::Import($import, $file);
-                    $adverts = $import->getAdverts();
-                    foreach ($adverts as $advert) {
-                        Advert::create($advert + ['status' => AdvertStatusesEnum::NOT_POSTED]);
+                    $invoices = $import->getInvoices();
+                    foreach ($invoices as $invoice) {
+                        Invoice::create($invoice + ['status' => InvoiceStatusesEnum::NOT_POSTED]);
                     }
                 }
             }
@@ -46,16 +46,16 @@ class AdvertsService
     /**
      * @throws Exception
      */
-    public static function addToQueue(Advert $advert, $operation, $params = [])
+    public static function addToQueue(Invoice $invoice, $operation, $params = [])
     {
         $data = [
-            'advert_id' => $advert->id,
+            'invoice_id' => $invoice->id,
             'operation' => $operation,
             'params' => json_encode($params),
             'created_at' => currentDateTime(),
         ];
 
-        QueueOfAdvert::create($data);
+        QueueOfInvoice::create($data);
 
         return true;
     }
@@ -63,22 +63,22 @@ class AdvertsService
     /**
      * @throws Exception
      */
-    public static function addToOlx($id, int $category = AdvertCategoriesEnum::ANTIQUES_AND_COLLECTIONS_OTHER_COLLECTIONS)
+    public static function addToOlx($id, int $category = InvoiceCategoriesEnum::ANTIQUES_AND_COLLECTIONS_OTHER_COLLECTIONS)
     {
-        $advert = Advert::find($id);
+        $invoice = Invoice::find($id);
 
-        if ($advert && !$advert->is_active) {
-            $data = AdvertsService::prepareData($advert, $category);
-            $response = APIClient::addAdvert($data);
+        if ($invoice && !$invoice->is_active) {
+            $data = InvoicesService::prepareData($invoice, $category);
+            $response = APIClient::addInvoice($data);
 
             if ($response->isOk() === true) {
                 $data = $response->getOriginalContent()['data'];
 
-                $advert->update([
+                $invoice->update([
                     'olx_id' => $data['id'],
                     'olx_link' => $data['url'],
                     'olx_status' => $data['status'],
-                    'status' => AdvertStatusesEnum::POSTED,
+                    'status' => InvoiceStatusesEnum::POSTED,
                 ]);
             }
 
@@ -93,18 +93,18 @@ class AdvertsService
 
     public static function removeFromOlx($id)
     {
-        $advert = Advert::find($id);
+        $invoice = Invoice::find($id);
 
-        if ($advert) {
-            $response = APIClient::removeAdvert($advert->olx_id);
+        if ($invoice) {
+            $response = APIClient::removeInvoice($invoice->olx_id);
 
             if ($response->isOk() === true) {
-                $advert->update([
-                    'status' => AdvertStatusesEnum::NOT_POSTED,
-                    'olx_status' => AdvertOlxStatusesEnum::REMOVED_BY_USER,
+                $invoice->update([
+                    'status' => InvoiceStatusesEnum::NOT_POSTED,
+                    'olx_status' => InvoiceOlxStatusesEnum::REMOVED_BY_USER,
                 ]);
 
-                $advert->delete();
+                $invoice->delete();
             }
 
             return [
@@ -118,15 +118,15 @@ class AdvertsService
 
     public static function markAsNotPosted($id)
     {
-        $advert = Advert::find($id);
+        $invoice = Invoice::find($id);
 
-        if ($advert) {
-            $advert->update([
+        if ($invoice) {
+            $invoice->update([
                 'olx_link' => null,
                 'olx_status' => null,
                 'olx_id' => null,
                 'last_olx_update_at' => null,
-                'status' => AdvertStatusesEnum::NOT_POSTED,
+                'status' => InvoiceStatusesEnum::NOT_POSTED,
             ]);
 
             return [
@@ -138,13 +138,13 @@ class AdvertsService
         return false;
     }
 
-    private static function prepareData($advert, $category): array
+    private static function prepareData($invoice, $category): array
     {
         $images = [];
 
-        foreach ($advert->photos as $photo) {
+        foreach ($invoice->photos as $photo) {
             $images[] = [
-                'url' => route('adverts.photos.show', [$photo->advert_id, $photo->id]),
+                'url' => route('invoices.photos.show', [$photo->invoice_id, $photo->id]),
             ];
         }
 
@@ -157,18 +157,18 @@ class AdvertsService
             $parameters = DescriptionTemplateParametersEnum::getAttributes();
 
             foreach ($parameters as $parameter) {
-                if (!$advert[$parameter['attribute']]) {
+                if (!$invoice[$parameter['attribute']]) {
                     throw new Exception("Pusta wartość dla parametru " . $parameter['text']);
                 }
-                $text = str_replace("<" . $parameter['text'] . ">", $advert[$parameter['attribute']], $text);
+                $text = str_replace("<" . $parameter['text'] . ">", $invoice[$parameter['attribute']], $text);
             }
         }
 
         return [
-            'title' => $advert->full_name_with_item_number,
+            'title' => $invoice->full_name_with_item_number,
             'description' => $text,
             'category_id' => $category,
-            'advertiser_type' => 'private',
+            'invoiceiser_type' => 'private',
             'contact' => [
                 'name' => 'Mateusz',
             ],
@@ -176,7 +176,7 @@ class AdvertsService
                 'city_id' => '130999',
             ],
             'price' => [
-                'value' => $advert->price,
+                'value' => $invoice->price,
                 'currency' => 'PLN',
             ],
             'attributes' => [

@@ -1,6 +1,6 @@
 <h1>Nowe ogłoszenia</h1>
 
-@foreach($adverts as $advert)
-    <a href="{{$advert->link}}">{{$advert->name}}</a>
+@foreach($invoices as $invoice)
+    <a href="{{$invoice->link}}">{{$invoice->name}}</a>
     <br>
 @endforeach

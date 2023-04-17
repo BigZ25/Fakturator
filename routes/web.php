@@ -31,7 +31,7 @@ Route::post('remove_code', function () {
     return Redirect(route('home'));
 })->name('remove_code')->middleware('auth');
 
-include_once 'modules/adverts.php';
+include_once 'modules/invoices.php';
 include_once 'modules/description_template.php';
 include_once 'modules/queue.php';
 include_once 'modules/observations.php';

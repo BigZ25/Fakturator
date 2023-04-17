@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Modules\Invoices\Advert;
-use App\Policies\Modules\Adverts\AdvertPolicy;
+use App\Models\Modules\Invoices\Invoice;
+use App\Policies\Modules\Invoices\InvoicePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -15,7 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        Advert::class => AdvertPolicy::class,
+        Invoice::class => InvoicePolicy::class,
     ];
 
     /**

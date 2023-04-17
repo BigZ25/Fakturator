@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Enum\Modules\Adverts;
+namespace App\Enum\Modules\Invoices;
 
 use App\Enum\BaseEnum;
 
-class AdvertStatusesEnum implements BaseEnum
+class InvoiceStatusesEnum implements BaseEnum
 {
     const NOT_POSTED = 0;
     const POSTED = 1;

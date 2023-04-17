@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Modules\Adverts;
+namespace App\Http\Requests\Modules\Invoices;
 
-use App\Enum\Modules\Adverts\AdvertOperationsEnum;
+use App\Enum\Modules\Invoices\InvoiceOperationsEnum;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AdvertOperationRequest extends FormRequest
+class InvoiceOperationRequest extends FormRequest
 {
     protected $stopOnFirstFailure = true;
 
@@ -24,7 +24,7 @@ class AdvertOperationRequest extends FormRequest
     public function rules()
     {
         return [
-            'operation' => enumRules(AdvertOperationsEnum::class),
+            'operation' => enumRules(InvoiceOperationsEnum::class),
             'mode' => ['required', 'in:0,1,2'],
             'id' => ['sometimes|required'],
 

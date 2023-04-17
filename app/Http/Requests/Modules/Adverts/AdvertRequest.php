@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Modules\Adverts;
+namespace App\Http\Requests\Modules\Invoices;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AdvertRequest extends FormRequest
+class InvoiceRequest extends FormRequest
 {
     protected $stopOnFirstFailure = true;
 

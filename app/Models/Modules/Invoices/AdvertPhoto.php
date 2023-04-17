@@ -5,21 +5,21 @@ namespace App\Models\Modules\Invoices;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AdvertPhoto extends Model
+class InvoicePhoto extends Model
 {
     use HasFactory;
 
     public $timestamps = false;
 
     protected $fillable = [
-        'advert_id',
+        'invoice_id',
         'original_name',
         'key'
     ];
 
-    public function advert()
+    public function invoice()
     {
-        return $this->belongsTo(Advert::class);
+        return $this->belongsTo(Invoice::class);
     }
 
     public function getData()

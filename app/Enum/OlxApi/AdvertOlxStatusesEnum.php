@@ -4,7 +4,7 @@ namespace App\Enum\OlxApi;
 
 use App\Enum\BaseEnum;
 
-class AdvertOlxStatusesEnum implements BaseEnum
+class InvoiceOlxStatusesEnum implements BaseEnum
 {
     const NEW = "new";
     const ACTIVE = "active";

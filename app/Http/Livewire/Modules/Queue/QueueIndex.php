@@ -2,32 +2,32 @@
 
 namespace App\Http\Livewire\Modules\Queue;
 
-use App\Enum\Modules\Adverts\AdvertOperationsEnum;
+use App\Enum\Modules\Invoices\InvoiceOperationsEnum;
 use App\Http\Livewire\BaseComponents\BaseIndexComponent;
-use App\Models\Modules\Invoices\QueueOfAdvert;
+use App\Models\Modules\Invoices\QueueOfInvoice;
 
 class QueueIndex extends BaseIndexComponent
 {
-    public $advert_id;
+    public $invoice_id;
 
-    public function mount($advert_id = null)
+    public function mount($invoice_id = null)
     {
         $this->title = 'Kolejka';
         $this->view_path = 'modules.queue.index';
         $this->currentModule = 'queue';
-        $this->advert_id = $advert_id;
+        $this->invoice_id = $invoice_id;
 
-        if ($this->advert_id) {
+        if ($this->invoice_id) {
             $this->inject = true;
         }
 
         $this->lists = [
-            'operation_types' => AdvertOperationsEnum::getSelectList(),
+            'operation_types' => InvoiceOperationsEnum::getSelectList(),
             'success_types' => [['id' => 0, 'text' => 'Nie'], ['id' => 1, 'text' => 'Tak'], ['id' => 2, 'text' => '-']],
         ];
 
         $this->forms = [
-            'phrase' => ['field' => QueueOfAdvert::searchField(), 'operator' => 'like', 'value' => null],
+            'phrase' => ['field' => QueueOfInvoice::searchField(), 'operator' => 'like', 'value' => null],
             'operation_type' => ['field' => 'operation', 'operator' => '=', 'value' => null],
         ];
 
@@ -42,10 +42,10 @@ class QueueIndex extends BaseIndexComponent
     {
         $this->processCustomForms();
 
-        if ($this->advert_id) {
-            $items = $this->searchForm(QueueOfAdvert::query()->where('advert_id', $this->advert_id));
+        if ($this->invoice_id) {
+            $items = $this->searchForm(QueueOfInvoice::query()->where('invoice_id', $this->invoice_id));
         } else {
-            $items = $this->searchForm(QueueOfAdvert::query());
+            $items = $this->searchForm(QueueOfInvoice::query());
         }
 
 

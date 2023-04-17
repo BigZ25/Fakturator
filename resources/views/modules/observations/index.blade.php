@@ -31,7 +31,7 @@
                         <tr>
                             @include('templates.table.show.text',['rows' => [['text' => $loop->index + 1]]])
                             @include('templates.table.show.text',['align' => 'left','rows' => [['text' => $observation->name]]])
-                            @include('templates.table.show.text',['align' => 'left','rows' => [['text' => $observation->number_of_adverts_text]]])
+                            @include('templates.table.show.text',['align' => 'left','rows' => [['text' => $observation->number_of_invoices_text]]])
                             @include('templates.table.show.text',['align' => 'left','rows' => [['text' => $observation->number_of_links]]])
                             <td class="text-center">
                                 <a href="#!" wire:click="changeNotificationsSettings({{$observation->id}},0)"><i class="fa fa-envelope mr-1 @if($observation->email_notification) text-lime-500 @else text-red-500 @endif"></i></a>
@@ -54,5 +54,5 @@
             @endif
         </x-card>
     </div>
-    @livewire('modules.observations.adverts.observation-adverts-index')
+    @livewire('modules.observations.invoices.observation-invoices-index')
 </div>

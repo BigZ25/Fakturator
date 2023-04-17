@@ -17,12 +17,12 @@ class CreateInvoicesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('correction_invoice_id')->nullable();
             $table->string('number');
-            $table->string('send_email');
-            $table->string('company_nip');
-            $table->string('company_name');
-            $table->string('company_address');
-            $table->string('company_postcode');
-            $table->string('company_post');
+            $table->string('buyer_email');
+            $table->string('buyer_nip');
+            $table->string('buyer_name');
+            $table->string('buyer_address');
+            $table->string('buyer_postcode');
+            $table->string('buyer_post');
             $table->date('sale_date');
             $table->date('issue_date');
             $table->date('payment_date');

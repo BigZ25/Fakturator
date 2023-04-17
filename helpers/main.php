@@ -6,16 +6,6 @@ use App\Models\Code;
 include('validator.php');
 include('files.php');
 
-function code()
-{
-    return Code::current() !== null;
-}
-
-function codeUrl()
-{
-    return APIClient::codeUrl();
-}
-
 function priceShowFormat($value)
 {
     return number_format($value, 2, ',', ' ') . ' zł';

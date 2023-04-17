@@ -2,18 +2,18 @@
 
 namespace App\Models\Modules\Invoices;
 
-use App\Enum\Modules\Adverts\AdvertOperationsEnum;
+use App\Enum\Modules\Invoices\InvoiceOperationsEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class QueueOfAdvert extends Model
+class QueueOfInvoice extends Model
 {
     use HasFactory;
 
     public $timestamps = false;
 
     protected $fillable = [
-        'advert_id',
+        'invoice_id',
         'params',
         'operation',
         'response_code',
@@ -22,14 +22,14 @@ class QueueOfAdvert extends Model
         'executed_at',
     ];
 
-    public function advert()
+    public function invoice()
     {
-        return $this->hasOne(Advert::class, 'id', 'advert_id')->withTrashed();
+        return $this->hasOne(Invoice::class, 'id', 'invoice_id')->withTrashed();
     }
 
     public function getOperationTextAttribute()
     {
-        return AdvertOperationsEnum::getList($this->operation);
+        return InvoiceOperationsEnum::getList($this->operation);
     }
 
     public function getSuccessTextAttribute()
@@ -52,7 +52,7 @@ class QueueOfAdvert extends Model
 
     public static function searchField()
     {
-        return "( SELECT CONCAT_WS(' ','Funko Pop',production,production_number,name,`condition`,CONCAT('#',item_number)) FROM adverts WHERE adverts.id = advert_id)";
+        return "( SELECT CONCAT_WS(' ','Funko Pop',production,production_number,name,`condition`,CONCAT('#',item_number)) FROM invoices WHERE invoices.id = invoice_id)";
     }
 
 }

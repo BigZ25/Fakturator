@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Enum\Modules\Adverts\AdvertOperationsEnum;
-use App\Models\Modules\Invoices\QueueOfAdvert;
-use App\Services\Modules\AdvertsService;
+use App\Enum\Modules\Invoices\InvoiceOperationsEnum;
+use App\Models\Modules\Invoices\QueueOfInvoice;
+use App\Services\Modules\InvoicesService;
 use Illuminate\Console\Command;
 use Illuminated\Console\WithoutOverlapping;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -26,7 +26,7 @@ class RunQueue extends Command
      *
      * @var string
      */
-    protected $description = 'Starts queue of adverts';
+    protected $description = 'Starts queue of invoices';
 
     /**
      * Create a new command instance.
@@ -48,7 +48,7 @@ class RunQueue extends Command
     {
         //TODO: sprawdzić stan ogłoszenia na OLX przed żądaniem API - bo złe jest np. usuwanie usuniętego ogłoszenia
         $counter = 0;
-        $queuedAdverts = QueueOfAdvert::query()
+        $queuedInvoices = QueueOfInvoice::query()
             ->whereNull('executed_at')
 //            ->orWhere(function ($query) {
 //                return $query->whereNotNull('executed_at')
@@ -57,28 +57,28 @@ class RunQueue extends Command
             ->limit(50)
             ->get();
 
-        $this->info("Adverts in queue: " . $queuedAdverts->count());
+        $this->info("Invoices in queue: " . $queuedInvoices->count());
 
         $out = new ConsoleOutput();
 
-        $bar = new ProgressBar($out, $queuedAdverts->count());
+        $bar = new ProgressBar($out, $queuedInvoices->count());
 
         $bar->start();
 
-        foreach ($queuedAdverts as $queuedAdvert) {
+        foreach ($queuedInvoices as $queuedInvoice) {
             $result = false;
 
-            if ($queuedAdvert->operation === AdvertOperationsEnum::DELETE) {
-                $result = AdvertsService::removeFromOlx($queuedAdvert->advert_id);
-            } elseif ($queuedAdvert->operation === AdvertOperationsEnum::ADD_TO_OLX) {
-                $category = json_decode($queuedAdvert->params, true)['category'];
-                $result = AdvertsService::addToOlx($queuedAdvert->advert_id, $category);
-            } elseif ($queuedAdvert->operation === AdvertOperationsEnum::MARK_AS_NOT_POSTED) {
-                $result = AdvertsService::markAsNotPosted($queuedAdvert->advert_id);
+            if ($queuedInvoice->operation === InvoiceOperationsEnum::DELETE) {
+                $result = InvoicesService::removeFromOlx($queuedInvoice->invoice_id);
+            } elseif ($queuedInvoice->operation === InvoiceOperationsEnum::ADD_TO_OLX) {
+                $category = json_decode($queuedInvoice->params, true)['category'];
+                $result = InvoicesService::addToOlx($queuedInvoice->invoice_id, $category);
+            } elseif ($queuedInvoice->operation === InvoiceOperationsEnum::MARK_AS_NOT_POSTED) {
+                $result = InvoicesService::markAsNotPosted($queuedInvoice->invoice_id);
             }
 
             if ($result) {
-                $queuedAdvert->update([
+                $queuedInvoice->update([
                     'executed_at' => currentDateTime(),
                     'response_code' => $result['code'],
                     'response_message' => $result['message'],
@@ -92,7 +92,7 @@ class RunQueue extends Command
         $bar->finish();
 
         $this->info("");
-        $this->info("Done: " . $counter . " / " . $queuedAdverts->count());
+        $this->info("Done: " . $counter . " / " . $queuedInvoices->count());
 
 
         return true;

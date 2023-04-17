@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Http\Controllers\Controller;
-use App\Models\Modules\Invoices\Advert;
-use App\Models\Modules\Invoices\AdvertPhoto;
+use App\Models\Modules\Invoices\Invoice;
+use App\Models\Modules\Invoices\InvoicePhoto;
 use Illuminate\Support\Facades\Storage;
 
-class AdvertPhotosController extends Controller
+class InvoicePhotosController extends Controller
 {
-    public function show(Advert $advert, AdvertPhoto $photo)
+    public function show(Invoice $invoice, InvoicePhoto $photo)
     {
         return Storage::disk('photos')->response($photo->key);
     }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Enum\Modules\Adverts;
+namespace App\Enum\Modules\Invoices;
 
 use App\Enum\BaseEnum;
 
-class AdvertCategoriesEnum implements BaseEnum
+class InvoiceCategoriesEnum implements BaseEnum
 {
     const ANTIQUES_AND_COLLECTIONS_OTHER_COLLECTIONS = 4062;
     const SPORT_AND_HOBBY_COMMUNITY = 6;

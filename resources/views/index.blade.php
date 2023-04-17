@@ -15,7 +15,7 @@
         <title>Fakturator</title>
     @endif
 </head>
-<body @if(session()->has('message')) data-notification-content="{{session()->get('message')['content']}}" data-notification-type="{{session()->get('message')['type']}}" @endif>
+<body>
 <x-notifications/>
 @yield('template')
 </body>

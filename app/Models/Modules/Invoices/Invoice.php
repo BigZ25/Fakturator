@@ -2,8 +2,8 @@
 
 namespace App\Models\Modules\Invoices;
 
-use App\Enum\Modules\Adverts\AdvertStatusesEnum;
-use App\Enum\OlxApi\AdvertOlxStatusesEnum;
+use App\Enum\Modules\Invoices\InvoiceStatusesEnum;
+use App\Enum\OlxApi\InvoiceOlxStatusesEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -44,12 +44,12 @@ class Invoice extends Model
 
     public function getIsActiveAttribute()
     {
-        return $this->status === AdvertStatusesEnum::POSTED;
+        return $this->status === InvoiceStatusesEnum::POSTED;
     }
 
     public function getStatusTextAttribute()
     {
-        return AdvertStatusesEnum::getList($this->status);
+        return InvoiceStatusesEnum::getList($this->status);
     }
 
     public function getOlxStatusTextAttribute()
@@ -58,7 +58,7 @@ class Invoice extends Model
             return null;
         }
 
-        return AdvertOlxStatusesEnum::getList($this->olx_status);
+        return InvoiceOlxStatusesEnum::getList($this->olx_status);
     }
 
     public function getPhotosAttribute()
@@ -76,17 +76,9 @@ class Invoice extends Model
         return $this->photos()->count() . ' / 8';
     }
 
-    public function getIsInQueueAttribute()
-    {
-        return QueueOfAdvert::query()
-                ->where('advert_id', $this->id)
-                ->whereNull('executed_at')
-                ->count() > 0;
-    }
-
     public function photos()
     {
-        return $this->hasMany(AdvertPhoto::class);
+        return $this->hasMany(InvoicePhoto::class);
     }
 
     public function getDeletionAttribute(): Collection
@@ -94,7 +86,7 @@ class Invoice extends Model
         $deletion = new Collection();
         $deletion->title = "Usuwanie ogłoszenia";
         $deletion->content = "Czy napewno chcesz usunąć ogłoszenie " . $this->full_name . "?";
-        $deletion->url = route('adverts.delete');
+        $deletion->url = route('invoices.delete');
 
         return $deletion;
     }

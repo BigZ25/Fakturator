@@ -1,44 +1,48 @@
 <div>
-{{--    TODO: poprawić bo jak kliknę usuń to formularz się zeruje--}}
-{{--    @if($advert->id)--}}
-{{--        <div class="pb-3">--}}
-{{--            <x-card padding="p-2" color="bg-white" rounded="rounded-sm">--}}
-{{--                @include('modules/adverts/modals/delete_single',['item' => $advert])--}}
-{{--                @include('templates.buttons.button',['label' => 'Usuń','color' => 'red','icon' => 'trash','action' => 'openDeleteSingleModal('.$advert->id.')','disabled' => ???])--}}
-{{--            </x-card>--}}
-{{--        </div>--}}
-{{--    @endif--}}
+    {{--    TODO: poprawić bo jak kliknę usuń to formularz się zeruje--}}
+    {{--    @if($invoice->id)--}}
+    {{--        <div class="pb-3">--}}
+    {{--            <x-card padding="p-2" color="bg-white" rounded="rounded-sm">--}}
+    {{--                @include('modules/invoices/modals/delete_single',['item' => $invoice])--}}
+    {{--                @include('templates.buttons.button',['label' => 'Usuń','color' => 'red','icon' => 'trash','action' => 'openDeleteSingleModal('.$invoice->id.')','disabled' => ???])--}}
+    {{--            </x-card>--}}
+    {{--        </div>--}}
+    {{--    @endif--}}
 
-    <form method="POST" action="{{$advert->id ? route('adverts.update',$advert->id) : route('adverts.store')}}" enctype="multipart/form-data" class="ajax-form">
-        @if($advert->id)
+    <form method="POST" action="{{$invoice->id ? route('invoices.update',$invoice->id) : route('invoices.store')}}" enctype="multipart/form-data" class="ajax-form">
+        @if($invoice->id)
             @method('PUT')
         @endif
         @csrf
-        @include('templates.form.hidden',['name' => 'import', 'value' => $import, 'type' => 'number'])
-        @if($import === 0)
-            <div class="pb-3">
-                <x-card title="Podstawowe dane" color="bg-white flex" rounded="rounded-sm" cardClasses="card-body">
-                    <div class="flex flex-wrap">
-                        @include('templates.form.text',['width' => 50,'value' => $advert->production,'name' => 'production', 'label' => 'Produkcja'])
-                        @include('templates.form.text',['width' => 30,'value' => $advert->production_number,'name' => 'production_number', 'label' => 'Numer'])
-                        @include('templates.form.text',['width' => 20,'value' => $advert->condition,'name' => 'condition', 'label' => 'Stan'])
-                    </div>
-                    <div class="flex flex-wrap">
-                        @include('templates.form.text',['width' => 50,'value' => $advert->name,'name' => 'name' ,'label' => 'Nazwa'])
-                        @include('templates.form.text',['width' => 30,'value' => $advert->price ,'name' => 'price','label' => 'Cena'])
-                        @include('templates.form.text',['width' => 30,'value' => $advert->item_number,'name' => 'item_number','label' => 'Egzemplarz'])
-                    </div>
-                </x-card>
-            </div>
-            @include('modules.adverts.photos.form')
-        @else
-            <div class="pb-3">
-                <x-card title="Prześlij plik(i)" color="bg-white flex" rounded="rounded-sm" cardClasses="card-body">
-                    @livewire('templates.files',['allowed_extensions' => ['.xls', '.xlsx', '.csv']])
-                </x-card>
-            </div>
-        @endif
-
+        <div class="pb-3">
+            <x-card title="Podstawowe dane" color="bg-white flex" rounded="rounded-sm" cardClasses="card-body">
+                <div class="flex flex-wrap">
+                    @include('templates.form.text',['width' => 50,'value' => $invoice->number,'name' => 'number', 'label' => 'Numer faktury'])
+                </div>
+                <div class="flex flex-wrap">
+                    @include('templates.form.text',['width' => 50,'value' => $invoice->sale_date,'name' => 'sale_date' ,'label' => 'Nazwa'])
+                    @include('templates.form.text',['width' => 30,'value' => $invoice->issue_date ,'name' => 'issue_date','label' => 'Cena'])
+                    @include('templates.form.text',['width' => 30,'value' => $invoice->payment_date,'name' => 'payment_date','label' => 'Egzemplarz'])
+                    @include('templates.form.text',['width' => 30,'value' => $invoice->paid_date,'name' => 'paid_date','label' => 'Egzemplarz'])
+                    @include('templates.form.text',['width' => 30,'value' => $invoice->payment_method,'name' => 'payment_method','label' => 'Egzemplarz'])
+                    @include('templates.form.text',['width' => 30,'value' => $invoice->is_printed,'name' => 'is_printed','label' => 'Egzemplarz'])
+                    @include('templates.form.text',['width' => 30,'value' => $invoice->is_send,'name' => 'is_send','label' => 'Egzemplarz'])
+                    @include('templates.form.text',['width' => 30,'value' => $invoice->notes,'name' => 'is_send','label' => 'Egzemplarz'])
+                </div>
+            </x-card>
+        </div>
+        <div class="pb-3">
+            <x-card title="Dane nabywcy" color="bg-white flex" rounded="rounded-sm" cardClasses="card-body">
+                <div class="flex flex-wrap">
+                    @include('templates.form.text',['width' => 20,'value' => $invoice->buyer_email,'name' => 'buyer_email', 'label' => 'Adres e-mail'])
+                    @include('templates.form.text',['width' => 10,'value' => $invoice->buyer_nip,'name' => 'buyer_nip', 'label' => 'NIP'])
+                    @include('templates.form.text',['width' => 20,'value' => $invoice->buyer_name,'name' => 'buyer_name', 'label' => 'Nazwa'])
+                    @include('templates.form.text',['width' => 20,'value' => $invoice->buyer_address,'name' => 'buyer_address', 'label' => 'Adres'])
+                    @include('templates.form.text',['width' => 10,'value' => $invoice->buyer_postcode,'name' => 'buyer_postcode', 'label' => 'Kod pocztowy'])
+                    @include('templates.form.text',['width' => 20,'value' => $invoice->buyer_post,'name' => 'buyer_post', 'label' => 'Miejscowość'])
+                </div>
+            </x-card>
+        </div>
         @if($entity_id === null)
             @include('templates.buttons.store')
         @else
