@@ -22,7 +22,7 @@ class CreateInvoicesTable extends Migration
             $table->string('buyer_name');
             $table->string('buyer_address');
             $table->string('buyer_postcode');
-            $table->string('buyer_post');
+            $table->string('buyer_city');
             $table->date('sale_date');
             $table->date('issue_date');
             $table->date('payment_date');

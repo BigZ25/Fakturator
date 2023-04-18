@@ -15,7 +15,7 @@
         @endif
         @csrf
         <div class="flex">
-            <div class="flex-1 pb-3 w-70 pr-2">
+            <div class="flex-1 pb-3 pr-2">
                 <x-card title="Podstawowe dane" color="bg-white flex" rounded="rounded-sm" cardClasses="card-body">
                     <div class="flex flex-wrap">
                         @include('templates.form.text',['width' => 50,'value' => $invoice->number,'name' => 'number', 'label' => 'Numer faktury'])
@@ -36,7 +36,7 @@
                     </div>
                 </x-card>
             </div>
-            <div class="flex-1 pb-3 w-30">
+            <div class="flex-1 pb-3">
                 <x-card title="Dane nabywcy" color="bg-white flex" rounded="rounded-sm" cardClasses="card-body">
                     <div class="flex flex-wrap">
                         @include('templates.form.text',['width' => 100,'value' => $invoice->buyer_nip,'name' => 'buyer_nip', 'label' => 'NIP'])
@@ -52,7 +52,7 @@
                         @include('templates.form.text',['width' => 100,'value' => $invoice->buyer_postcode,'name' => 'buyer_postcode', 'label' => 'Kod pocztowy'])
                     </div>
                     <div class="flex flex-wrap">
-                        @include('templates.form.text',['width' => 100,'value' => $invoice->buyer_post,'name' => 'buyer_post', 'label' => 'Miejscowość'])
+                        @include('templates.form.text',['width' => 100,'value' => $invoice->buyer_city,'name' => 'buyer_city', 'label' => 'Miejscowość'])
                     </div>
                     <div class="flex flex-wrap">
                         @include('templates.form.text',['width' => 100,'value' => $invoice->buyer_email,'name' => 'buyer_email', 'label' => 'Adres e-mail'])

@@ -42,46 +42,6 @@ function required($if)
     return $required;
 }
 
-function requiredAmountRules($if = null): array
-{
-    return [
-        required($if),
-        amountRegexRule(),
-    ];
-}
-
-function requiredStringRules(int $length = 255, $if = null): array
-{
-    return [
-        required($if),
-        'string',
-        'max:' . $length,
-    ];
-}
-
-function nullableStringRules(int $length = 255): array
-{
-    return [
-        'nullable',
-        'string',
-        'max:' . $length,
-    ];
-}
-
-function requiredIntRules($unsigned = false, $if = null): array
-{
-    $rules = [
-        required($if),
-        'numeric',
-    ];
-
-    if ($unsigned === true) {
-        $rules[] = 'min:0';
-    }
-
-    return $rules;
-}
-
 //usuwa parametry z reguły walidacji np. "required_if:id,1" -> "required"
 function removeParameters($rule)
 {
