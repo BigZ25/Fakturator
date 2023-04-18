@@ -24,9 +24,9 @@
                                 @include('templates.table.form.select',['name' => 'links['.$index.'][vat_type]','value' => $item['vat_type'],'options' => $lists['vat_types'],'width' => 30])
                                 @include('templates.table.form.text',['name' => 'links['.$index.'][quantity]','model' => 'items.'.$index.'.input_link','width' => 70])
                                 @include('templates.table.form.text',['name' => 'links['.$index.'][price]','model' => 'items.'.$index.'.input_link','width' => 70])
-                                @include('templates.table.show.text',['name' => 'links['.$index.'][netto]','model' => 'items.'.$index.'.input_link','width' => 70])
-                                @include('templates.table.form.text',['name' => 'links['.$index.'][vat]','model' => 'items.'.$index.'.input_link','width' => 70])
-                                @include('templates.table.show.text',['name' => 'links['.$index.'][brutto]','model' => 'items.'.$index.'.input_link','width' => 70])
+{{--                                @include('templates.table.show.text',['name' => 'links['.$index.'][netto]','model' => 'items.'.$index.'.input_link','width' => 70])--}}
+{{--                                @include('templates.table.show.text',['name' => 'links['.$index.'][vat]','model' => 'items.'.$index.'.input_link','width' => 70])--}}
+{{--                                @include('templates.table.show.text',['name' => 'links['.$index.'][brutto]','model' => 'items.'.$index.'.input_link','width' => 70])--}}
                                 @include('templates.table.form.remove',['index' => $index])
                             </tr>
                         @endforeach
@@ -43,7 +43,7 @@
         @endif
         <div class="flex flex-wrap">
             <div class="mb-2 ml-2 mr-2" style="width: 100%">
-                @include('templates.buttons.button',['color' => 'positive', 'label' => 'Nowy link','icon' => 'plus','action' => 'addItem()'])
+                @include('templates.buttons.button',['color' => 'positive', 'label' => 'Dodaj pozycję','icon' => 'plus','action' => 'addItem()'])
             </div>
         </div>
     </x-card>

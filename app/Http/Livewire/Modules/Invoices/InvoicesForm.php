@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Modules\Invoices;
 
+use App\Enum\App\PaymentMethodsEnum;
 use App\Http\Livewire\BaseComponents\BaseFormComponent;
 use App\Models\Modules\Invoices\Invoice;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -19,8 +20,10 @@ class InvoicesForm extends BaseFormComponent
         $this->view_path = 'modules.invoices.form';
         $this->currentModule = 'invoices';
         $this->entity_id = $entity_id;
+        $this->lists = [
+            'payment_methods' => PaymentMethodsEnum::getSelectList(),
+        ];
         $this->deleteSingleModal = false;
-        $this->import = 0;
         $this->invoice = new Invoice();
 
         $invoice = new Invoice();
