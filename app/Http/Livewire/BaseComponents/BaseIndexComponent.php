@@ -67,10 +67,6 @@ class BaseIndexComponent extends Index
             $tmp = $tmp->orderBy($this->sorting_col, $this->sorting_direction)->paginate(config('app.pagination'));
         }
 
-        foreach ($tmp as $item) {
-            $item->getData();
-        }
-
         if (count($tmp) < config('app.pagination')) {
             $this->resetPage();
         }

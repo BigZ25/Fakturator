@@ -43,6 +43,7 @@
                 </div>
             </x-card>
         </div>
+        @livewire('modules.invoices.items.invoice-items-form',[$invoice->id])
         @if($entity_id === null)
             @include('templates.buttons.store')
         @else

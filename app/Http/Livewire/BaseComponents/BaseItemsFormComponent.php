@@ -4,7 +4,7 @@ namespace App\Http\Livewire\BaseComponents;
 
 use Livewire\Component;
 
-class BaseItemsComponent extends Component
+class BaseItemsFormComponent extends Component
 {
     public $view_path;
     public $data;

@@ -3,11 +3,10 @@
 namespace App\Http\Livewire\Modules\Observations\Links;
 
 use App\Enum\Modules\Observations\WebsitesEnum;
-use App\Http\Livewire\BaseComponents\BaseItemsComponent;
-use App\Models\Modules\Observations\Observation;
-use App\Models\Modules\Observations\ObservationLink;
+use App\Http\Livewire\BaseComponents\BaseItemsFormComponent;
 
-class ObservationLinksForm extends BaseItemsComponent
+
+class ObservationLinksForm extends BaseItemsFormComponent
 {
     public function mount($observationId)
     {
