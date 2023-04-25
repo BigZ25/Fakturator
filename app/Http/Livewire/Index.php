@@ -44,4 +44,9 @@ class Index extends Component
 //
 //        session()->forget('notifications');
     }
+
+    public function openDeleteModal($class, $id)
+    {
+        $this->emit('openDeleteModal', compact('class', 'id'));
+    }
 }

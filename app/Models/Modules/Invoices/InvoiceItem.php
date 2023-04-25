@@ -29,7 +29,7 @@ class InvoiceItem extends BaseModel
         $deletion = new Collection();
         $deletion->title = "Usuwanie kolekcji";
         $deletion->content = "Czy napewno chcesz pozycję " . $this->name . "?";
-        $deletion->url = route('invoices.items.destroy', [$this->invoice_id, $this->id]);
+        $deletion->route = route('invoices.items.destroy', [$this->invoice_id, $this->id]);
 
         return $deletion;
     }
