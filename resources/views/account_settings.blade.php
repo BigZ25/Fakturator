@@ -9,12 +9,13 @@
                 <div class="flex flex-wrap">
                     @include('templates.form.text',['width' => 25,'value' => $user->name,'name' => 'name', 'label' => 'Imię'])
                     @include('templates.form.text',['width' => 25,'value' => $user->surname,'name' => 'surname', 'label' => 'Nazwisko'])
-                    @include('templates.form.text',['width' => 25,'value' => $user->login,'name' => 'login' ,'label' => 'Login'])
-                    @include('templates.form.password',['width' => 25 ,'name' => 'new_password','label' => 'Nowe hasło'])
-                </div>
-                <div class="flex flex-wrap">
                     @include('templates.form.text',['width' => 25,'value' => $user->email,'name' => 'email', 'label' => 'Adres e-mail'])
                     @include('templates.form.text',['width' => 25,'value' => $user->phone,'name' => 'phone' ,'label' => 'Numer telefonu'])
+                </div>
+                <br>
+                <div class="flex flex-wrap">
+                    @include('templates.form.password',['width' => 25 ,'name' => 'new_password','label' => 'Nowe hasło'])
+                    @include('templates.form.password',['width' => 25 ,'name' => 'confirm_new_password','label' => 'Powtórz nowe hasło'])
                 </div>
             </x-card>
         </div>

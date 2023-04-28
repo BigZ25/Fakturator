@@ -15,14 +15,25 @@ class CreateInvoicesTable extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('correction_invoice_id')->nullable();
             $table->string('number');
-            $table->string('buyer_email');
+            $table->string('send_email')->nullable();
             $table->string('buyer_nip');
             $table->string('buyer_name');
             $table->string('buyer_address');
             $table->string('buyer_postcode');
             $table->string('buyer_city');
+            $table->string('recipient_nip')->nullable();
+            $table->string('recipient_name')->nullable();
+            $table->string('recipient_address')->nullable();
+            $table->string('recipient_postcode')->nullable();
+            $table->string('recipient_city')->nullable();
+            $table->string('seller_nip');
+            $table->string('seller_name');
+            $table->string('seller_address');
+            $table->string('seller_postcode');
+            $table->string('seller_city');
             $table->date('sale_date');
             $table->date('issue_date');
             $table->date('payment_date');
@@ -33,9 +44,7 @@ class CreateInvoicesTable extends Migration
             $table->text('notes')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->unsignedBigInteger('created_by')->nullable();
-            $table->unsignedBigInteger('updated_by')->nullable();
-            $table->unsignedBigInteger('deleted_by')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('correction_invoice_id')->references('id')->on('invoices')->onDelete('cascade');
         });
     }

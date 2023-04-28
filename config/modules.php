@@ -11,6 +11,11 @@ return [
         'icon' => 'fa-cube',
         'route' => 'products.index',
     ],
+//    'customers' => [
+//        'label' => 'Klienci',
+//        'icon' => 'fa-users',
+//        'route' => 'customers.index',
+//    ],
     'account_settings' => [
         'label' => 'Ustawienia konta',
         'icon' => 'fa-cog',

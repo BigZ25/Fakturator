@@ -1,4 +1,5 @@
 <div>
+    @livewire('templates.delete')
     <div class="pb-3">
         <x-card padding="p-2" color="bg-white" rounded="rounded-sm">
             {{--            @include('modules/products/modals/delete_single',['item' => $product])--}}

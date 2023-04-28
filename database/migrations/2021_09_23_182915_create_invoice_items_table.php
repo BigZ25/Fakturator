@@ -21,9 +21,6 @@ class CreateInvoiceItemsTable extends Migration
             $table->tinyInteger('vat_type');
             $table->decimal('quantity',10,2);
             $table->decimal('price', 10, 2);
-            $table->decimal('netto',10,2);
-            $table->decimal('vat',10,2);
-            $table->decimal('brutto',10,2);
             $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
         });
     }
