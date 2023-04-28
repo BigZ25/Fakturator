@@ -19,19 +19,20 @@ class Invoice extends BaseModel
     public function getDeletionAttribute(): Collection
     {
         $deletion = new Collection();
-        $deletion->title = "Usuwanie ogłoszenia";
-        $deletion->content = "Czy napewno chcesz usunąć ogłoszenie " . $this->full_name . "?";
-        $deletion->route = route('invoices.delete');
+        $deletion->title = "Usuwanie faktury";
+        $deletion->content = "Czy napewno chcesz usunąć fakturę " . $this->number . "?";
+        $deletion->route = route('invoices.destroy', $this->id);
 
         return $deletion;
     }
 
-    public function items(){
+    public function items()
+    {
         return $this->hasMany(InvoiceItem::class);
     }
 
-    public static function searchField()
-    {
-        return "CONCAT_WS(' ','Funko Pop',production,production_number,name,`condition`,CONCAT('#',item_number))";
-    }
+//    public static function searchField()
+//    {
+//        return "CONCAT_WS(' ','Funko Pop',production,production_number,name,`condition`,CONCAT('#',item_number))";
+//    }
 }

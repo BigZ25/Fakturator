@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-span-10" wire:loading.class="blur">
+            <div class="col-span-10">
                 <div class="flex flex-col h-full">
                     <div class="bg-gray-800 h-full">
                         <div class="p-2">

@@ -33,7 +33,7 @@ class ProductsController extends Controller
     {
         $product->delete();
 
-        AppClass::addMessage('Kolekcja została usunięta');
+        AppClass::addMessage('Produkt został usunięty');
 
         return response()->json(route('products.index'));
     }

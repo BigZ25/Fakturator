@@ -2,6 +2,7 @@
     @if($entity)
         <x-modal.card title="Usuwanie ogłoszenia" blur wire:model.defer="deleteModal">
             <form method="POST" action="{{$entity->deletion->route}}" id="deleteForm" class="ajax-form">
+                @csrf
                 @method('DELETE')
                 <div>
                     <h1 class="text-2xl">{{$entity->deletion->content}}</h1>

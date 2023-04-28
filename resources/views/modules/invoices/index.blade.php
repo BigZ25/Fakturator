@@ -1,16 +1,11 @@
 <div>
+    @livewire('templates.delete')
+    @include('modules.invoices.search')
     <div class="pb-3">
         <x-card padding="p-2" color="bg-white" rounded="rounded-sm">
             @include('templates.buttons.new',['label' => 'Dodaj fakturę', 'route' => route('invoices.create')])
         </x-card>
     </div>
-
-    @include('modules/invoices/modals/delete_all')
-    @include('modules/invoices/modals/delete_selected')
-    @include('modules/invoices/modals/delete_single')
-
-    @include('modules.invoices.search')
-
     <x-card title="Ogłoszenia" color="bg-white" rounded="rounded-sm" cardClasses="card-body">
         @if(count($invoices) > 0)
             <div class="pb-3">

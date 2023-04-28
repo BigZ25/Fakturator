@@ -19,9 +19,9 @@ class Product extends BaseModel
     public function getDeletionAttribute(): Collection
     {
         $deletion = new Collection();
-        $deletion->title = "Usuwanie ogłoszenia";
-        $deletion->content = "Czy napewno chcesz usunąć ogłoszenie " . $this->full_name . "?";
-        $deletion->route = route('invoices.delete');
+        $deletion->title = "Usuwanie produktu";
+        $deletion->content = "Czy napewno chcesz usunąć produkt " . $this->name . "?";
+        $deletion->route = route('products.destroy', $this->id);
 
         return $deletion;
     }

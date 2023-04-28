@@ -1,13 +1,12 @@
 <div>
+    @livewire('templates.delete')
+    @include('modules.products.search')
     <div class="pb-3">
         <x-card padding="p-2" color="bg-white" rounded="rounded-sm">
-            @include('templates.buttons.new',['label' => 'Dodaj kolekcje', 'route' => route('products.create')])
+            @include('templates.buttons.new',['label' => 'Dodaj produkt', 'route' => route('products.create')])
         </x-card>
     </div>
-    {{--    @include('modules/products/modals/delete_single')--}}
-    @include('modules.products.search')
-    @livewire('templates.delete')
-    <x-card title="Kolekcje" color="bg-white" rounded="rounded-sm" cardClasses="card-body">
+    <x-card title="Produkty" color="bg-white" rounded="rounded-sm" cardClasses="card-body">
         @if(count($products) > 0)
             <div class="mb-2">
                 {!! $products->links() !!}
@@ -41,7 +40,7 @@
                 {!! $products->links() !!}
             </div>
         @else
-            <p>Brak kolekcji</p>
+            <p>Brak produktów</p>
         @endif
     </x-card>
 </div>
