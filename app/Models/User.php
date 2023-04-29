@@ -2,25 +2,25 @@
 
 namespace App\Models;
 
-use App\Models\Modules\Observations\Observation;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    public $timestamps = false;
+
     protected $fillable = [
         'name',
         'surname',
         'email',
-        'phone',
         'password',
+        'company_nip',
+        'company_name',
+        'company_address',
+        'company_postcode',
+        'company_city'
     ];
 
     protected $hidden = [
         'password',
     ];
-
-    public function observations()
-    {
-        return $this->hasMany(Observation::class,'created_by');
-    }
 }

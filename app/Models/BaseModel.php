@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class BaseModel extends Authenticatable
+class BaseModel extends Model
 {
     public static function saveData($request, $id, $fkColumn, $items = 'items')
     {

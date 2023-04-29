@@ -10,8 +10,6 @@ use Wildside\Userstamps\Userstamps;
 
 class InvoiceItem extends BaseModel
 {
-    use HasFactory, Userstamps, SoftDeletes;
-
     protected $fillable = [
         'invoice_id',
         'name',

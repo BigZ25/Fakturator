@@ -42,7 +42,7 @@ class InvoicesIndex extends BaseIndexComponent
 
     public function render()
     {
-        $invoices = $this->searchForm(Invoice::query()->where('created_by', '=', auth()->user()->id));
+        $invoices = $this->searchForm(Invoice::query()->where('user_id', '=', auth()->user()->id));
 
         $i = 0;
 

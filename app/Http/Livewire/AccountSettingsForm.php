@@ -10,8 +10,8 @@ class AccountSettingsForm extends BaseFormComponent
     public function mount()
     {
         $this->title = 'Ustawienia konta';
-        $this->view_path = 'account_settings';
-        $this->currentModule = 'account_settings';
+        $this->view_path = 'settings';
+        $this->currentModule = 'settings';
 
         $user = User::find(auth()->id());
 

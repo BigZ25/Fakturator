@@ -12,11 +12,12 @@ Route::get('login', [AuthController::class, 'index'])->name('login.form');
 Route::post('login', [AuthController::class, 'auth'])->name('login.auth');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('account_settings', AccountSettingsForm::class)->name('account_settings.form');
-Route::put('account_settings', [AccountSettingsController::class, 'store'])->name('account_settings.store');
+Route::get('settings', AccountSettingsForm::class)->name('settings.form');
+Route::put('settings', [AccountSettingsController::class, 'store'])->name('settings.store');
 
 include_once 'modules/invoices.php';
 include_once 'modules/products.php';
+include_once 'modules/customers.php';
 
 //Sprawdź sesję
 Route::get('session', function () {

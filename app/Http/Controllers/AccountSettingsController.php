@@ -25,6 +25,6 @@ class AccountSettingsController extends Controller
 
         AppClass::addMessage("Zmiany zostały zapisane");
 
-        return response()->json(route('account_settings.form'));
+        return response()->json(route('settings.form'));
     }
 }

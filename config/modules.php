@@ -11,15 +11,15 @@ return [
         'icon' => 'fa-cube',
         'route' => 'products.index',
     ],
-//    'customers' => [
-//        'label' => 'Klienci',
-//        'icon' => 'fa-users',
-//        'route' => 'customers.index',
-//    ],
-    'account_settings' => [
-        'label' => 'Ustawienia konta',
+    'customers' => [
+        'label' => 'Klienci',
+        'icon' => 'fa-users',
+        'route' => 'customers.index',
+    ],
+    'settings' => [
+        'label' => 'Ustawienia',
         'icon' => 'fa-cog',
-        'route' => 'account_settings.form',
+        'route' => 'settings.form',
     ],
     'logout' => [
         'label' => 'Wyloguj się',

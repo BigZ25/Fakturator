@@ -3,17 +3,19 @@
 namespace App\Models\Modules\Products;
 
 use App\Models\BaseModel;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
-use Wildside\Userstamps\Userstamps;
 
 class Product extends BaseModel
 {
-    use HasFactory, Userstamps, SoftDeletes;
+    use SoftDeletes;
 
     protected $fillable = [
-
+        'user_id',
+        'name',
+        'vat_type',
+        'quantity',
+        'price'
     ];
 
     public function getDeletionAttribute(): Collection
