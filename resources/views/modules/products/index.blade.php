@@ -40,7 +40,7 @@
                 {!! $products->links() !!}
             </div>
         @else
-            <p>Brak produktów</p>
+            <p class="text-center">Brak produktów</p>
         @endif
     </x-card>
 </div>

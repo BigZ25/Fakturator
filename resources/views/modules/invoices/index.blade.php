@@ -67,7 +67,7 @@
                 {!! $invoices->links() !!}
             </div>
         @else
-            <p>Brak faktur</p>
+            <p class="text-center">Brak faktur</p>
         @endif
     </x-card>
 </div>

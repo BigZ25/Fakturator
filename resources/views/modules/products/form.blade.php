@@ -17,7 +17,7 @@
                 </div>
             </x-card>
         </div>
-        @if($entity_id === null)
+        @if($entity->id === null)
             @include('templates.buttons.store')
         @else
             @include('templates.buttons.update')

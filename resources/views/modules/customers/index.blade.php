@@ -3,10 +3,10 @@
     @include('modules.customers.search')
     <div class="pb-3">
         <x-card padding="p-2" color="bg-white" rounded="rounded-sm">
-            @include('templates.buttons.new',['label' => 'Dodaj produkt', 'route' => route('customers.create')])
+            @include('templates.buttons.new',['label' => 'Dodaj klienta', 'route' => route('customers.create')])
         </x-card>
     </div>
-    <x-card title="Produkty" color="bg-white" rounded="rounded-sm" cardClasses="card-body">
+    <x-card title="Klienci" color="bg-white" rounded="rounded-sm" cardClasses="card-body">
         @if(count($customers) > 0)
             <div class="mb-2">
                 {!! $customers->links() !!}
@@ -40,7 +40,7 @@
                 {!! $customers->links() !!}
             </div>
         @else
-            <p>Brak produktów</p>
+            <p class="text-center">Brak klientów</p>
         @endif
     </x-card>
 </div>

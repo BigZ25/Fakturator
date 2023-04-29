@@ -16,10 +16,15 @@
         :prefix="$prefix"
         :suffix="$suffix"
         :prepend="$prepend"
-        :append="$append"
         x-model="input"
         x-on:input="onInput($event.target.value)"
         x-on:blur="emitInput"
         {{ $attributes->whereDoesntStartWith(['wire:model', 'x-model', 'wire:key']) }}
-    />
+    >
+        @if(isset($append))
+            <x-slot name="append">
+                {{ $append }}
+            </x-slot>
+        @endif
+    </x-dynamic-component>
 </div>

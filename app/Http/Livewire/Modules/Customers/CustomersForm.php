@@ -14,7 +14,7 @@ class CustomersForm extends BaseFormComponent
 
     public function mount(int $entity_id = null)
     {
-        $this->title = $entity_id ? 'Edycja produktu' : 'Nowy produkt';
+        $this->title = $entity_id ? 'Edycja klienta' : 'Nowy klient';
         $this->view_path = 'modules.customers.form';
         $this->currentModule = 'customers';
         $this->entity_id = $entity_id;

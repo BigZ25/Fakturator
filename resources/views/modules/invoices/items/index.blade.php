@@ -37,7 +37,7 @@
                 {!! $collectionItems->links() !!}
             </div>
         @else
-            <p>Brak przedmiotów w kolekcji</p>
+            <p class="text-center">Brak pozycji</p>
         @endif
     </x-card>
 </div>

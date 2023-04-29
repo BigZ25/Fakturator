@@ -62,7 +62,7 @@
         </div>
 
         @livewire('modules.invoices.items.invoice-items-form',[$invoice->id])
-        @if($entity_id === null)
+        @if($entity->id === null)
             @include('templates.buttons.store')
         @else
             @include('templates.buttons.update')
