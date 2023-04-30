@@ -52,9 +52,7 @@ class Handler extends ExceptionHandler
         if ($request->hasHeader('Content-Type') && $request->header('Content-Type') == 'application/json') {
 
             /*  is this exception? */
-
             if (!empty($e)) {
-
                 // set default error message
                 $response = [
                     'error' => 'Sorry, can not execute your request.'
@@ -117,7 +115,6 @@ class Handler extends ExceptionHandler
             }
         } else {
             if ($e instanceof AuthorizationException) {
-                //TODO - poprawić gdy dopiszemy /edit do url ogłoszenia w kolejce
                 throw new HttpResponseException(response()->json(['message' => "Operacja niedozwolona"], 403));
             } elseif ($e instanceof TokenMismatchException) {
                 throw new HttpResponseException(response()->json(['message' => "Sesja wygasła. Zaloguj się ponownie."], 403));
