@@ -17,8 +17,18 @@ class CompanyData extends Component
 
     public function mount($prefix = null, $entity = null)
     {
-        if ($entity->id) {
+        if ($prefix) {
+            $prefix = $prefix . "_";
+        }
 
+        if ($entity->id) {
+            $this->data = [
+                'nip' => $entity[$prefix . 'nip'],
+                'name' => $entity[$prefix . 'name'],
+                'address' => $entity[$prefix . 'address'],
+                'postcode' => $entity[$prefix . 'postcode'],
+                'city' => $entity[$prefix . 'city'],
+            ];
         } else {
             $this->data = [
                 'nip' => null,

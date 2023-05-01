@@ -12,29 +12,28 @@ class CustomersController extends Controller
 {
     public function store(CustomerRequest $request)
     {
-        $product = Customer::create($request->validated() + ['user_id' => auth()->user()->id]);
+        $customer = Customer::create($request->validated() + ['user_id' => auth()->user()->id]);
 
         AppClass::addMessage('Kolekcja została zapisana');
 
-        return response()->json(route('products.show', $product->id));
-
+        return response()->json(route('customers.show', $customer->id));
     }
 
-    public function update(CustomerRequest $request, Customer $product)
+    public function update(CustomerRequest $request, Customer $customer)
     {
-        $product->update($request->validated());
+        $customer->update($request->validated());
 
         AppClass::addMessage('Zmiany zostały zapisane');
 
-        return response()->json(route('products.show', $product->id));
+        return response()->json(route('customers.show', $customer->id));
     }
 
-    public function destroy(Customer $product)
+    public function destroy(Customer $customer)
     {
-        $product->delete();
+        $customer->delete();
 
         AppClass::addMessage('Produkt został usunięty');
 
-        return response()->json(route('products.index'));
+        return response()->json(route('customers.index'));
     }
 }

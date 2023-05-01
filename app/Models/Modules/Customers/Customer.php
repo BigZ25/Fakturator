@@ -12,12 +12,12 @@ class Customer extends BaseModel
 
     protected $fillable = [
         'user_id',
-
-        'buyer_nip',
-        'buyer_name',
-        'buyer_address',
-        'buyer_postcode',
-        'buyer_city',
+        'nip',
+        'name',
+        'address',
+        'postcode',
+        'city',
+        'email'
     ];
 
     public function getDeletionAttribute(): Collection

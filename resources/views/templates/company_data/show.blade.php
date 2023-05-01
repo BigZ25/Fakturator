@@ -1,0 +1,5 @@
+@include('templates.show.row',['label' => 'NIP','value' => $customer->nip])
+@include('templates.show.row',['label' => 'Nazwa','value' => $customer->name])
+@include('templates.show.row',['label' => 'Adres','value' => $customer->address])
+@include('templates.show.row',['label' => 'Kod pocztowy','value' => $customer->postcode])
+@include('templates.show.row',['label' => 'Miasto','value' => $customer->city])

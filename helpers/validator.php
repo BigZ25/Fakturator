@@ -148,3 +148,11 @@ function postcodeRules($required = true): array
         'regex:/^[0-9]{2}-[0-9]{3}$/'
     ];
 }
+
+function emailRules($required = true): array
+{
+    return [
+        ($required === true ? 'required' : 'nullable'),
+        'email',
+    ];
+}

@@ -8,14 +8,14 @@
     </div>
 
     <div class="flex flex-wrap">
-        @include('templates.form.text',['width' => 100,'value' => $entity->name,'name' => 'address' ,'label' => 'Adres','model' => 'data.address'])
+        @include('templates.form.text',['width' => 100,'value' => $entity->address,'name' => 'address' ,'label' => 'Adres','model' => 'data.address'])
     </div>
 
     <div class="flex flex-wrap">
-        @include('templates.form.postcode',['width' => 100,'value' => $entity->name,'name' => 'postcode' ,'label' => 'Kod pocztowy','model' => 'data.postcode'])
+        @include('templates.form.postcode',['width' => 100,'value' => $entity->postcode,'name' => 'postcode' ,'label' => 'Kod pocztowy','model' => 'data.postcode'])
     </div>
 
     <div class="flex flex-wrap">
-        @include('templates.form.text',['width' => 100,'value' => $entity->name,'name' => 'city' ,'label' => 'Miasto','model' => 'data.city'])
+        @include('templates.form.text',['width' => 100,'value' => $entity->city,'name' => 'city' ,'label' => 'Miasto','model' => 'data.city'])
     </div>
 </div>
