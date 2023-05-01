@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\AccountSettingsController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\HomeController;
-use App\Http\Livewire\AccountSettingsForm;
+use App\Http\Livewire\SettingsForm;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
@@ -12,8 +12,8 @@ Route::get('login', [AuthController::class, 'index'])->name('login.form');
 Route::post('login', [AuthController::class, 'auth'])->name('login.auth');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('settings', AccountSettingsForm::class)->name('settings.form');
-Route::put('settings', [AccountSettingsController::class, 'store'])->name('settings.store');
+Route::get('settings', SettingsForm::class)->name('settings.form');
+Route::put('settings', [SettingsController::class, 'store'])->name('settings.store');
 
 include_once 'modules/invoices.php';
 include_once 'modules/products.php';

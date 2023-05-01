@@ -22,14 +22,7 @@ class CustomerRequest extends FormRequest
 
     public function rules()
     {
-        return [
-            'nip' => nipRules(),
-            'name' => stringRules(),
-            'address' => stringRules(),
-            'postcode' => postcodeRules(),
-            'city' => stringRules(),
-            'email' => emailRules(false),
-        ];
+        return array_merge(companyDataRules(), ['email' => emailRules(false)]);
     }
 }
 

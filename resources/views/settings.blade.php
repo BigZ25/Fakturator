@@ -18,18 +18,9 @@
                 </div>
             </x-card>
         </div>
-        <div class="pb-3">
+        <div class="pb-3" style="width: 50%;">
             <x-card title="Dane firmy" color="bg-white flex" rounded="rounded-sm" cardClasses="card-body">
-                <div class="flex flex-wrap">
-                    @include('templates.form.text',['width' => 25,'value' => $user->company_nip,'name' => 'company_nip', 'label' => 'NIP'])
-                    @include('templates.form.text',['width' => 25,'value' => $user->company_name,'name' => 'company_name', 'label' => 'Nazwa firmy'])
-                </div>
-                <br>
-                <div class="flex flex-wrap">
-                    @include('templates.form.text',['width' => 25,'value' => $user->company_address,'name' => 'company_address', 'label' => 'Adres'])
-                    @include('templates.form.text',['width' => 25,'value' => $user->company_postcode,'name' => 'company_postcode', 'label' => 'Kod pocztowy'])
-                    @include('templates.form.text',['width' => 25,'value' => $user->company_city,'name' => 'company_city', 'label' => 'Miasto'])
-                </div>
+                @livewire('templates.company-data',['prefix' => 'company','entity' => $user])
             </x-card>
         </div>
         @include('templates.buttons.update')

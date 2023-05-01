@@ -156,3 +156,18 @@ function emailRules($required = true): array
         'email',
     ];
 }
+
+function companyDataRules($prefix = null)
+{
+    if ($prefix) {
+        $prefix = $prefix . "_";
+    }
+
+    return [
+        $prefix . 'nip' => nipRules(),
+        $prefix . 'name' => stringRules(),
+        $prefix . 'address' => stringRules(),
+        $prefix . 'postcode' => postcodeRules(),
+        $prefix . 'city' => stringRules(),
+    ];
+}

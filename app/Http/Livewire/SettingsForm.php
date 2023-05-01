@@ -5,11 +5,11 @@ namespace App\Http\Livewire;
 use App\Http\Livewire\BaseComponents\BaseFormComponent;
 use App\Models\User;
 
-class AccountSettingsForm extends BaseFormComponent
+class SettingsForm extends BaseFormComponent
 {
     public function mount()
     {
-        $this->title = 'Ustawienia konta';
+        $this->title = 'Ustawienia';
         $this->view_path = 'settings';
         $this->currentModule = 'settings';
 
