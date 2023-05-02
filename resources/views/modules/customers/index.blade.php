@@ -1,11 +1,11 @@
 <div>
     @livewire('templates.delete')
-    @include('modules.customers.search')
     <div class="pb-3">
         <x-card padding="p-2" color="bg-white" rounded="rounded-sm">
             @include('templates.buttons.new',['label' => 'Dodaj klienta', 'route' => route('customers.create')])
         </x-card>
     </div>
+    @include('modules.customers.search')
     <x-card title="Klienci" color="bg-white" rounded="rounded-sm" cardClasses="card-body">
         @if(count($customers) > 0)
             <div class="mb-2">
@@ -15,9 +15,8 @@
             <table class="w-full table-auto text-left border">
                 <thead>
                 <tr>
-                    @include('templates.table.show.th',['label' => "L.p."])
                     @include('templates.table.show.th',['label' => "Nazwa",'align' => 'left'])
-                    @include('templates.table.show.th',['label' => "Wartość rynkowa",'align' => 'left'])
+                    @include('templates.table.show.th',['label' => "NIP",'align' => 'left'])
                     @include('templates.table.show.th',['label' => "Szczegóły"])
                     @include('templates.table.show.th',['label' => "Edycja"])
                     @include('templates.table.show.th',['label' => "Usuń"])
@@ -26,9 +25,8 @@
                 <tbody class="border">
                 @foreach($customers as $customer)
                     <tr>
-                        @include('templates.table.show.text',['rows' => [['text' => $loop->index + 1]]])
                         @include('templates.table.show.text',['align' => 'left','rows' => [['text' => $customer->name]]])
-                        @include('templates.table.show.text',['align' => 'left','rows' => [['text' => priceShowFormat($customer->total_market_price)]]])
+                        @include('templates.table.show.text',['align' => 'left','rows' => [['text' => $customer->nip]]])
                         @include('templates.table.show.button',['label' => 'Szczegóły','color' => 'info','icon' => 'document-text','route' => route('customers.show',$customer->id)])
                         @include('templates.table.show.button',['label' => 'Edycja','color' => 'amber','icon' => 'pencil','route' => route('customers.edit',$customer->id), 'disabled' => $customer->is_active || $customer->is_in_queue])
                         @include('templates.table.show.button',['label' => 'Usuń','color' => 'red','icon' => 'trash','action' => 'openDeleteModal("'.addcslashes(get_class($customer),'\\').'",'.$customer->id.')','disabled' => $customer->is_in_queue])

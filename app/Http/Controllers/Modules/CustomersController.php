@@ -14,7 +14,7 @@ class CustomersController extends Controller
     {
         $customer = Customer::create($request->validated() + ['user_id' => auth()->user()->id]);
 
-        AppClass::addMessage('Kolekcja została zapisana');
+        AppClass::addMessage('Klient został zapisany');
 
         return response()->json(route('customers.show', $customer->id));
     }
@@ -32,7 +32,7 @@ class CustomersController extends Controller
     {
         $customer->delete();
 
-        AppClass::addMessage('Produkt został usunięty');
+        AppClass::addMessage('Klient został usunięty');
 
         return response()->json(route('customers.index'));
     }
