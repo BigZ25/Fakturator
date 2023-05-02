@@ -63,8 +63,7 @@ $(document).ready(function () {
                             notify('Powiadomienie', errors[key].toString() ?? 'Wystąpił nieznany błąd formularza', 'error')
                         }
 
-                        if(input_ptr)
-                        {
+                        if (input_ptr) {
                             notify('Powiadomienie', 'Formularz został wypełniony nieprawidłowo', 'warning')
 
                             input_ptr.removeClass('validation-error')
@@ -90,7 +89,9 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (response) {
                 if (response.code === 440) {
-                    window.location.replace(response.url);
+                    if (window.location.href !== response.url) {
+                        window.location.replace(response.url)
+                    }
                 }
             }
         });
