@@ -3,12 +3,12 @@
 return [
     'invoices' => [
         'label' => 'Faktury',
-        'icon' => 'fa-box-archive',
+        'icon' => 'fa-file-invoice-dollar',
         'route' => 'invoices.index',
     ],
     'products' => [
         'label' => 'Produkty',
-        'icon' => 'fa-cube',
+        'icon' => 'fa-warehouse',
         'route' => 'products.index',
     ],
     'customers' => [

@@ -45,9 +45,14 @@ class Invoice extends BaseModel
         $deletion = new Collection();
         $deletion->title = "Usuwanie faktury";
         $deletion->content = "Czy napewno chcesz usunąć fakturę " . $this->number . "?";
-        $deletion->route = route('invoices.destroy', $this->id);
+        $deletion->route = route(self::destroyRoute(), $this->id);
 
         return $deletion;
+    }
+
+    public static function destroyRoute()
+    {
+        return 'invoices.destroy';
     }
 
     public function items()

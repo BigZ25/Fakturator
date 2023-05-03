@@ -3,9 +3,10 @@
 namespace App\Http\Livewire\Modules\Invoices\Items;
 
 use App\Http\Livewire\BaseComponents\BaseIndexComponent;
+use App\Http\Livewire\Index;
 use App\Models\Modules\Invoices\InvoiceItem;
 
-class InvoiceItemsIndex extends BaseIndexComponent
+class InvoiceItemsIndex extends Index
 {
     public $item;
     public $deleteSingleModal;

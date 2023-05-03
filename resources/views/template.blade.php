@@ -24,7 +24,7 @@
                     <div class="bg-gray-800 h-full">
                         <div class="p-2">
                             @include('templates.header')
-                            @include($path,$data)
+                            @include($path,$component_data ?? [])
                         </div>
                     </div>
                 </div>

@@ -12,7 +12,6 @@ class Index extends Component
     public $activeModule;
     public $show;
     public $inject;
-    public $sorting_dir;
 
     public function boot()
     {
@@ -27,22 +26,11 @@ class Index extends Component
 
         return view('template', [
             'path' => $this->view_path,
-            'data' => $this->data,
+            'component_data' => $this->data,
             'title' => $this->title,
             'modules' => config('modules'),
         ])->extends('index')
             ->section('template');
-    }
-
-    public function pageLoaded()
-    {
-//        if (session()->has('notifications')) {
-//            foreach (session()->get('notifications') as $index => $notification) {
-//                $this->dispatchBrowserEvent('notification', ['type' => $notification['type'], 'message' => $notification['message']]);
-//            }
-//        };
-//
-//        session()->forget('notifications');
     }
 
     public function openDeleteModal($class, $ids)

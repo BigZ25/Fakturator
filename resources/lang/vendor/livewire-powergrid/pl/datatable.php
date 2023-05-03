@@ -18,10 +18,10 @@ return [
         'select' => 'Select a period',
     ],
     'pagination' => [
-        'showing' => 'Showing',
-        'to'      => 'to',
-        'of'      => 'of',
-        'results' => 'Results',
+        'showing' => 'Wyniki od',
+        'to'      => 'do',
+        'of'      => 'z',
+        'results' => 'Wyników',
         'all'     => 'All',
     ],
     'multi_select' => [

@@ -12,7 +12,6 @@ class InvoicesForm extends BaseFormComponent
     use  AuthorizesRequests;
 
     public $invoice;
-    public $deleteSingleModal;
 
     public function mount(int $entity_id = null)
     {
@@ -46,17 +45,8 @@ class InvoicesForm extends BaseFormComponent
 
     public function render()
     {
-//        if ($this->entity_id !== null) {
-//            $this->data = ['invoice' => Invoice::find($this->entity_id)];
-//        }
-
         $this->data['invoice'] = $this->invoice;
 
         return parent::render();
-    }
-
-    public function openDeleteSingleModal($invoiceId)
-    {
-        $this->deleteSingleModal = true;
     }
 }
