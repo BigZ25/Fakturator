@@ -14,7 +14,7 @@ return [
         'selected'         => 'Selected',
     ],
     'placeholders' => [
-        'search' => 'Search...',
+        'search' => 'Szukaj...',
         'select' => 'Select a period',
     ],
     'pagination' => [
