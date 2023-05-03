@@ -82,6 +82,13 @@ class BaseIndexComponent extends PowerGridComponent
     {
         return [
             Button::add('edit')
+                ->caption('Szczegóły')
+                ->class(buttonClass('info'))
+                ->icon('document-text')
+                ->route('customers.show', ['entity_id' => 'id'])
+                ->target('_self'),
+
+            Button::add('edit')
                 ->caption('Edycja')
                 ->class(buttonClass('amber'))
                 ->icon('pencil')
