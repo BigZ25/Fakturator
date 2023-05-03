@@ -3,7 +3,7 @@
     <x-card title="Klienci" color="bg-white" rounded="rounded-sm" cardClasses="card-body">
         <div class="flex flex-col">
             <div class="overflow-x-auto">
-                <div class="align-middle inline-block w-full">
+                <div class="align-middle inline-block w-full p-2">
 
                     @include($theme->layout->header, [
                         'enabledFilters' => $enabledFilters

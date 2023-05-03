@@ -23,7 +23,7 @@
                     @if($actionClass->isButton)
                         <button {{ $actionClass->getAttributes() }}>
                             <x-icon name="{{ $actionClass->getDynamicProperty('icon') }}" class="w-4 h-4" />
-                            {!! $actionClass->caption() !!}
+                            {!! nbsp($actionClass->caption()) !!}
                         </button>
                     @endif
 
@@ -35,7 +35,7 @@
                     @if($actionClass->isLinkeable)
                         <a {{ $actionClass->getAttributes() }}>
                             <x-icon name="{{ $actionClass->getDynamicProperty('icon') }}" class="w-4 h-4" />
-                            {!! $actionClass->caption() !!}
+                            {!! nbsp($actionClass->caption()) !!}
                         </a>
                     @endif
 
@@ -57,7 +57,7 @@
                                 {{ $actionClass->getAttributes() }}
                             >
                                 <x-icon name="{{ $actionClass->getDynamicProperty('icon') }}" class="w-4 h-4" />
-                                {!! $actionClass->caption() !!}
+                                {!! nbsp($actionClass->caption()) !!}
                             </a>
                         @endif
                     @endif

@@ -142,4 +142,7 @@ function buttonClass($color)
     return 'focus:outline-none inline-flex justify-center items-center transition-all ease-in duration-100 focus:ring-2 focus:ring-offset-2 hover:shadow-sm disabled:opacity-80 disabled:cursor-not-allowed rounded gap-x-2 text-sm px-4 py-2 ring-' . $color . '-500 text-white bg-' . $color . '-500 hover:bg-' . $color . '-600 hover:ring-' . $color . '-600 dark:ring-offset-slate-800 dark:bg-' . $color . '-700 dark:ring-' . $color . '-700 dark:hover:bg-' . $color . '-600 dark:hover:ring-' . $color . '-600';
 }
 
-
+function nbsp($string)
+{
+    return str_replace(' ', '&nbsp;', $string);
+}
