@@ -20,7 +20,10 @@ class ProductsIndex extends BaseIndexComponent
         parent::mount();
 
         $this->title = 'Lista produktów';
+        $this->box_title = 'Produkty';
         $this->currentModule = 'products';
+        $this->editRoute = 'products.edit';
+        $this->showRoute = 'products.show';
     }
 
     public function datasource(): Builder
@@ -32,20 +35,20 @@ class ProductsIndex extends BaseIndexComponent
     {
         return PowerGrid::eloquent()
             ->addColumn('name')
-            ->addColumn('nip')
-            ->addColumn('full_address');
+            ->addColumn('price', function (Product $product) {
+                return priceShowFormat($product->price);
+            });
     }
 
     public function columns(): array
     {
         return [
             Column::make('Nazwa', 'name')
+                ->searchable()
                 ->sortable(),
 
-            Column::make('NIP', 'nip')
-                ->sortable(),
-
-            Column::make('Pełny adres', 'full_address')
+            Column::make('Cena', 'price')
+                ->searchable()
                 ->sortable(),
         ];
     }
@@ -68,50 +71,4 @@ class ProductsIndex extends BaseIndexComponent
     {
         return parent::actions();
     }
-
-//    public $item;
-//    public $deleteSingleModal;
-//
-//    public function mount()
-//    {
-//        $this->title = 'Lista produktów';
-//        $this->view_path = 'modules.products.index';
-//        $this->currentModule = 'products';
-////        $this->item = null;
-////        $this->deleteSingleModal = false;
-////        $this->addToOlxSingleModal = false;
-////        $this->category_tmp = ProductCategoriesEnum::ANTIQUES_AND_COLLECTIONS_OTHER_COLLECTIONS;
-//
-////        $this->lists = [
-////            'statuses' => ProductStatusesEnum::getSelectList(),
-////            'olx_statuses' => ProductOlxStatusesEnum::getSelectList(),
-////            'categories' => ProductCategoriesEnum::getSelectList(),
-////        ];
-////
-////        $this->forms = [
-////            'phrase' => ['field' => Product::searchField(), 'operator' => 'like', 'value' => null],
-////            'status' => ['field' => 'status', 'operator' => '=', 'value' => null],
-////            'olx_status' => ['field' => 'olx_status', 'operator' => '=', 'value' => null],
-////        ];
-//
-//        $this->original_forms = $this->forms;
-//    }
-//
-//    public function render()
-//    {
-//        $products = $this->searchForm(Product::query());
-//
-//        $i = 0;
-//
-//        foreach ($products as $product) {
-//            $this->checkboxes[$i]['model'] = class_basename($product);
-//            $this->checkboxes[$i]['db_id'] = $product->id;
-//
-//            $i++;
-//        }
-//
-//        $this->data = compact('products');
-//
-//        return parent::render();
-//    }
 }

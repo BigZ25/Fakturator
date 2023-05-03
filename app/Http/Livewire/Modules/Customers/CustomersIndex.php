@@ -17,7 +17,10 @@ class CustomersIndex extends BaseIndexComponent
         parent::mount();
 
         $this->title = 'Lista klientów';
+        $this->box_title = 'Klienci';
         $this->currentModule = 'customers';
+        $this->editRoute = 'customers.edit';
+        $this->showRoute = 'customers.show';
     }
 
     public function datasource(): Builder
@@ -33,20 +36,26 @@ class CustomersIndex extends BaseIndexComponent
             ->addColumn('full_address');
     }
 
+    /**
+     * @return string
+     */
+    public function getSortField(): string
+    {
+        return $this->sortField;
+    }
+
     public function columns(): array
     {
         return [
             Column::make('Nazwa', 'name')
-                ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->sortable(),
 
             Column::make('NIP', 'nip')
-                ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->sortable(),
 
-            Column::make('Pełny adres', 'full_address')
-                ->sortable()
-                ->searchable(),
+            Column::make('Pełny adres', 'full_address'),
         ];
     }
 

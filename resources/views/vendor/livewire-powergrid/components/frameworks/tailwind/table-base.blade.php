@@ -1,6 +1,6 @@
 <div>
     @livewire('templates.delete')
-    <x-card title="Klienci" color="bg-white" rounded="rounded-sm" cardClasses="card-body">
+    <x-card title="{{$box_title}}" color="bg-white" rounded="rounded-sm" cardClasses="card-body">
         <div class="flex flex-col">
             <div class="overflow-x-auto">
                 <div class="align-middle inline-block w-full p-2">

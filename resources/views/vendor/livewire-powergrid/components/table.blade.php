@@ -27,7 +27,7 @@
 
             @if(isset($actions) && count($actions))
                 <th class="{{ $theme->table->thClass .' '. $column->headerClass }}" scope="col"
-                    style="{{ $theme->table->thStyle }}" colspan="{{ count($actions )}}"
+                    style="{{ $theme->table->thStyle }} text-align: center;" colspan="{{ count($actions )}}"
                     wire:key="{{ md5('actions') }}">
                     {{ trans('livewire-powergrid::datatable.labels.action') }}
                 </th>

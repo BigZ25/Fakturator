@@ -8,7 +8,7 @@
 <div>
     @if(isset($actions) && count($actions) && $row !== '')
         <td class="pg-actions {{ $theme->table->tdBodyClass }}"
-            style="{{ $theme->table->tdBodyStyle }}">
+            style="{{ $theme->table->tdBodyStyle }} text-align: center;">
             @foreach($actions as $key => $action)
                 @php
                     $actionClass = new \PowerComponents\LivewirePowerGrid\Helpers\Actions(

@@ -14,6 +14,10 @@ class BaseIndexComponent extends PowerGridComponent
 {
     use ActionButton;
 
+    public $editRoute = null;
+    public $showRoute = null;
+    public $box_title;
+
     /**
      * @throws Exception
      */
@@ -80,26 +84,32 @@ class BaseIndexComponent extends PowerGridComponent
 
     public function actions(): array
     {
-        return [
-            Button::add('edit')
+        $actions = [];
+
+        if ($this->showRoute !== null) {
+            $actions[] = Button::add('edit')
                 ->caption('Szczegóły')
                 ->class(buttonClass('info'))
                 ->icon('document-text')
-                ->route('customers.show', ['entity_id' => 'id'])
-                ->target('_self'),
+                ->route($this->showRoute, ['entity_id' => 'id'])
+                ->target('_self');
+        }
 
-            Button::add('edit')
+        if ($this->editRoute !== null) {
+            $actions[] = Button::add('edit')
                 ->caption('Edycja')
                 ->class(buttonClass('amber'))
                 ->icon('pencil')
-                ->route('customers.edit', ['entity_id' => 'id'])
-                ->target('_self'),
+                ->route($this->editRoute, ['entity_id' => 'id'])
+                ->target('_self');
+        }
 
-            Button::add('delete')
-                ->caption('Usuń')
-                ->class(buttonClass('red'))
-                ->icon('trash')
-                ->emit('openDeleteModal', ['class' => Customer::class, 'ids' => 'id']),
-        ];
+        $actions[] = Button::add('delete')
+            ->caption('Usuń')
+            ->class(buttonClass('red'))
+            ->icon('trash')
+            ->emit('openDeleteModal', ['class' => Customer::class, 'ids' => 'id']);
+
+        return $actions;
     }
 }
