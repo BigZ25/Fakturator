@@ -37,13 +37,16 @@ class CustomersIndex extends BaseIndexComponent
     {
         return [
             Column::make('Nazwa', 'name')
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
 
             Column::make('NIP', 'nip')
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
 
             Column::make('Pełny adres', 'full_address')
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
         ];
     }
 
