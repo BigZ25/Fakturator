@@ -25,7 +25,7 @@ class BaseIndexComponent extends PowerGridComponent
         $this->powerGridTheme = $themeBase->apply();
 
         $this->columns = collect($this->columns)->map(function ($column) {
-            return (object) $column;
+            return (object)$column;
         })->toArray();
 
         $this->relationSearch = $this->relationSearch();
@@ -49,7 +49,7 @@ class BaseIndexComponent extends PowerGridComponent
     {
         return view('template', [
             'path' => $this->powerGridTheme->layout->table,
-            'data'  => $data,
+            'data' => $data,
             'theme' => $this->powerGridTheme,
             'table' => 'livewire-powergrid::components.table',
         ])->extends('index')
