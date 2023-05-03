@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Modules\Products;
 
+use App\Enum\App\VatTypesEnum;
 use App\Http\Livewire\BaseComponents\BaseFormComponent;
 use App\Models\Modules\Products\Product;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -23,6 +24,10 @@ class ProductsForm extends BaseFormComponent
         if ($this->entity_id !== null) {
             $this->product = Product::find($this->entity_id);
         }
+
+        $this->lists = [
+            'vat_types' => VatTypesEnum::getSelectList(),
+        ];
     }
 
     public function render()

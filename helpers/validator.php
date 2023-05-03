@@ -8,6 +8,15 @@ function amountRules($required = true): array
     ];
 }
 
+function quantityRules($required = true): array
+{
+    return [
+        ($required === true ? 'required' : 'nullable'),
+        amountRegexRule(),
+        'min:0'
+    ];
+}
+
 function stringRules($required = true, int $length = 255): array
 {
     return [

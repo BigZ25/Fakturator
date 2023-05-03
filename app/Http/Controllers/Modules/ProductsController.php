@@ -14,7 +14,7 @@ class ProductsController extends Controller
     {
         $product = Product::create($request->validated() + ['user_id' => auth()->user()->id]);
 
-        AppClass::addMessage('Kolekcja została zapisana');
+        AppClass::addMessage('Produkt został zapisany');
 
         return response()->json(route('products.show', $product->id));
 
