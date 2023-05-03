@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class BaseModel extends Model
 {
+    public function getFullAddressAttribute()
+    {
+        return $this->address . ', ' . $this->postcode . ' ' . $this->city;
+    }
+
     public static function saveData($request, $id, $fkColumn, $items = 'items')
     {
         self::query()

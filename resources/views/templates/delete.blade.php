@@ -1,9 +1,14 @@
 <div>
     @if($entity)
-        <x-modal.card title="Usuwanie ogłoszenia" blur wire:model.defer="deleteModal">
+        <x-modal.card title="{{$entity->deletion->title}}" blur wire:model.defer="deleteModal">
             <form method="POST" action="{{$entity->deletion->route}}" id="deleteForm" class="ajax-form">
                 @csrf
                 @method('DELETE')
+                @if(isset($entity->deletion->ids))
+                    @foreach($entity->deletion->ids as $id)
+                        @include('templates.form.hidden',['name' => 'ids[]', 'value' => $id])
+                    @endforeach
+                @endif
                 <div>
                     <h1 class="text-2xl">{{$entity->deletion->content}}</h1>
                 </div>

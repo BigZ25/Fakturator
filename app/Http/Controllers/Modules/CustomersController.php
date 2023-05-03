@@ -28,11 +28,27 @@ class CustomersController extends Controller
         return response()->json(route('customers.show', $customer->id));
     }
 
-    public function destroy(Customer $customer)
+    public function destroy($customerId)
     {
-        $customer->delete();
+        if (request()->has('ids') && (int)$customerId === 0) {
+            $customers = Customer::query()
+                ->whereIn('id', request()->input('ids'))
+                ->get();
 
-        AppClass::addMessage('Klient został usunięty');
+            foreach ($customers as $customer) {
+                $customer->delete();
+            }
+
+            AppClass::addMessage('Klienci zostali usunięci');
+        } else {
+            $customer = Customer::find($customerId);
+
+            if ($customer) {
+                $customer->delete();
+
+                AppClass::addMessage('Klient został usunięty');
+            }
+        }
 
         return response()->json(route('customers.index'));
     }

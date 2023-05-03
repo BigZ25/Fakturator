@@ -25,8 +25,13 @@ class Customer extends BaseModel
         $deletion = new Collection();
         $deletion->title = "Usuwanie klienta";
         $deletion->content = "Czy napewno chcesz usunąć klienta " . $this->name . "?";
-        $deletion->route = route('customers.destroy', $this->id);
+        $deletion->route = route(self::destroyRoute(), $this->id);
 
         return $deletion;
+    }
+
+    public static function destroyRoute()
+    {
+        return 'customers.destroy';
     }
 }

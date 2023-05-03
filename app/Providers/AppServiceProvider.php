@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use PowerComponents\LivewirePowerGrid\Button;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Button::macro('icon', function (string $name) {
+            $this->dynamicProperties['icon'] = $name;
+
+            return $this;
+        });
     }
 }
