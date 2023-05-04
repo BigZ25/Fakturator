@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class BaseModel extends Model
 {
+    public static function fullAddressRaw()
+    {
+        return "CONCAT(address, ', ', postcode, ' ', city)";
+    }
+
     public function getFullAddressAttribute()
     {
         return $this->address . ', ' . $this->postcode . ' ' . $this->city;

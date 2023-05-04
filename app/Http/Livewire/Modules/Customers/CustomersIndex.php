@@ -6,6 +6,7 @@ use App\Http\Livewire\BaseComponents\BaseIndexComponent;
 use App\Models\Modules\Customers\Customer;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\{Button, Column, PowerGrid, PowerGridEloquent};
+use Illuminate\Support\Facades\DB;
 
 class CustomersIndex extends BaseIndexComponent
 {
@@ -18,11 +19,15 @@ class CustomersIndex extends BaseIndexComponent
         $this->currentModule = 'customers';
         $this->editRoute = 'customers.edit';
         $this->showRoute = 'customers.show';
+
+        $this->customColumns = [
+            'full_address' => Customer::fullAddressRaw(),
+        ];
     }
 
     public function datasource(): Builder
     {
-        return Customer::query();
+        return $this->customDatasource(Customer::query());
     }
 
     public function addColumns(): PowerGridEloquent
@@ -52,7 +57,9 @@ class CustomersIndex extends BaseIndexComponent
                 ->searchable()
                 ->sortable(),
 
-            Column::make('Pełny adres', 'full_address'),
+            Column::make('Pełny adres', 'full_address')
+                ->searchableRaw(DB::raw(Customer::fullAddressRaw()))
+                ->sortable(),
         ];
     }
 

@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\DB;
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 use PowerComponents\LivewirePowerGrid\{Button, Footer, Header, PowerGrid, PowerGridComponent, Themes\ThemeBase};
 
@@ -17,6 +18,7 @@ class BaseIndexComponent extends PowerGridComponent
     public $editRoute = null;
     public $showRoute = null;
     public $box_title;
+    public $customColumns = [];
 
     /**
      * @throws Exception
@@ -111,5 +113,16 @@ class BaseIndexComponent extends PowerGridComponent
             ->emit('openDeleteModal', ['class' => $this->datasource()->getModel()::class, 'ids' => 'id']);
 
         return $actions;
+    }
+
+    protected function customDatasource($query)
+    {
+        $columns[] = DB::raw('*');
+
+        foreach ($this->customColumns as $as => $customColumn) {
+            $columns[] = DB::raw($customColumn . " AS " . $as);
+        }
+
+        return $query->select($columns);
     }
 }
