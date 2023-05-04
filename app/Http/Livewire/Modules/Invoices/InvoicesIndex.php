@@ -9,12 +9,9 @@ use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridEloquent;
-use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 
 class InvoicesIndex extends BaseIndexComponent
 {
-    use ActionButton;
-
     public function mount(): void
     {
         parent::mount();

@@ -5,13 +5,10 @@ namespace App\Http\Livewire\Modules\Customers;
 use App\Http\Livewire\BaseComponents\BaseIndexComponent;
 use App\Models\Modules\Customers\Customer;
 use Illuminate\Database\Eloquent\Builder;
-use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 use PowerComponents\LivewirePowerGrid\{Button, Column, PowerGrid, PowerGridEloquent};
 
 class CustomersIndex extends BaseIndexComponent
 {
-    use ActionButton;
-
     public function mount(): void
     {
         parent::mount();

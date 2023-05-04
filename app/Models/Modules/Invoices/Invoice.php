@@ -2,6 +2,7 @@
 
 namespace App\Models\Modules\Invoices;
 
+use App\Enum\App\PaymentMethodsEnum;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
@@ -39,6 +40,21 @@ class Invoice extends BaseModel
         'is_send',
         'notes',
     ];
+
+    public function getPaymentMethodNameAttribute()
+    {
+        return PaymentMethodsEnum::getList($this->payment_method);
+    }
+
+    public function getIsPrintedTextAttribute()
+    {
+        return $this->is_printed ? "tak" : "nie";
+    }
+
+    public function getIsSendTextAttribute()
+    {
+        return $this->is_send ? "tak" : "nie";
+    }
 
     public function getDeletionAttribute(): Collection
     {

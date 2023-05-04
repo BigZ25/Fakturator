@@ -4,12 +4,9 @@ namespace App\Http\Livewire\Modules\Customers;
 
 use App\Http\Livewire\BaseComponents\BaseShowComponent;
 use App\Models\Modules\Customers\Customer;
-use WireUi\Traits\Actions;
 
 class CustomersShow extends BaseShowComponent
 {
-    use Actions;
-
     public function mount(int $entity_id)
     {
         $this->title = 'Podgląd klienta';
