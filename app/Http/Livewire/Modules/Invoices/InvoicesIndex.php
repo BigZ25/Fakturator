@@ -20,7 +20,10 @@ class InvoicesIndex extends BaseIndexComponent
         parent::mount();
 
         $this->title = 'Lista faktur';
+        $this->box_title = 'Faktury';
         $this->currentModule = 'invoices';
+        $this->editRoute = 'invoices.edit';
+        $this->showRoute = 'invoices.show';
     }
 
     public function datasource(): Builder
@@ -31,19 +34,20 @@ class InvoicesIndex extends BaseIndexComponent
     public function addColumns(): PowerGridEloquent
     {
         return PowerGrid::eloquent()
-//            ->addColumn('name')
-//            ->addColumn('nip')
-            ->addColumn('number');
+            ->addColumn('number')
+            ->addColumn('issue_date');
     }
 
     public function columns(): array
     {
         return [
             Column::make('Numer', 'number')
+                ->searchable()
                 ->sortable(),
-//
-//            Column::make('NIP', 'nip')
-//                ->sortable(),
+
+            Column::make('Data wystawienia', 'issue_date')
+                ->searchable()
+                ->sortable(),
 //
 //            Column::make('Pełny adres', 'full_address')
 //                ->sortable(),

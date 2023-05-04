@@ -108,7 +108,7 @@ class BaseIndexComponent extends PowerGridComponent
             ->caption('Usuń')
             ->class(buttonClass('red'))
             ->icon('trash')
-            ->emit('openDeleteModal', ['class' => Customer::class, 'ids' => 'id']);
+            ->emit('openDeleteModal', ['class' => $this->datasource()->getModel()::class, 'ids' => 'id']);
 
         return $actions;
     }

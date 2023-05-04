@@ -59,9 +59,4 @@ class Invoice extends BaseModel
     {
         return $this->hasMany(InvoiceItem::class);
     }
-
-//    public static function searchField()
-//    {
-//        return "CONCAT_WS(' ','Funko Pop',production,production_number,name,`condition`,CONCAT('#',item_number))";
-//    }
 }
