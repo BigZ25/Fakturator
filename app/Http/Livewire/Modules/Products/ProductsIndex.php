@@ -21,20 +21,27 @@ class ProductsIndex extends BaseIndexComponent
         $this->currentModule = 'products';
         $this->editRoute = 'products.edit';
         $this->showRoute = 'products.show';
+        $this->customColumns = [
+            'netto' => Product::nettoRaw(),
+            'vat_type_name' => Product::vatTypeNameRaw(),
+            'vat' => Product::vatRaw(),
+            'brutto' => Product::bruttoRaw(),
+        ];
     }
 
     public function datasource(): Builder
     {
-        return Product::query();
+        return $this->customDatasource(Product::query());
     }
 
     public function addColumns(): PowerGridEloquent
     {
         return PowerGrid::eloquent()
             ->addColumn('name')
-            ->addColumn('price', function (Product $product) {
-                return priceShowFormat($product->price);
-            });
+            ->addColumn('netto')
+            ->addColumn('vat_type_name')
+            ->addColumn('vat')
+            ->addColumn('brutto');
     }
 
     public function columns(): array
@@ -43,8 +50,16 @@ class ProductsIndex extends BaseIndexComponent
             Column::make('Nazwa', 'name')
                 ->searchable()
                 ->sortable(),
-
-            Column::make('Cena', 'price')
+            Column::make('Cena netto', 'netto')
+                ->searchable()
+                ->sortable(),
+            Column::make('Stawka VAT', 'vat_type_name')
+                ->searchable()
+                ->sortable(),
+            Column::make('Kwota VAT', 'vat')
+                ->searchable()
+                ->sortable(),
+            Column::make('Cena brutto', 'brutto')
                 ->searchable()
                 ->sortable(),
         ];

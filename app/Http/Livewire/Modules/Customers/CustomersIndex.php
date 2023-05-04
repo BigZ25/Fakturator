@@ -19,7 +19,6 @@ class CustomersIndex extends BaseIndexComponent
         $this->currentModule = 'customers';
         $this->editRoute = 'customers.edit';
         $this->showRoute = 'customers.show';
-
         $this->customColumns = [
             'full_address' => Customer::fullAddressRaw(),
         ];
