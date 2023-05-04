@@ -9,6 +9,6 @@ class BaseItemsShowComponent extends PowerGridComponent
 {
     use ActionButton;
 
-    protected $parentId;
+    public $parentId;
     public $box_title;
 }

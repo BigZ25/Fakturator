@@ -21,5 +21,5 @@
             {{--           TODO: notatki @include('templates.show.',['label' => 'Nazwa','value' => $invoice->name])--}}
         </x-card>
     </div>
-    @livewire('modules.invoices.items.invoice-items-show')
+    @livewire('modules.invoices.items.invoice-items-show',['parentId' => $invoice->id])
 </div>
