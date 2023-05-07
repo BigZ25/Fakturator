@@ -105,3 +105,21 @@ $(document).ready(function () {
         })
     }
 })
+
+function tabs() {
+    return {
+        active: 1,
+        isActive(tab) {
+            return tab == this.active;
+        },
+        setActive(value) {
+            this.active = value;
+        },
+        getClasses(tab) {
+            if (this.isActive(tab)) {
+                return 'px-4 py-2.5 flex justify-between items-center border-b dark:border-0 nav-header-active';
+            }
+            return 'px-4 py-2.5 flex justify-between items-center border-b dark:border-0 nav-header';
+        }
+    }
+}

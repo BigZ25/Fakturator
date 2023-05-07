@@ -71,6 +71,23 @@ class Invoice extends BaseModel
         return 'invoices.destroy';
     }
 
+    public static function nextNumber($userId)
+    {
+        $phrase = date('m') . '/' . date('Y');
+
+        $userInvoice = self::query()
+            ->where('user_id', $userId)
+            ->where('number', 'like', '%' . $phrase . '%')
+            ->orderByDesc('number')
+            ->first();
+
+        if ($userInvoice) {
+            return $userInvoice->number;
+        } else {
+            return '1/' . $phrase;
+        }
+    }
+
     public function items()
     {
         return $this->hasMany(InvoiceItem::class);

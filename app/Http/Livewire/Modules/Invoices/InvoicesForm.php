@@ -15,32 +15,23 @@ class InvoicesForm extends BaseFormComponent
 
     public function mount(int $entity_id = null)
     {
-        $this->title = 'Nowa faktura';
+        $this->title = $entity_id ? 'Edycja faktury' : 'Nowa faktura';
         $this->view_path = 'modules.invoices.form';
         $this->currentModule = 'invoices';
         $this->entity_id = $entity_id;
         $this->lists = [
             'payment_methods' => PaymentMethodsEnum::getSelectList(),
         ];
-        $this->deleteSingleModal = false;
-        $this->invoice = new Invoice();
 
-        $invoice = new Invoice();
+        $this->invoice = new Invoice();
+        $this->invoice->number = Invoice::nextNumber(auth()->user()->id);
+        //TODO: $this->issue_date = todayDate();
 
         if ($this->entity_id !== null) {
             $this->invoice = Invoice::find($this->entity_id);
         }
 
-        $this->authorize('edit', $this->invoice);
-
-        if (request()->has('import') && $this->entity_id === null) {
-            $this->import = 1;
-        } elseif (request()->has('copy') && $entity_id === null) {
-            $invoice = Invoice::find(request()->input('copy'));
-            $invoice->id = null;
-        }
-
-        $this->data = compact('invoice');
+//        $this->authorize('edit', $this->invoice);
     }
 
     public function render()

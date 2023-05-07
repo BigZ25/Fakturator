@@ -27,13 +27,13 @@ class InvoiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'number' => stringRules(),
+            'number' => array_merge(stringRules(), [Rule::unique('invoices')->where('user_id', auth()->user()->id),]),
             'buyer_nip' => nipRules(),
             'buyer_name' => stringRules(),
             'buyer_address' => stringRules(),
             'buyer_postcode' => postcodeRules(),
             'buyer_city' => stringRules(),
-            //'buyer_email' => emailRules(),
+            'buyer_email' => emailRules(),
             'sale_date' => dateRules(),
             'issue_date' => dateRules(),
             'payment_date' => dateRules(),

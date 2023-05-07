@@ -14542,8 +14542,16 @@ video {
   }
 }
 
-.card-body > div:first-child {
+.card-body > .card-title {
     background: #eeeeee;
+}
+
+.nav-header-active {
+    background: #eeeeee;
+}
+
+.nav-header {
+    background: white;
 }
 
 .validation-error{
