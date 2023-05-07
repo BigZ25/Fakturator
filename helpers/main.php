@@ -1,14 +1,25 @@
 <?php
 
-use App\Http\APIClient;
-use App\Models\Code;
-
 include('validator.php');
 include('files.php');
 
-function priceShowFormat($value)
+function formatPriceShow($value)
 {
     return number_format($value, 2, ',', ' ') . ' zł';
+}
+
+function formatDateShow($value)
+{
+    return date("d/m/Y", strtotime($value));
+}
+
+function formatDateTimeShow($value, $seconds = true)
+{
+    if ($seconds) {
+        return date("d/m/Y H:i:s", strtotime($value));
+    }
+
+    return date("d/m/Y H:i", strtotime($value));
 }
 
 function todayDate()
@@ -79,15 +90,6 @@ function formatBytes($size, $precision = 2)
     } else {
         return round(pow(1024, $base - floor($base)), $precision) . ' ' . $suffixes[floor($base)];
     }
-}
-
-function formatPriceShow($price)
-{
-    if ($price !== null) {
-        return number_format($price, 2, ',', ' ') . ' zł';
-    }
-
-    return null;
 }
 
 function formatPriceEdit($price)

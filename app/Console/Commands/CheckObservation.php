@@ -112,7 +112,7 @@ class CheckObservation extends Command
                                 $link = route('observations.show', $observation->id);
                             } else {
                                 $title = 'Zobacz nowe ogłoszenie';
-                                $content = priceShowFormat($newInvoices[0]['price']) . ' - ' . $newInvoices[0]['name'];
+                                $content = formatPriceShow($newInvoices[0]['price']) . ' - ' . $newInvoices[0]['name'];
                                 $link = $newInvoices[0]['link'];
                             }
 
