@@ -64,6 +64,14 @@ class InvoicesIndex extends BaseIndexComponent
 
     public function actions(): array
     {
-        return parent::actions();
+        $actions = parent::actions();
+        $actions[] =
+            Button::add('downloadPdf')
+                ->caption('Pobierz PDF')
+                ->class(buttonClass('indigo'))
+                ->icon('document-download')
+                ->emit('openDeleteModal', ['class' => $this->datasource()->getModel()::class, 'ids' => 'id']);
+
+        return $actions;
     }
 }
