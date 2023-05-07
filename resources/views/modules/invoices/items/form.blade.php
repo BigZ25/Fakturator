@@ -6,14 +6,14 @@
                     <table class="w-full table-auto text-left border">
                         <thead>
                         <tr>
-                            @include('templates.table.show.th',['label' => "Nazwa",'align' => 'center'])
-                            @include('templates.table.show.th',['label' => "Jednostka",'align' => 'center'])
-                            @include('templates.table.show.th',['label' => "VAT",'align' => 'center'])
-                            @include('templates.table.show.th',['label' => "Ilość",'align' => 'center'])
-                            @include('templates.table.show.th',['label' => "Cena",'align' => 'center'])
-                            @include('templates.table.show.th',['label' => "Netto",'align' => 'center'])
-                            @include('templates.table.show.th',['label' => "VAT",'align' => 'center'])
-                            @include('templates.table.show.th',['label' => "Brutto",'align' => 'center'])
+                            @include('templates.table.form.th',['label' => "Nazwa",'align' => 'center'])
+                            @include('templates.table.form.th',['label' => "Jednostka",'align' => 'center'])
+                            @include('templates.table.form.th',['label' => "VAT",'align' => 'center'])
+                            @include('templates.table.form.th',['label' => "Ilość",'align' => 'center'])
+                            @include('templates.table.form.th',['label' => "Cena",'align' => 'center'])
+                            @include('templates.table.form.th',['label' => "Netto",'align' => 'center'])
+                            @include('templates.table.form.th',['label' => "VAT",'align' => 'center'])
+                            @include('templates.table.form.th',['label' => "Brutto",'align' => 'center'])
                         </tr>
                         </thead>
                         <tbody class="border">
