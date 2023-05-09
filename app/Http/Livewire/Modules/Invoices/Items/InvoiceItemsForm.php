@@ -13,6 +13,10 @@ class InvoiceItemsForm extends BaseItemsFormComponent
 {
     use  AuthorizesRequests;
 
+    public $totalNetto;
+    public $totalVat;
+    public $totalBrutto;
+
     public function mount(?int $invoiceId)
     {
         $this->view_path = 'modules.invoices.items.form';
@@ -31,10 +35,18 @@ class InvoiceItemsForm extends BaseItemsFormComponent
 
     public function render()
     {
+        $this->totalNetto = 0;
+        $this->totalVat = 0;
+        $this->totalBrutto = 0;
+
         foreach ($this->items as $index => $item) {
-            $netto = formatPriceEdit($item['quantity'] * $item['price']);
-            $vat = formatPriceEdit(vatValue($netto, (int)$item['vat_type']));
-            $brutto = formatPriceEdit($netto + $vat);
+            $netto = $item['quantity'] * $item['price'];
+            $vat = vatValue($netto, (int)$item['vat_type']);
+            $brutto = $netto + $vat;
+
+            $this->totalNetto += $netto;
+            $this->totalVat += $vat;
+            $this->totalBrutto += $brutto;
 
             $this->items[$index]['netto'] = $netto;
             $this->items[$index]['vat'] = $vat;

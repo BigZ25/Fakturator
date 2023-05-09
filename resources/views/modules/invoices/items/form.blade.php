@@ -24,13 +24,22 @@
                                 @include('templates.table.form.select',['name' => 'links['.$index.'][vat_type]','model' => 'items.'.$index.'.vat_type','value' => $item['vat_type'],'options' => $lists['vat_types'],'width' => 10])
                                 @include('templates.table.form.text',['name' => 'links['.$index.'][quantity]','model' => 'items.'.$index.'.quantity','value' => $item['quantity'],'width' => 10])
                                 @include('templates.table.form.text',['name' => 'links['.$index.'][price]','model' => 'items.'.$index.'.price','value' => $item['price'],'width' => 10])
-                                @include('templates.table.form.text',['name' => 'links['.$index.'][netto]','model' => 'items.'.$index.'.netto','disabled' => true,'width' => 10])
-                                @include('templates.table.form.text',['name' => 'links['.$index.'][vat]','model' => 'items.'.$index.'.vat','disabled' => true,'width' => 10])
-                                @include('templates.table.form.text',['name' => 'links['.$index.'][brutto]','model' => 'items.'.$index.'.brutto','disabled' => true,'width' => 10])
+                                <td class="text-center">{{formatPriceShow($item['netto'])}}</td>
+                                <td class="text-center">{{formatPriceShow($item['vat'])}}</td>
+                                <td class="text-center">{{formatPriceShow($item['brutto'])}}</td>
                                 @include('templates.table.form.remove',['index' => $index])
                             </tr>
                         @endforeach
                         </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="4"></td>
+                            <td class="text-center"><b>Razem:</b></td>
+                            <td class="text-center">{{formatPriceShow($totalNetto)}}</td>
+                            <td class="text-center">{{formatPriceShow($totalVat)}}</td>
+                            <td class="text-center">{{formatPriceShow($totalBrutto)}}</td>
+                        </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

@@ -69,7 +69,7 @@ $(document).ready(function () {
                             input_ptr.removeClass('validation-error')
                             input_ptr.parent().find('.error-span').remove()
                             input_ptr.addClass('validation-error')
-                            input_ptr.after('<span class="error-span text-red-500">' + errors[key].toString() + '</span>')
+                            // input_ptr.after('<span class="error-span text-red-500">' + errors[key].toString() + '</span>')
 
                             input_ptr.on('change, input', function () {
                                 $(this).removeClass('validation-error')
