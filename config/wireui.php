@@ -112,6 +112,10 @@ return [
             'class' => Components\DatetimePicker::class,
             'alias' => 'datetime-picker',
         ],
+        'my-datetime-picker' => [
+            'class' => App\Views\Components\MyDatetimePicker::class,
+            'alias' => 'my-datetime-picker',
+        ],
         'time-picker' => [
             'class' => Components\TimePicker::class,
             'alias' => 'time-picker',

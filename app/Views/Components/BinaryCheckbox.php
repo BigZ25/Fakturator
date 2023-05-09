@@ -36,7 +36,7 @@ class BinaryCheckbox extends FormComponent
 
     protected function getView(): string
     {
-        return 'wireui::components.binary_checkbox';
+        return 'wireui::components.binary-checkbox';
     }
 
     public function getClasses(bool $hasError): string

@@ -130,3 +130,15 @@ function tabs() {
         }
     }
 }
+//
+// //my-datetime-picker
+// function setDate(date){
+//     if(date){
+//         selectDate(new Object({
+//             year: 2023,
+//             month: 0,
+//             day: 0,
+//             isDisabled: false,
+//         }))
+//     }
+// }

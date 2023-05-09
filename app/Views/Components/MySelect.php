@@ -51,7 +51,7 @@ class MySelect extends FormComponent
 
     protected function getView(): string
     {
-        return 'wireui::components.my_select';
+        return 'wireui::components.my-select';
     }
 
     public function defaultClasses(): string
