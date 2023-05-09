@@ -19,14 +19,14 @@
                         <tbody class="border">
                         @foreach($items as $index => $item)
                             <tr>
-                                @include('templates.table.form.text',['name' => 'links['.$index.'][name]','model' => 'items.'.$index.'.input_link','width' => 70])
-                                @include('templates.table.form.select',['name' => 'links['.$index.'][unit]','value' => $item['unit'],'options' => $lists['units'],'width' => 30])
-                                @include('templates.table.form.select',['name' => 'links['.$index.'][vat_type]','value' => $item['vat_type'],'options' => $lists['vat_types'],'width' => 30])
-                                @include('templates.table.form.text',['name' => 'links['.$index.'][quantity]','model' => 'items.'.$index.'.input_link','width' => 70])
-                                @include('templates.table.form.text',['name' => 'links['.$index.'][price]','model' => 'items.'.$index.'.input_link','width' => 70])
-{{--                                @include('templates.table.show.text',['name' => 'links['.$index.'][netto]','model' => 'items.'.$index.'.input_link','width' => 70])--}}
-{{--                                @include('templates.table.show.text',['name' => 'links['.$index.'][vat]','model' => 'items.'.$index.'.input_link','width' => 70])--}}
-{{--                                @include('templates.table.show.text',['name' => 'links['.$index.'][brutto]','model' => 'items.'.$index.'.input_link','width' => 70])--}}
+                                @include('templates.table.form.text',['name' => 'links['.$index.'][name]','model' => 'items.'.$index.'.name','value' => $item['name'],'width' => 30])
+                                @include('templates.table.form.select',['name' => 'links['.$index.'][unit]','model' => 'items.'.$index.'.unit','value' => $item['unit'],'options' => $lists['units'],'width' => 10])
+                                @include('templates.table.form.select',['name' => 'links['.$index.'][vat_type]','model' => 'items.'.$index.'.vat_type','value' => $item['vat_type'],'options' => $lists['vat_types'],'width' => 10])
+                                @include('templates.table.form.text',['name' => 'links['.$index.'][quantity]','model' => 'items.'.$index.'.quantity','value' => $item['quantity'],'width' => 10])
+                                @include('templates.table.form.text',['name' => 'links['.$index.'][price]','model' => 'items.'.$index.'.price','value' => $item['price'],'width' => 10])
+                                @include('templates.table.form.text',['name' => 'links['.$index.'][netto]','model' => 'items.'.$index.'.netto','disabled' => true,'width' => 10])
+                                @include('templates.table.form.text',['name' => 'links['.$index.'][vat]','model' => 'items.'.$index.'.vat','disabled' => true,'width' => 10])
+                                @include('templates.table.form.text',['name' => 'links['.$index.'][brutto]','model' => 'items.'.$index.'.brutto','disabled' => true,'width' => 10])
                                 @include('templates.table.form.remove',['index' => $index])
                             </tr>
                         @endforeach

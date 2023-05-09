@@ -31,6 +31,16 @@ class InvoiceItemsForm extends BaseItemsFormComponent
 
     public function render()
     {
+        foreach ($this->items as $index => $item) {
+            $netto = formatPriceEdit($item['quantity'] * $item['price']);
+            $vat = formatPriceEdit(vatValue($netto, (int)$item['vat_type']));
+            $brutto = formatPriceEdit($netto + $vat);
+
+            $this->items[$index]['netto'] = $netto;
+            $this->items[$index]['vat'] = $vat;
+            $this->items[$index]['brutto'] = $brutto;
+        }
+
         return parent::render();
     }
 

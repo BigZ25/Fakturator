@@ -27,17 +27,29 @@ class InvoiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'number' => array_merge(stringRules(), [Rule::unique('invoices')->where('user_id', auth()->user()->id),]),
+            'number' => array_merge(stringRules(), [Rule::unique('invoices')->where('user_id', auth()->user()->id)->ignore($this->invoice->id)]),
+
+            //dane nabywcy
             'buyer_nip' => nipRules(),
             'buyer_name' => stringRules(),
             'buyer_address' => stringRules(),
             'buyer_postcode' => postcodeRules(),
             'buyer_city' => stringRules(),
-            'buyer_email' => emailRules(),
+            'buyer_email' => emailRules(false),
+
+            //dane odbiory
+            'recipient_nip' => nipRules(false),
+            'recipient_name' => stringRules(false),
+            'recipient_address' => stringRules(false),
+            'recipient_postcode' => postcodeRules(false),
+            'recipient_city' => stringRules(false),
+
+            //daty
             'sale_date' => dateRules(),
             'issue_date' => dateRules(),
             'payment_date' => dateRules(),
-            'paid_date' => dateRules(),
+            'paid_date' => dateRules(false),
+
             'payment_method' => enumRules(PaymentMethodsEnum::class),
             'is_printed' => boolRules(),
             'is_send' => boolRules(),
@@ -47,11 +59,8 @@ class InvoiceRequest extends FormRequest
             'item.*.name' => stringRules(),
             'item.*.unit' => enumRules(UnitsEnum::class),
             'item.*.vat_type' => enumRules(VatTypesEnum::class),
-            'item.*.quantity' => amountRules(),
+            'item.*.quantity' => quantityRules(),
             'item.*.price' => amountRules(),
-            'item.*.netto' => amountRules(),
-            'item.*.vat' => amountRules(),
-            'item.*.brutto' => amountRules(),
         ];
     }
 }

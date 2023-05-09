@@ -4,8 +4,8 @@
             @method('PUT')
         @endif
         @csrf
-        <div class="flex">
-            <div class="flex-1 pb-3 pr-2">
+        <div class="flex pb-3 ">
+            <div class="flex-1 pr-2">
                 <x-card title="Podstawowe dane" color="bg-white flex" rounded="rounded-sm" cardClasses="card-body">
                     <div class="flex flex-wrap">
                         @include('templates.form.text',['width' => 50,'value' => $invoice->number,'name' => 'number', 'label' => 'Numer faktury'])
@@ -24,18 +24,10 @@
                         @include('templates.form.checkbox',['width' => 50,'value' => $invoice->is_send,'name' => 'is_send','label' => 'Faktura wysłana'])
                     </div>
                     <div class="flex flex-wrap">
-                        @include('templates.form.textarea',['rows' => 5,'width' => 100,'value' => $invoice->notes,'name' => 'is_send','label' => 'Notatki'])
+                        @include('templates.form.textarea',['rows' => 5,'width' => 100,'value' => $invoice->notes,'name' => 'notes','label' => 'Notatki'])
                     </div>
                 </x-card>
             </div>
-
-            {{--            <div class="flex-1 pb-3">--}}
-            {{--                <x-card title="Dane nabywcy" color="bg-white flex" rounded="rounded-sm" cardClasses="card-body">--}}
-            {{--                </x-card>--}}
-            {{--                <x-card title="Dane nabywcy" color="bg-white flex" rounded="rounded-sm" cardClasses="card-body">--}}
-            {{--                </x-card>--}}
-            {{--            </div>--}}
-
             <div x-data="tabs">
                 <div class="grid grid-cols-3 cursor-pointer">
                     <div :class="getClasses(1)" @click="setActive(1)">
@@ -49,6 +41,9 @@
                     <div x-show="isActive(1)" x-transition:enter.duration.500ms>
                         <x-card color="bg-white flex" rounded="rounded-sm" cardClasses="card-body" style>
                             @livewire('templates.company-data',['entity' => $invoice, 'prefix' => 'buyer'])
+                            <div class="flex flex-wrap">
+                                @include('templates.form.text',['width' => 100,'value' => $invoice->buyer_email,'name' => 'buyer_email' ,'label' => 'Adres e-mail'])
+                            </div>
                         </x-card>
                     </div>
                     <div x-show="isActive(2)" x-transition:enter.duration.500ms>

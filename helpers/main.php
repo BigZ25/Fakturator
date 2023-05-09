@@ -1,5 +1,7 @@
 <?php
 
+use App\Enum\App\VatTypesEnum;
+
 include('validator.php');
 include('files.php');
 
@@ -147,4 +149,14 @@ function buttonClass($color)
 function nbsp($string)
 {
     return str_replace(' ', '&nbsp;', $string);
+}
+
+function vatValue($netto, int $vatType)
+{
+    return match ($vatType) {
+        VatTypesEnum::VAT_TYPE_23 => $netto * 0.23,
+        VatTypesEnum::VAT_TYPE_8 => $netto * 0.08,
+        VatTypesEnum::VAT_TYPE_5 => $netto * 0.05,
+        default => 0,
+    };
 }
