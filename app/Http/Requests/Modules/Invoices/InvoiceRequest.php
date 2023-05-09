@@ -56,11 +56,11 @@ class InvoiceRequest extends FormRequest
             'notes' => stringRules(false),
 
             //items
-            'item.*.name' => stringRules(),
-            'item.*.unit' => enumRules(UnitsEnum::class),
-            'item.*.vat_type' => enumRules(VatTypesEnum::class),
-            'item.*.quantity' => quantityRules(),
-            'item.*.price' => amountRules(),
+            'items.*.name' => stringRules(),
+            'items.*.unit' => enumRules(UnitsEnum::class),
+            'items.*.vat_type' => enumRules(VatTypesEnum::class),
+            'items.*.quantity' => quantityRules(),
+            'items.*.price' => amountRules(),
         ];
     }
 }

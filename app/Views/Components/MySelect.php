@@ -21,6 +21,8 @@ class MySelect extends FormComponent
 
     public bool $optionKeyValue;
 
+    public bool $model;
+
     /** @var Collection|array|null */
     public $options;
 
@@ -33,6 +35,7 @@ class MySelect extends FormComponent
         ?string $optionLabel = null,
         bool $optionKeyLabel = false,
         bool $optionKeyValue = false,
+        bool $model = false,
         $options = null
     ) {
         $this->label = $label;
@@ -42,6 +45,7 @@ class MySelect extends FormComponent
         $this->optionLabel = $optionLabel;
         $this->optionKeyLabel = $optionKeyLabel;
         $this->optionKeyValue = $optionKeyValue;
+        $this->model = $model;
         $this->options = $options;
     }
 

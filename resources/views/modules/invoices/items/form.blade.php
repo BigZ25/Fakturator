@@ -19,11 +19,11 @@
                         <tbody class="border">
                         @foreach($items as $index => $item)
                             <tr>
-                                @include('templates.table.form.text',['name' => 'links['.$index.'][name]','model' => 'items.'.$index.'.name','value' => $item['name'],'width' => 30])
-                                @include('templates.table.form.select',['name' => 'links['.$index.'][unit]','model' => 'items.'.$index.'.unit','value' => $item['unit'],'options' => $lists['units'],'width' => 10])
-                                @include('templates.table.form.select',['name' => 'links['.$index.'][vat_type]','model' => 'items.'.$index.'.vat_type','value' => $item['vat_type'],'options' => $lists['vat_types'],'width' => 10])
-                                @include('templates.table.form.text',['name' => 'links['.$index.'][quantity]','model' => 'items.'.$index.'.quantity','value' => $item['quantity'],'width' => 10])
-                                @include('templates.table.form.text',['name' => 'links['.$index.'][price]','model' => 'items.'.$index.'.price','value' => $item['price'],'width' => 10])
+                                @include('templates.table.form.text',['name' => 'items['.$index.'][name]','model' => 'items.'.$index.'.name','value' => $item['name'],'width' => 30])
+                                @include('templates.table.form.select',['name' => 'items['.$index.'][unit]','model' => 'items.'.$index.'.unit','value' => $item['unit'],'options' => $lists['units'],'width' => 10])
+                                @include('templates.table.form.select',['name' => 'items['.$index.'][vat_type]','model' => 'items.'.$index.'.vat_type','value' => $item['vat_type'],'options' => $lists['vat_types'],'width' => 10])
+                                @include('templates.table.form.text',['name' => 'items['.$index.'][quantity]','model' => 'items.'.$index.'.quantity','value' => $item['quantity'],'width' => 10])
+                                @include('templates.table.form.text',['name' => 'items['.$index.'][price]','model' => 'items.'.$index.'.price','value' => $item['price'],'width' => 10])
                                 <td class="text-center">{{formatPriceShow($item['netto'])}}</td>
                                 <td class="text-center">{{formatPriceShow($item['vat'])}}</td>
                                 <td class="text-center">{{formatPriceShow($item['brutto'])}}</td>

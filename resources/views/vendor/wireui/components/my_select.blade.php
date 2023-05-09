@@ -19,7 +19,7 @@
             @endif
 
             @forelse ($options as $key => $option)
-                <option value="{{ $getOptionValue($key, $option) }}" @if($getOptionValue($key, $option) == $value) selected @endif
+                <option value="{{ $getOptionValue($key, $option) }}" @if(!$model && $getOptionValue($key, $option) == $value) selected @endif
                 @if(data_get($option, 'disabled', false)) disabled @endif>
                     {{ $getOptionLabel($key, $option) }}
                 </option>

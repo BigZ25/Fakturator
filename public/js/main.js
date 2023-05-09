@@ -48,9 +48,7 @@ $(document).ready(function () {
                         if (regex.test(key) === true) {
                             let explode = key.split('.');
                             input_ptr = $("input[name='" + explode[0] + "[" + explode[1] + "][" + explode[2] + "]" + "']");
-                        }
-                        //
-                        else if ($("input[name='" + key + "']").length > 0)
+                        } else if ($("input[name='" + key + "']").length > 0)
                             input_ptr = $("input[name='" + key + "']");
                         else if ($("select[name='" + key + "']").length > 0)
                             input_ptr = $("select[name='" + key + "']");
