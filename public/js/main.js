@@ -69,11 +69,20 @@ $(document).ready(function () {
                             input_ptr.removeClass('validation-error')
                             input_ptr.parent().find('.error-span').remove()
                             input_ptr.addClass('validation-error')
-                            // input_ptr.after('<span class="error-span text-red-500">' + errors[key].toString() + '</span>')
+
+                            let popover = tippy(input_ptr[0], {
+                                placement: 'top',
+                                allowHTML: true,
+                                showOnCreate: true,
+                                hideOnClick: 'toggle',
+                                zIndex: 0,
+                                content: errors[key].toString(),
+                            });
 
                             input_ptr.on('change, input', function () {
                                 $(this).removeClass('validation-error')
                                 $(this).parent().find('.error-span').remove()
+                                popover.destroy()
                             })
                         }
                     }
