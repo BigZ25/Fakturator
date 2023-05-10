@@ -107,4 +107,13 @@ class Invoice extends BaseModel
     {
         return $this->hasMany(InvoiceItem::class);
     }
+
+    public function correction()
+    {
+        if ($this->correction_invoice_id) {
+            return Invoice::find($this->correction_invoice_id);
+        }
+
+        return null;
+    }
 }

@@ -3,36 +3,24 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Classes\App\AppClass;
-use App\Enum\Modules\Invoices\InvoiceOperationsEnum;
-use App\Enum\Modules\Invoices\InvoiceStatusesEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Modules\Invoices\InvoiceOperationRequest;
 use App\Http\Requests\Modules\Invoices\InvoiceRequest;
 use App\Models\Modules\Invoices\Invoice;
-use App\Models\Modules\Invoices\InvoiceItem;
-use App\Services\Modules\InvoicePhotosService;
 use App\Services\Modules\InvoicesService;
-use Illuminate\Http\Exceptions\HttpResponseException;
-use niklasravnsborg\LaravelPdf\Pdf;
+use niklasravnsborg\LaravelPdf\Facades\Pdf;
 
 class InvoicesController extends Controller
 {
     public function store(InvoiceRequest $request)
     {
-        $invoice = Invoice::create($request->validated() + ['user_id' => auth()->user()->id]);
-        InvoiceItem::saveData($request->validated(), $invoice->id, 'invoice_id');
-
-        AppClass::addMessage('Ogłoszenie zostało zapisane');
+        $invoice = InvoicesService::handleRequest($request);
 
         return response()->json(route('invoices.show', $invoice->id));
     }
 
     public function update(InvoiceRequest $request, Invoice $invoice)
     {
-        $invoice->update($request->validated());
-        InvoiceItem::saveData($request, $invoice->id, 'invoice_id');
-
-        AppClass::addMessage('Zmiany zostały zapisane');
+        $invoice = InvoicesService::handleRequest($request, $invoice);
 
         return response()->json(route('invoices.show', $invoice->id));
     }
@@ -65,14 +53,6 @@ class InvoicesController extends Controller
     public function pdf(int $invoiceID)
     {
         $invoice = Invoice::find($invoiceID);
-        $invoice->getItems();
-
-        if ($invoice->correction_id) {
-            $invoice->correction = Invoice::find($invoice->correction_id);
-            $invoice->correction->getItems();
-        }
-
-//        $invoice->totalInWords = (new NumberToWords())->getCurrencyTransformer('pl')->toWords(str_replace(".", "", $invoice->brutto), 'PLN');
 
         return PDF::loadView('templates.pdf.invoice', ['invoice' => $invoice])
             ->stream('Faktura VAT nr ' . $invoice->number . '.pdf');

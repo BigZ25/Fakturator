@@ -23,4 +23,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function getCompanyDataCompleteAttribute()
+    {
+        return $this->company_nip && $this->company_name && $this->company_address && $this->company_postcode && $this->company_city;
+    }
 }

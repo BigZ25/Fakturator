@@ -65,46 +65,33 @@
             <table style="width: 100%;">
                 <tr>
                     <td style="padding-bottom: 40px;">
-                        <h3><b>{{class_basename($invoice) == 'Income' ? 'Faktura VAT' : 'Nota obciążeniowa'}} nr {{$invoice->number}}</b></h3>
+                        <h3><b>Faktura VAT nr {{$invoice->number}}</b></h3>
                     </td>
                 </tr>
                 <tr>
                     <td style="padding-bottom: 10px;">
-                        @if(class_basename($invoice) == 'Income')
-                            <h5><b>Data sprzedaży: </b>{{date("d.m.Y",strtotime($invoice->sale_date))}}</h5>
-                        @endif
-                        <h5><b>Data wystawienia: </b>{{date("d.m.Y",strtotime($invoice->create_date))}}</h5>
-                    </td>
-                </tr>
-            </table>
-        </td>
-        <td style="width: 50%; vertical-align: top;">
-            <table style="width: 100%;">
-                <tr>
-                    <td style="text-align: right;">
-                        <img src="{{asset('images/logo-pdf.jpg')}}" alt="logo-pdf">
+                        <h5><b>Data sprzedaży: </b>{{date("d.m.Y",strtotime($invoice->sale_date))}}</h5>
+                        <h5><b>Data wystawienia: </b>{{date("d.m.Y",strtotime($invoice->issue_date))}}</h5>
                     </td>
                 </tr>
             </table>
         </td>
     </tr>
 
-
     <tr>
         <td style="width: 50%; vertical-align: top;">
             <table style="width: 100%;" class="bordered">
                 <tr>
                     <th>
-                        <h4><b>{{class_basename($invoice) == 'Income' ? 'Sprzedawca' : 'Wystawca' }}</b></h4>
+                        <h4><b>Sprzedawca</b></h4>
                     </th>
                 </tr>
                 <tr>
                     <td style="padding:10px;">
-                        <h4>MICRON Sp. z o.o.</h4>
-                        <h4>ul. Karola Olszewskiego 21H</h4>
-                        <h4>25-663 Kielce</h4>
-                        <h4>NIP: 9591953333</h4>
-                        <h4>Konto: 38 1050 1416 1000 0091 3885 5383</h4>
+                        <h4>{{$invoice->seller_name}}</h4>
+                        <h4>NIP: {{$invoice->seller_nip}}</h4>
+                        <h4>{{$invoice->seller_address}}</h4>
+                        <h4>{{$invoice->seller_postcode}} {{$invoice->seller_city}}</h4>
                     </td>
                 </tr>
             </table>
