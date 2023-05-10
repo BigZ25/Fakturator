@@ -130,15 +130,22 @@ function tabs() {
         }
     }
 }
-//
-// //my-datetime-picker
-// function setDate(date){
-//     if(date){
-//         selectDate(new Object({
-//             year: 2023,
-//             month: 0,
-//             day: 0,
-//             isDisabled: false,
-//         }))
-//     }
-// }
+
+//my-datetime-picker
+function setDate(dateStr) {
+    if (dateStr) {
+        const dateObj = new Date(dateStr);
+        const day = dateObj.getDate().toString().padStart(2, '0');
+        const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+        const year = dateObj.getFullYear().toString();
+
+        return new Object({
+            year: year,
+            month: month,
+            day: day,
+            isDisabled: false,
+        })
+    }
+
+    return null
+}

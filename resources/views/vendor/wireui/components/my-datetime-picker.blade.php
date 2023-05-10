@@ -1,21 +1,4 @@
-<div x-init="function(){
-        let dateStr  = '{{$value}}'
-
-        if(dateStr ){
-            const dateObj = new Date(dateStr);
-            const day = dateObj.getDate().toString().padStart(2, '0');
-            const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
-            const year = dateObj.getFullYear().toString();
-
-            selectDate(new Object({
-            year: year,
-            month: month,
-            day: day,
-            isDisabled: false,
-        }))
-
-        }
-    }"
+<div x-init="'{{$value}}' ? selectDate(setDate('{{$value}}')) : ''"
      x-data="wireui_datetime_picker({
         model: @entangle($attributes->wire('model')),
         config: {
