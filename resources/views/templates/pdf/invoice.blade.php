@@ -79,41 +79,15 @@
     </tr>
 
     <tr>
-        <td style="width: 50%; vertical-align: top;">
-            <table style="width: 100%;" class="bordered">
-                <tr>
-                    <th>
-                        <h4><b>Sprzedawca</b></h4>
-                    </th>
-                </tr>
-                <tr>
-                    <td style="padding:10px;">
-                        <h4>{{$invoice->seller_name}}</h4>
-                        <h4>NIP: {{$invoice->seller_nip}}</h4>
-                        <h4>{{$invoice->seller_address}}</h4>
-                        <h4>{{$invoice->seller_postcode}} {{$invoice->seller_city}}</h4>
-                    </td>
-                </tr>
-            </table>
-        </td>
-        <td style="width: 50%; vertical-align: top;">
-            <table style="width: 100%;" class="bordered">
-                <tr>
-                    <th>
-                        <h4><b>Adresat</b></h4>
-                    </th>
-                </tr>
-                <tr>
-                    <td style="padding: 10px;">
-                        <h4>{{$invoice->company_name}}</h4>
-                        <h4>{{$invoice->company_address}}</h4>
-                        <h4>{{$invoice->company_postcode . ' ' . $invoice->company_city}}</h4>
-                        <h4>{{'NIP: ' . $invoice->company_nip}}</h4>
-                    </td>
-                </tr>
-            </table>
-        </td>
+        @include('templates.pdf.partials.company_data',['label' => 'Sprzedawca', 'prefix' => 'seller'])
+        @include('templates.pdf.partials.company_data',['label' => 'Nabywca', 'prefix' => 'buyer'])
     </tr>
+    @if($invoice->has_recipient)
+        <tr>
+            <td></td>
+            @include('templates.pdf.partials.company_data',['label' => 'Odbiorca', 'prefix' => 'recipient'])
+        </tr>
+    @endif
 </table>
 
 @if($invoice->correction_id)
@@ -127,18 +101,14 @@
                 <table style="width: 100%" class="bordered">
                     <tr>
                         <th><h6>L.p.</h6></th>
-                        <th><h6>Nazwa pozycji</h6></th>
-                        @if(class_basename($invoice) == 'Income')
-                            <th><h6>Ilość</h6></th>
-                            <th><h6>J.m.</h6></th>
-                            <th><h6>Cena netto</h6></th>
-                            <th><h6>Wartość netto</h6></th>
-                            <th><h6>Stawka VAT</h6></th>
-                            <th><h6>Wartość VAT</h6></th>
-                            <th><h6>Wartość brutto</h6></th>
-                        @else
-                            <th><h6>Kwota obciążeniowa</h6></th>
-                        @endif
+                        <th><h6>Nazwa</h6></th>
+                        <th><h6>Jednostka</h6></th>
+                        <th><h6>Ilość</h6></th>
+                        <th><h6>Stawka VAT</h6></th>
+                        <th><h6>Cena</h6></th>
+                        <th><h6>Netto</h6></th>
+                        <th><h6>VAT</h6></th>
+                        <th><h6>Brutto</h6></th>
                     </tr>
                     @foreach($invoice->correction->items as $item)
                         <tr>

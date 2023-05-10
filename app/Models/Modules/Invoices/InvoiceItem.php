@@ -2,12 +2,10 @@
 
 namespace App\Models\Modules\Invoices;
 
+use App\Enum\App\UnitsEnum;
 use App\Enum\App\VatTypesEnum;
 use App\Models\BaseModel;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
-use Wildside\Userstamps\Userstamps;
 
 class InvoiceItem extends BaseModel
 {
@@ -27,6 +25,11 @@ class InvoiceItem extends BaseModel
         'quantity' => 'float',
         'price' => 'float',
     ];
+
+    public function getUnitNameAttribute()
+    {
+        return UnitsEnum::getList($this->unit);
+    }
 
     public function getVatTypeNameAttribute()
     {

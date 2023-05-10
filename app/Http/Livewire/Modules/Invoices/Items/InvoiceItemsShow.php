@@ -38,9 +38,9 @@ class InvoiceItemsShow extends BaseItemsShowComponent
     {
         return PowerGrid::eloquent()
             ->addColumn('name')
-            ->addColumn('unit')
-            ->addColumn('vat_type_name')
+            ->addColumn('unit_name')
             ->addColumn('quantity')
+            ->addColumn('vat_type_name')
             ->addColumn('price_formatted', function (InvoiceItem $item) {
                 return formatPriceShow($item->price);
             })->addColumn('netto_formatted', function ($item) {
@@ -56,9 +56,9 @@ class InvoiceItemsShow extends BaseItemsShowComponent
     {
         return [
             Column::make('Nazwa', 'name'),
-            Column::make('Jednostka', 'unit'),
-            Column::make('Stawka VAT', 'vat_type_name'),
+            Column::make('Jednostka', 'unit_name'),
             Column::make('Ilość', 'quantity'),
+            Column::make('Stawka VAT', 'vat_type_name'),
             Column::make('Cena', 'price_formatted'),
             Column::make('Netto', 'netto_formatted'),
             Column::make('VAT', 'vat_formatted'),

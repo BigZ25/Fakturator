@@ -103,6 +103,10 @@ class Invoice extends BaseModel
         return $this->items->sum('brutto');
     }
 
+    public function getHasRecipientAttribute(){
+        return $this->recipient_nip || $this->recipient_name || $this->recipient_address || $this->recipient_postcode || $this->recipient_city;
+    }
+
     public function items()
     {
         return $this->hasMany(InvoiceItem::class);
