@@ -8,7 +8,7 @@
                         <tr>
                             @include('templates.table.form.th',['label' => "Nazwa",'align' => 'center'])
                             @include('templates.table.form.th',['label' => "Jednostka",'align' => 'center'])
-                            @include('templates.table.form.th',['label' => "VAT",'align' => 'center'])
+                            @include('templates.table.form.th',['label' => "Stawka VAT",'align' => 'center'])
                             @include('templates.table.form.th',['label' => "Ilość",'align' => 'center'])
                             @include('templates.table.form.th',['label' => "Cena",'align' => 'center'])
                             @include('templates.table.form.th',['label' => "Netto",'align' => 'center'])

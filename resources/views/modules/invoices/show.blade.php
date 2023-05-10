@@ -17,7 +17,6 @@
             @include('templates.show.row',['label' => 'Metoda płatności','value' => $invoice->payment_method_name])
             @include('templates.show.row',['label' => 'Faktura wydrukowana','value' => $invoice->is_printed_text])
             @include('templates.show.row',['label' => 'Faktura wysłana','value' => $invoice->is_send_text])
-
             {{--           TODO: notatki @include('templates.show.',['label' => 'Nazwa','value' => $invoice->name])--}}
         </x-card>
     </div>

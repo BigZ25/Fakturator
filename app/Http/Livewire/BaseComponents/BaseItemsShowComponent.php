@@ -11,4 +11,6 @@ class BaseItemsShowComponent extends PowerGridComponent
 
     public $parentId;
     public $box_title;
+
+    public $customSummary;
 }

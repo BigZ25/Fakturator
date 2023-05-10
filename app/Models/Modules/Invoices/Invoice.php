@@ -88,6 +88,21 @@ class Invoice extends BaseModel
         }
     }
 
+    public function getNettoAttribute()
+    {
+        return $this->items->sum('netto');
+    }
+
+    public function getVatAttribute()
+    {
+        return $this->items->sum('vat');
+    }
+
+    public function getBruttoAttribute()
+    {
+        return $this->items->sum('brutto');
+    }
+
     public function items()
     {
         return $this->hasMany(InvoiceItem::class);
