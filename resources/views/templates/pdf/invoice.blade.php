@@ -12,14 +12,6 @@
             font-weight: normal;
         }
 
-        img {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 20%;
-            padding-bottom: 10px;
-        }
-
         @page {
             margin: 30px 30px 30px 30px !important;
         }
@@ -91,198 +83,10 @@
 </table>
 
 @if($invoice->correction_id)
-
-    <table style="width: 100%; padding-top: 10px;">
-        <tr>
-            <td><h6><b>Przed korektą:</b></h6></td>
-        </tr>
-        <tr>
-            <td style="width: 100%;">
-                <table style="width: 100%" class="bordered">
-                    <tr>
-                        <th><h6>L.p.</h6></th>
-                        <th><h6>Nazwa</h6></th>
-                        <th><h6>Jednostka</h6></th>
-                        <th><h6>Ilość</h6></th>
-                        <th><h6>Stawka VAT</h6></th>
-                        <th><h6>Cena</h6></th>
-                        <th><h6>Netto</h6></th>
-                        <th><h6>VAT</h6></th>
-                        <th><h6>Brutto</h6></th>
-                    </tr>
-                    @foreach($invoice->correction->items as $item)
-                        <tr>
-                            <td class="center"><h6>{{$loop->index + 1}}.</h6></td>
-                            <td><h6>{{$item->name}}</h6></td>
-                            @if(class_basename($invoice) == 'Income')
-                                <td class="center"><h6>{{$item->quantity}}</h6></td>
-                                <td class="center"><h6>{{config('units.incomeItems')[$item->unit]}}</h6></td>
-                                <td class="center"><h6>{{formatPriceShow($item->price)}}</h6></td>
-                                <td class="center"><h6>{{formatPriceShow($item->netto)}}</h6></td>
-                                <td class="center"><h6>{{$item->vat_type}}%</h6></td>
-                                <td class="center"><h6>{{formatPriceShow($item->vat)}}</h6></td>
-                                <td class="center"><h6>{{formatPriceShow($item->brutto)}}</h6></td>
-                            @else
-                                <td class="center"><h6>{{formatPriceShow($item->amount)}}</h6></td>
-                            @endif
-                        </tr>
-                    @endforeach
-                    <tr style="border: 0;height: 10px;">
-                        <td style="border: 0;height: 10px;" colspan="{{class_basename($invoice) == 'Income' ? 9 : 3}}"></td>
-                    </tr>
-                    <tr>
-                        <td style="border: 0" colspan="{{class_basename($invoice) == 'Income' ? 4 : 1}}"></td>
-                        <th class="right"><h6><b>Suma:</b></h6></th>
-                        @if(class_basename($invoice) == 'Income')
-                            <td class="center"><h6>{{formatPriceShow($invoice->correction->netto)}}</h6></td>
-                            <td></td>
-                            <td class="center"><h6>{{formatPriceShow($invoice->correction->vat)}}</h6></td>
-                            <td class="center"><h6>{{formatPriceShow($invoice->correction->brutto)}}</h6></td>
-                        @else
-                            <td class="center"><h6>{{formatPriceShow($invoice->correction->amount)}}</h6></td>
-                        @endif
-                    </tr>
-
-                    @if(class_basename($invoice) == 'Income')
-                        @if($invoice->correction->items->groupBy('vat_type')->keys()->count() > 1)
-                            @foreach($invoice->correction->items->groupBy('vat_type')->keys() as $vat_type)
-                                <tr>
-                                    <td style="border: 0" colspan="4"></td>
-                                    <th class="right"><h6>W tym:</h6></th>
-                                    <td class="center"><h6>{{formatPriceShow($invoice->correction->items->where('vat_type',$vat_type)->sum('netto'))}}</h6></td>
-                                    <td class="center"><h6>{{$vat_type}}%</h6></td>
-                                    <td class="center"><h6>{{formatPriceShow($invoice->correction->items->where('vat_type',$vat_type)->sum('vat'))}}</h6></td>
-                                    <td class="center"><h6>{{formatPriceShow($invoice->correction->items->where('vat_type',$vat_type)->sum('brutto'))}}</h6></td>
-                                </tr>
-                            @endforeach
-                        @endif
-                    @endif
-
-                </table>
-            </td>
-        </tr>
-    </table>
-
+    @include('templates.pdf.partials.items',['items' => $invoice->correction->items, 'label' => 'Przed korektą:'])
 @endif
 
-<table style="width: 100%; padding-top: 10px;">
-    @if($invoice->correction_id)
-        <tr>
-            <td><h6><b>Po korekcie:</b></h6></td>
-        </tr>
-    @endif
-    <tr>
-        <td style="width: 100%;">
-            <table style="width: 100%" class="bordered">
-                <tr>
-                    <th><h6>L.p.</h6></th>
-                    <th><h6>Nazwa pozycji</h6></th>
-                    @if(class_basename($invoice) == 'Income')
-                        <th><h6>Ilość</h6></th>
-                        <th><h6>J.m.</h6></th>
-                        <th><h6>Cena netto</h6></th>
-                        <th><h6>Wartość netto</h6></th>
-                        <th><h6>Stawka VAT</h6></th>
-                        <th><h6>Wartość VAT</h6></th>
-                        <th><h6>Wartość brutto</h6></th>
-                    @else
-                        <th><h6>Kwota obciążeniowa</h6></th>
-                    @endif
-                </tr>
-                @foreach($invoice->items as $item)
-                    <tr>
-                        <td class="center"><h6>{{$loop->index + 1}}.</h6></td>
-                        <td><h6>{{$item->name}}</h6></td>
-                        @if(class_basename($invoice) == 'Income')
-                            <td class="center"><h6>{{$item->quantity}}</h6></td>
-                            <td class="center"><h6>{{config('units.incomeItems')[$item->unit]}}</h6></td>
-                            <td class="center"><h6>{{formatPriceShow($item->price)}}</h6></td>
-                            <td class="center"><h6>{{formatPriceShow($item->netto)}}</h6></td>
-                            <td class="center"><h6>{{$item->vat_type}}%</h6></td>
-                            <td class="center"><h6>{{formatPriceShow($item->vat)}}</h6></td>
-                            <td class="center"><h6>{{formatPriceShow($item->brutto)}}</h6></td>
-                        @else
-                            <td class="center"><h6>{{formatPriceShow($item->amount)}}</h6></td>
-                        @endif
-                    </tr>
-                @endforeach
-                <tr style="border: 0;">
-                    <td style="border: 0;height: 10px;" colspan="{{class_basename($invoice) == 'Income' ? 9 : 3}}"></td>
-                </tr>
-                <tr>
-                    <td style="border: 0" colspan="{{class_basename($invoice) == 'Income' ? 4 : 1}}"></td>
-                    <th class="right"><h6><b>Suma:</b></h6></th>
-                    @if(class_basename($invoice) == 'Income')
-                        <td class="center"><h6>{{formatPriceShow($invoice->netto)}}</h6></td>
-                        <td></td>
-                        <td class="center"><h6>{{formatPriceShow($invoice->vat)}}</h6></td>
-                        <td class="center"><h6>{{formatPriceShow($invoice->brutto)}}</h6></td>
-                    @else
-                        <td class="center"><h6>{{formatPriceShow($invoice->amount)}}</h6></td>
-                    @endif
-                </tr>
-
-                @if(class_basename($invoice) == 'Income')
-                    @if($invoice->items->groupBy('vat_type')->keys()->count() > 1)
-                        @foreach($invoice->items->groupBy('vat_type')->keys() as $vat_type)
-                            <tr>
-                                <td style="border: 0" colspan="4"></td>
-                                <th class="right"><h6>W tym:</h6></th>
-                                <td class="center"><h6>{{formatPriceShow($invoice->items->where('vat_type',$vat_type)->sum('netto'))}}</h6></td>
-                                <td class="center"><h6>{{$vat_type}}%</h6></td>
-                                <td class="center"><h6>{{formatPriceShow($invoice->items->where('vat_type',$vat_type)->sum('vat'))}}</h6></td>
-                                <td class="center"><h6>{{formatPriceShow($invoice->items->where('vat_type',$vat_type)->sum('brutto'))}}</h6></td>
-                            </tr>
-                        @endforeach
-                    @endif
-                @endif
-
-                @if($invoice->correction_id)
-                    <tr style="border: 0;">
-                        <td style="border: 0;height: 20px;" colspan="{{class_basename($invoice) == 'Income' ? 9 : 3}}"></td>
-                    </tr>
-                    <tr>
-                        <td style="border: 0" colspan="{{class_basename($invoice) == 'Income' ? 4 : 1}}"></td>
-                        <th class="right"><h6>Przed korektą:</h6></th>
-                        @if(class_basename($invoice) == 'Income')
-                            <td class="center"><h6>{{formatPriceShow($invoice->correction->netto)}}</h6></td>
-                            <td></td>
-                            <td class="center"><h6>{{formatPriceShow($invoice->correction->vat)}}</h6></td>
-                            <td class="center"><h6>{{formatPriceShow($invoice->correction->brutto)}}</h6></td>
-                        @else
-                            <td class="center"><h6>{{formatPriceShow($invoice->correction->amount)}}</h6></td>
-                        @endif
-                    </tr>
-                    <tr>
-                        <td style="border: 0" colspan="{{class_basename($invoice) == 'Income' ? 4 : 1}}"></td>
-                        <th class="right"><h6>Po korekcie:</h6></th>
-                        @if(class_basename($invoice) == 'Income')
-                            <td class="center"><h6>{{formatPriceShow($invoice->netto)}}</h6></td>
-                            <td></td>
-                            <td class="center"><h6>{{formatPriceShow($invoice->vat)}}</h6></td>
-                            <td class="center"><h6>{{formatPriceShow($invoice->brutto)}}</h6></td>
-                        @else
-                            <td class="center"><h6>{{formatPriceShow($invoice->amount)}}</h6></td>
-                        @endif
-                    </tr>
-                    <tr>
-                        <td style="border: 0" colspan="{{class_basename($invoice) == 'Income' ? 4 : 1}}"></td>
-                        <th class="right"><h6><b>Różnica:</b></h6></th>
-                        @if(class_basename($invoice) == 'Income')
-                            <td class="center"><h6>{{formatPriceShow($invoice->netto - $invoice->correction->netto)}}</h6></td>
-                            <td></td>
-                            <td class="center"><h6>{{formatPriceShow($invoice->vat - $invoice->correction->vat)}}</h6></td>
-                            <td class="center"><h6>{{formatPriceShow($invoice->brutto - $invoice->correction->brutto)}}</h6></td>
-                        @else
-                            <td class="center"><h6>{{formatPriceShow($invoice->amount - $invoice->correction->amount)}}</h6></td>
-                        @endif
-                    </tr>
-                @endif
-
-            </table>
-        </td>
-    </tr>
-</table>
+@include('templates.pdf.partials.items',['items' => $invoice->items, 'label' => $invoice->correction_id ? 'Po korekcie:' : ''])
 
 <table style="width: 100%; padding-top: 10px;">
     <tr>
@@ -290,12 +94,7 @@
             <table style="width: 100%;border: 1px solid;">
                 <tr>
                     <td style="padding: 5px 0 0 5px;">
-                        <h5><b>Do zapłaty:</b> {{formatPriceShow(class_basename($invoice) == 'Income' ? $invoice->brutto : $invoice->amount)}}</h5>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding: 0 0 5px 5px;">
-                        <h5><b>Słownie:</b> {{$invoice->totalInWords}}</h5>
+                        <h5><b>Do zapłaty:</b> {{formatPriceShow($invoice->brutto)}}</h5>
                     </td>
                 </tr>
             </table>
@@ -319,7 +118,7 @@
                 </tr>
                 <tr>
                     <td style="padding: 0 0 5px 5px;">
-                        <h5><b>Tytuł płatności:</b> {{class_basename($invoice) == 'Income' ? 'Faktura VAT' : 'Nota obciążeniowa'}} nr {{$invoice->number}}</h5>
+                        <h5><b>Tytuł płatności:</b> Faktura VAT nr {{$invoice->number}}</h5>
                     </td>
                 </tr>
                 <tr>
@@ -329,7 +128,7 @@
                 </tr>
                 <tr>
                     <td style="padding: 0px 0 5px 5px;">
-                        <h5>{{$invoice->internal_notes}}</h5>
+                        <h5>{{$invoice->notes}}</h5>
                     </td>
                 </tr>
             </table>
@@ -343,7 +142,7 @@
             <table style="width: 100%;border: 1px solid;border-collapse: collapse;">
                 <tr>
                     <td style="padding: 0 0 5px 0;vertical-align:bottom;text-align:center;height: 100px;">
-                        <h5>podpis osoby upoważnionej do wystawienia noty</h5>
+                        <h5>podpis osoby upoważnionej do wystawienia faktury</h5>
                     </td>
                 </tr>
             </table>
@@ -352,7 +151,7 @@
             <table style="width: 100%;border: 1px solid;border-collapse: collapse;">
                 <tr>
                     <td style="padding: 0 0 5px 0;vertical-align:bottom;text-align:center;height: 100px;">
-                        <h5>podpis osoby upoważnionej do odbioru noty</h5>
+                        <h5>podpis osoby upoważnionej do odbioru faktury</h5>
                     </td>
                 </tr>
             </table>
