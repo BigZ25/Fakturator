@@ -5,6 +5,6 @@
         name="{{$name ?? ''}}"
         :value="$value ?? null"
         wire:model="{{$model ?? ''}}"
-        display-format="DD-MM-YYYY"
+        display-format="YYYY-MM-DD"
     />
 </div>

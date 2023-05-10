@@ -29,12 +29,28 @@ class ProductsController extends Controller
         return response()->json(route('products.show', $product->id));
     }
 
-    public function destroy(Product $product)
+    public function destroy($customerId)
     {
-        $product->delete();
+        if (request()->has('ids') && (int)$customerId === 0) {
+            $customers = Customer::query()
+                ->whereIn('id', request()->input('ids'))
+                ->get();
 
-        AppClass::addMessage('Produkt został usunięty');
+            foreach ($customers as $customer) {
+                $customer->delete();
+            }
 
-        return response()->json(route('products.index'));
+            AppClass::addMessage('Produkty zostały usunięte');
+        } else {
+            $customer = Customer::find($customerId);
+
+            if ($customer) {
+                $customer->delete();
+
+                AppClass::addMessage('Produkt został usunięty');
+            }
+        }
+
+        return response()->json(route('customers.index'));
     }
 }
