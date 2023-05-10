@@ -13,6 +13,7 @@ use App\Models\Modules\Invoices\InvoiceItem;
 use App\Services\Modules\InvoicePhotosService;
 use App\Services\Modules\InvoicesService;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use niklasravnsborg\LaravelPdf\Pdf;
 
 class InvoicesController extends Controller
 {
@@ -59,5 +60,21 @@ class InvoicesController extends Controller
         }
 
         return response()->json(route('invoices.index'));
+    }
+
+    public function pdf(int $invoiceID)
+    {
+        $invoice = Invoice::find($invoiceID);
+        $invoice->getItems();
+
+        if ($invoice->correction_id) {
+            $invoice->correction = Invoice::find($invoice->correction_id);
+            $invoice->correction->getItems();
+        }
+
+//        $invoice->totalInWords = (new NumberToWords())->getCurrencyTransformer('pl')->toWords(str_replace(".", "", $invoice->brutto), 'PLN');
+
+        return PDF::loadView('templates.pdf.invoice', ['invoice' => $invoice])
+            ->stream('Faktura VAT nr ' . $invoice->number . '.pdf');
     }
 }

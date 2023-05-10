@@ -25,6 +25,7 @@
         "laravel/ui": "3.3",
         "livewire/livewire": "^2.10",
         "maatwebsite/excel": "^3.1",
+        "niklasravnsborg/laravel-pdf": "^4.1",
         "power-components/livewire-powergrid": "*",
         "wildside/userstamps": "^2.2",
         "wireui/wireui": "^0.17.1"
