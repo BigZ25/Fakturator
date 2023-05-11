@@ -8,7 +8,7 @@
     </div>
     <div class="pb-3">
         <x-card title="Podstawowe dane" color="bg-white" rounded="rounded-sm" cardClasses="card-body">
-            @include('templates.company_data.show')
+            @include('templates.company_data.show',['entity' => $customer])
             @include('templates.show.row',['label' => 'Adres e-mail','value' => $customer->email])
             @include('templates.show.timestamp',['entity' => $customer])
         </x-card>

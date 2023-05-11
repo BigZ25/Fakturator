@@ -8,20 +8,47 @@
             @include('templates.buttons.button',['label' => 'Wystaw podobną','color' => 'cyan','icon' => 'document-duplicate','route' => route('invoices.copy',$invoice->id)])
         </x-card>
     </div>
-    <div class="pb-3">
-        <x-card title="Podstawowe dane" color="bg-white" rounded="rounded-sm" cardClasses="card-body">
-            @include('templates.show.row',['label' => 'Numer','value' => $invoice->number])
-            @include('templates.show.row',['label' => 'Adres e-mail do wysyłki','value' => $invoice->send_email])
-            @include('templates.show.row',['label' => 'Data sprzedaży','value' => $invoice->sale_date])
-            @include('templates.show.row',['label' => 'Data wystawienia','value' => $invoice->issue_date])
-            @include('templates.show.row',['label' => 'Termin płatności','value' => $invoice->payment_date])
-            @include('templates.show.row',['label' => 'Zapłacono dnia','value' => $invoice->paid_date])
-            @include('templates.show.row',['label' => 'Metoda płatności','value' => $invoice->payment_method_name])
-            @include('templates.show.row',['label' => 'Faktura wydrukowana','value' => $invoice->is_printed_text])
-            @include('templates.show.row',['label' => 'Faktura wysłana','value' => $invoice->is_send_text])
-            @include('templates.show.textarea',['label' => 'Notatki','value' => $invoice->notes])
-            @include('templates.show.timestamp',['entity' => $invoice])
-        </x-card>
+    <div class="flex pb-3">
+        <div class="flex-1 pr-2">
+            <x-card title="Podstawowe dane" color="bg-white" rounded="rounded-sm" cardClasses="card-body">
+                @include('templates.show.row',['label' => 'Numer','value' => $invoice->number])
+                @include('templates.show.row',['label' => 'Adres e-mail do wysyłki','value' => $invoice->send_email])
+                @include('templates.show.row',['label' => 'Data sprzedaży','value' => $invoice->sale_date])
+                @include('templates.show.row',['label' => 'Data wystawienia','value' => $invoice->issue_date])
+                @include('templates.show.row',['label' => 'Termin płatności','value' => $invoice->payment_date])
+                @include('templates.show.row',['label' => 'Zapłacono dnia','value' => $invoice->paid_date])
+                @include('templates.show.row',['label' => 'Metoda płatności','value' => $invoice->payment_method_name])
+                @include('templates.show.row',['label' => 'Faktura wydrukowana','value' => $invoice->is_printed_text])
+                @include('templates.show.row',['label' => 'Faktura wysłana','value' => $invoice->is_send_text])
+                @include('templates.show.textarea',['label' => 'Notatki','value' => $invoice->notes])
+                @include('templates.show.timestamp',['entity' => $invoice])
+            </x-card>
+        </div>
+        <div x-data="tabs">
+            <div class="grid grid-cols-3 cursor-pointer">
+                <div :class="getClasses(1)" @click="setActive(1)">
+                    <h3 class="text-md font-medium text-secondary-700 dark:text-secondary-400 whitespace-normal">Dane nabywcy</h3>
+                </div>
+                <div :class="getClasses(2)" @click="setActive(2)">
+                    <h3 class="text-md font-medium text-secondary-700 dark:text-secondary-400 whitespace-normal">Dane odbiorcy</h3>
+                </div>
+            </div>
+            <div>
+                <div x-show="isActive(1)" x-transition:enter.duration.500ms>
+                    <x-card color="bg-white flex" rounded="rounded-sm" cardClasses="card-body" style>
+                        @include('templates.company_data.show',['entity' => $invoice, 'prefix' => 'buyer'])
+                        <div class="flex flex-wrap">
+                            @include('templates.show.row',['label' => 'Adres e-mail','value' => $invoice->send_email])
+                        </div>
+                    </x-card>
+                </div>
+                <div x-show="isActive(2)" x-transition:enter.duration.500ms>
+                    <x-card color="bg-white flex" rounded="rounded-sm" cardClasses="card-body">
+                        @include('templates.company_data.show',['entity' => $invoice, 'prefix' => 'recipient'])
+                    </x-card>
+                </div>
+            </div>
+        </div>
     </div>
     @livewire('modules.invoices.items.invoice-items-show',['parentId' => $invoice->id])
 </div>

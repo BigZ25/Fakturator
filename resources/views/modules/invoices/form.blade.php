@@ -42,7 +42,7 @@
                         <x-card color="bg-white flex" rounded="rounded-sm" cardClasses="card-body" style>
                             @livewire('templates.company-data',['entity' => $invoice, 'prefix' => 'buyer'])
                             <div class="flex flex-wrap">
-                                @include('templates.form.text',['width' => 100,'value' => $invoice->buyer_email,'name' => 'buyer_email' ,'label' => 'Adres e-mail'])
+                                @include('templates.form.text',['width' => 100,'value' => $invoice->send_email,'name' => 'send_email' ,'label' => 'Adres e-mail'])
                             </div>
                         </x-card>
                     </div>

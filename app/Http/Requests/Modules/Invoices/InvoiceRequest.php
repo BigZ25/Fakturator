@@ -35,7 +35,6 @@ class InvoiceRequest extends FormRequest
             'buyer_address' => stringRules(),
             'buyer_postcode' => postcodeRules(),
             'buyer_city' => stringRules(),
-            'buyer_email' => emailRules(false),
 
             //dane odbiory
             'recipient_nip' => nipRules(false),
@@ -50,6 +49,7 @@ class InvoiceRequest extends FormRequest
             'payment_date' => dateRules(),
             'paid_date' => dateRules(false),
 
+            'send_email' => emailRules(false),
             'payment_method' => enumRules(PaymentMethodsEnum::class),
             'is_printed' => boolRules(),
             'is_send' => boolRules(),
