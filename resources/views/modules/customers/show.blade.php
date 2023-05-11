@@ -3,7 +3,7 @@
     <div class="pb-3">
         <x-card padding="p-2" color="bg-white" rounded="rounded-sm">
             @include('templates.buttons.edit',['route' => route('customers.edit',$customer->id), 'disabled' => $customer->is_active || $customer->is_in_queue])
-            @include('templates.buttons.button',['label' => 'Usuń','color' => 'red','icon' => 'trash','action' => 'openDeleteModal("'.addcslashes(get_class($customer),'\\').'",'.$customer->id.')','disabled' => $customer->is_in_queue])
+            @include('templates.buttons.button',['label' => 'Usuń','color' => 'red','icon' => 'trash','action' => 'openDeleteModal("'.addcslashes(get_class($customer),'\\').'",'.$customer->id.')'])
         </x-card>
     </div>
     <div class="pb-3">

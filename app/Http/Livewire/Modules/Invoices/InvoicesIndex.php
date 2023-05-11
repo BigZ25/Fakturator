@@ -71,7 +71,6 @@ class InvoicesIndex extends BaseIndexComponent
                 ->class(buttonClass('indigo'))
                 ->icon('document-download')
                 ->route('invoices.pdf', ['id'])->target('_blank');
-//                ->emit('openDeleteModal', ['class' => $this->datasource()->getModel()::class, 'ids' => 'id']);
 
         return $actions;
     }
