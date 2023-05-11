@@ -26,7 +26,7 @@ function formatDateTimeShow($value, $seconds = true)
 
 function todayDate()
 {
-    return date("d-m-Y");
+    return date("Y-m-d");
 }
 
 function currentDateTime()

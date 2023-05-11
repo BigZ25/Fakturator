@@ -27,7 +27,7 @@ class InvoiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'number' => array_merge(stringRules(), [Rule::unique('invoices')->where('user_id', auth()->user()->id)->ignore($this->invoice->id)]),
+            'number' => array_merge(stringRules(), [Rule::unique('invoices')->where('user_id', auth()->user()->id)->ignore($this->invoice->id ?? null)]),
 
             //dane nabywcy
             'buyer_nip' => nipRules(),
@@ -56,6 +56,7 @@ class InvoiceRequest extends FormRequest
             'notes' => stringRules(false),
 
             //items
+            'items' => ['required', 'array', 'min:1'],
             'items.*.name' => stringRules(),
             'items.*.unit' => enumRules(UnitsEnum::class),
             'items.*.vat_type' => enumRules(VatTypesEnum::class),

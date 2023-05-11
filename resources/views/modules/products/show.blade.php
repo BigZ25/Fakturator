@@ -12,6 +12,7 @@
             @include('templates.show.row',['label' => 'VAT','value' => $product->vat_type_name])
             @include('templates.show.row',['label' => 'Cena','value' => formatPriceShow($product->price)])
             @include('templates.show.row',['label' => 'Ilość','value' => $product->quantity])
+            @include('templates.show.timestamp',['entity' => $product])
         </x-card>
     </div>
 </div>

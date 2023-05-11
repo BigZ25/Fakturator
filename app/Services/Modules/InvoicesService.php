@@ -25,7 +25,7 @@ class InvoicesService
             ];
 
         if ($invoice === null) {
-            $data[] = ['user_id' => auth()->user()->id];
+            $data['user_id'] = auth()->user()->id;
             $invoice = Invoice::create($data);
             InvoiceItem::saveData($request, $invoice->id, 'invoice_id');
             $message = 'Faktura została zapisana';

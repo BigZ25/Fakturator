@@ -23,15 +23,15 @@ class InvoicesForm extends BaseFormComponent
             'payment_methods' => PaymentMethodsEnum::getSelectList(),
         ];
 
-        $this->invoice = new Invoice();
-        $this->invoice->number = Invoice::nextNumber(auth()->user()->id);
-        //TODO: $this->issue_date = todayDate();
-
         if ($this->entity_id !== null) {
             $this->invoice = Invoice::find($this->entity_id);
+        } else {
+            $this->invoice = new Invoice();
+            $this->invoice->number = Invoice::nextNumber(auth()->user()->id);
+            $this->invoice->issue_date = todayDate();
+            $this->invoice->sale_date = date("Y-m-d", strtotime("+1 month", strtotime(todayDate())));
+            $this->invoice->payment_date = todayDate();
         }
-
-//        $this->authorize('edit', $this->invoice);
     }
 
     public function render()
