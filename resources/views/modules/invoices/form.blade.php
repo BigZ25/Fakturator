@@ -40,7 +40,7 @@
                 <div>
                     <div x-show="isActive(1)" x-transition:enter.duration.500ms>
                         <x-card color="bg-white flex" rounded="rounded-sm" cardClasses="card-body" style>
-                            @livewire('templates.company-data',['entity' => $invoice, 'prefix' => 'buyer'])
+                            @livewire('templates.company-data',['entity' => $invoice, 'id' => $entity_id, 'prefix' => 'buyer'])
                             <div class="flex flex-wrap">
                                 @include('templates.form.text',['width' => 100,'value' => $invoice->send_email,'name' => 'send_email' ,'label' => 'Adres e-mail'])
                             </div>
@@ -48,7 +48,7 @@
                     </div>
                     <div x-show="isActive(2)" x-transition:enter.duration.500ms>
                         <x-card color="bg-white flex" rounded="rounded-sm" cardClasses="card-body">
-                            @livewire('templates.company-data',['entity' => $invoice, 'prefix' => 'recipient'])
+                            @livewire('templates.company-data',['entity' => $invoice, 'id' => $entity_id, 'prefix' => 'recipient'])
                         </x-card>
                     </div>
                 </div>
