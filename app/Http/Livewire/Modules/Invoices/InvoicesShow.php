@@ -12,6 +12,10 @@ class InvoicesShow extends BaseShowComponent
         $this->title = 'Podgląd faktury';
         $this->view_path = 'modules.invoices.show';
         $this->currentModule = 'invoices';
+        $this->breadcrumbs = [
+            'label' => 'Powrót do listy faktur',
+            'route' => route('invoices.index')
+        ];
         $this->entity_id = $entity_id;
     }
 

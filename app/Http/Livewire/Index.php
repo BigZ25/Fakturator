@@ -12,6 +12,7 @@ class Index extends Component
     public $activeModule;
     public $show;
     public $inject;
+    public $breadcrumbs;
 
     public function boot()
     {

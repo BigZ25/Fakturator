@@ -18,6 +18,10 @@ class InvoicesForm extends BaseFormComponent
         $this->title = $entity_id ? 'Edycja faktury' : 'Nowa faktura';
         $this->view_path = 'modules.invoices.form';
         $this->currentModule = 'invoices';
+        $this->breadcrumbs = [
+            'label' => 'Powrót do listy faktur',
+            'route' => route('invoices.index')
+        ];
         $this->entity_id = $entity_id;
         $this->lists = [
             'payment_methods' => PaymentMethodsEnum::getSelectList(),

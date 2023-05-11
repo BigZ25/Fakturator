@@ -12,6 +12,10 @@ class ProductsShow extends BaseShowComponent
         $this->title = 'Podgląd kolekcji';
         $this->view_path = 'modules.products.show';
         $this->currentModule = 'products';
+        $this->breadcrumbs = [
+            'label' => 'Powrót do listy produktów',
+            'route' => route('products.index')
+        ];
         $this->entity_id = $entity_id;
     }
 

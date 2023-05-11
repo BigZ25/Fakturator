@@ -12,6 +12,10 @@ class CustomersShow extends BaseShowComponent
         $this->title = 'Podgląd klienta';
         $this->view_path = 'modules.customers.show';
         $this->currentModule = 'customers';
+        $this->breadcrumbs = [
+            'label' => 'Powrót do listy klientów',
+            'route' => route('customers.index')
+        ];
         $this->entity_id = $entity_id;
     }
 

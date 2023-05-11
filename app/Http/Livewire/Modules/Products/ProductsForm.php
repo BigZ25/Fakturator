@@ -18,6 +18,10 @@ class ProductsForm extends BaseFormComponent
         $this->title = $entity_id ? 'Edycja produktu' : 'Nowy produkt';
         $this->view_path = 'modules.products.form';
         $this->currentModule = 'products';
+        $this->breadcrumbs = [
+            'label' => 'Powrót do listy produktów',
+            'route' => route('products.index')
+        ];
         $this->entity_id = $entity_id;
         $this->product = new Product();
 

@@ -17,6 +17,10 @@ class CustomersForm extends BaseFormComponent
         $this->title = $entity_id ? 'Edycja klienta' : 'Nowy klient';
         $this->view_path = 'modules.customers.form';
         $this->currentModule = 'customers';
+        $this->breadcrumbs = [
+            'label' => 'Powrót do listy klientów',
+            'route' => route('customers.index')
+        ];
         $this->entity_id = $entity_id;
         $this->customer = new Customer();
 
