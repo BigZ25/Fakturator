@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-        @livewire('modules.invoices.items.invoice-items-form',[$invoice->id])
+        @livewire('modules.invoices.items.invoice-items-form',[$entity_id])
         @if($invoice->id === null)
             @include('templates.buttons.store')
         @else

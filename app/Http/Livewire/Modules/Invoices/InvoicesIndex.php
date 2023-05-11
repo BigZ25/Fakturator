@@ -70,7 +70,16 @@ class InvoicesIndex extends BaseIndexComponent
                 ->caption('Pobierz PDF')
                 ->class(buttonClass('indigo'))
                 ->icon('document-download')
-                ->route('invoices.pdf', ['id'])->target('_blank');
+                ->route('invoices.pdf', ['id'])
+                ->target('_blank');
+
+        $actions[] =
+            Button::add('copy')
+                ->caption('Wystaw podobną')
+                ->class(buttonClass('cyan'))
+                ->icon('document-duplicate')
+                ->route('invoices.copy', ['id'])
+                ->target('_self');
 
         return $actions;
     }

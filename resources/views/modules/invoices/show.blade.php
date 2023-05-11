@@ -5,6 +5,7 @@
             @include('templates.buttons.edit',['route' => route('invoices.edit',$invoice->id), 'disabled' => $invoice->is_active || $invoice->is_in_queue])
             @include('templates.buttons.button',['label' => 'Usuń','color' => 'red','icon' => 'trash','action' => 'openDeleteModal("'.addcslashes(get_class($invoice),'\\').'",'.$invoice->id.')'])
             @include('templates.buttons.button',['label' => 'Pobierz PDF','color' => 'indigo','icon' => 'document-download','route' => route('invoices.pdf',$invoice->id),'blank' => true])
+            @include('templates.buttons.button',['label' => 'Wystaw podobną','color' => 'cyan','icon' => 'document-duplicate','route' => route('invoices.copy',$invoice->id)])
         </x-card>
     </div>
     <div class="pb-3">

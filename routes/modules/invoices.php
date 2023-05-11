@@ -11,4 +11,5 @@ Route::get('invoices', InvoicesIndex::class)->name('invoices.index')->middleware
 Route::get('invoices/create', InvoicesForm::class)->name('invoices.create')->middleware('auth');
 Route::get('invoices/{entity_id}', InvoicesShow::class)->name('invoices.show')->middleware('auth');
 Route::get('invoices/{entity_id}/edit', InvoicesForm::class)->name('invoices.edit')->middleware('auth');
+Route::get('invoices/{entity_id}/copy', InvoicesForm::class)->name('invoices.copy')->middleware('auth');
 Route::get('invoices/{entity_id}/pdf', [InvoicesController::class, 'pdf'])->name('invoices.pdf')->middleware('auth');

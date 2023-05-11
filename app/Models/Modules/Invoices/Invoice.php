@@ -82,7 +82,10 @@ class Invoice extends BaseModel
             ->first();
 
         if ($userInvoice) {
-            return $userInvoice->number;
+            $array = explode('/', $userInvoice->number);
+            $array[0] = strval((int)$array[0] + 1);
+
+            return implode('/', $array);
         } else {
             return '1/' . $phrase;
         }
@@ -103,7 +106,8 @@ class Invoice extends BaseModel
         return $this->items->sum('brutto');
     }
 
-    public function getHasRecipientAttribute(){
+    public function getHasRecipientAttribute()
+    {
         return $this->recipient_nip || $this->recipient_name || $this->recipient_address || $this->recipient_postcode || $this->recipient_city;
     }
 

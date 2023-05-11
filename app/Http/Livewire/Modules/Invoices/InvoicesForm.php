@@ -29,6 +29,12 @@ class InvoicesForm extends BaseFormComponent
 
         if ($this->entity_id !== null) {
             $this->invoice = Invoice::find($this->entity_id);
+
+            if (request()->segment(count(request()->segments())) && count(request()->segments()) === 3) {
+                $this->invoice->id = null;
+                $this->invoice->number = Invoice::nextNumber(auth()->user()->id);
+                $this->title = 'Nowa faktura';
+            }
         } else {
             $this->invoice = new Invoice();
             $this->invoice->number = Invoice::nextNumber(auth()->user()->id);
