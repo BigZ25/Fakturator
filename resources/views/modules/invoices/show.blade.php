@@ -6,6 +6,9 @@
             @include('templates.buttons.button',['label' => 'Usuń','color' => 'red','icon' => 'trash','action' => 'openDeleteModal("'.addcslashes(get_class($invoice),'\\').'",'.$invoice->id.')'])
             @include('templates.buttons.button',['label' => 'Pobierz PDF','color' => 'indigo','icon' => 'document-download','route' => route('invoices.pdf',$invoice->id),'blank' => true])
             @include('templates.buttons.button',['label' => 'Wystaw podobną','color' => 'cyan','icon' => 'document-duplicate','route' => route('invoices.copy',$invoice->id)])
+            @if(!$invoice->correction_invoice_id)
+                @include('templates.buttons.button',['label' => 'Wystaw korektę','color' => 'stone','icon' => 'document-add','route' => route('invoices.correction',$invoice->id)])
+            @endif
         </x-card>
     </div>
     <div class="flex pb-3">

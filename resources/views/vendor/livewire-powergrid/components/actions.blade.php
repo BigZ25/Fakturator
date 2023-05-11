@@ -17,48 +17,63 @@
                         $primaryKey,
                         $theme,
                     );
+                    $canIf = $actionClass->getDynamicProperty('canIf');
+                    $can = true;
                 @endphp
+                @if($canIf)
+                    @php
+                        switch($canIf['operator']) {
+                            case '=':
+                                $can = $row[$canIf['field']] === $canIf['value'];
+                                break;
+                            case '!=':
+                                $can = $row[$canIf['field']] !== $canIf['value'];
+                                break;
+                        }
+                    @endphp
+                @endif
+                @if($can)
+                    @if(!boolval($actionClass->ruleHide))
+                        @if($actionClass->isButton)
+                            <button {{ $actionClass->getAttributes() }}>
+                                <x-icon name="{{ $actionClass->getDynamicProperty('icon') }}" class="w-4 h-4"/>
+                                {!! nbsp($actionClass->caption()) !!}
+                            </button>
+                        @endif
 
-                @if(!boolval($actionClass->ruleHide))
-                    @if($actionClass->isButton)
-                        <button {{ $actionClass->getAttributes() }}>
-                            <x-icon name="{{ $actionClass->getDynamicProperty('icon') }}" class="w-4 h-4" />
-                            {!! nbsp($actionClass->caption()) !!}
-                        </button>
-                    @endif
+                        @if(filled($actionClass->bladeComponent))
+                            <x-dynamic-component :component="$actionClass->bladeComponent"
+                                                 :attributes="$actionClass->bladeComponentParams"/>
+                        @endif
 
-                    @if(filled($actionClass->bladeComponent))
-                        <x-dynamic-component :component="$actionClass->bladeComponent"
-                                             :attributes="$actionClass->bladeComponentParams"/>
-                    @endif
-
-                    @if($actionClass->isLinkeable)
-                        <a {{ $actionClass->getAttributes() }}>
-                            <x-icon name="{{ $actionClass->getDynamicProperty('icon') }}" class="w-4 h-4" />
-                            {!! nbsp($actionClass->caption()) !!}
-                        </a>
-                    @endif
-
-                    @if(filled($action->route) && !$actionClass->isButton)
-                        @if(strtolower($action->method) !== 'get')
-                            <form target="{{ $action->target }}"
-                                  action="{{ route($action->route, $actionClass->parameters) }}"
-                                  method="post">
-                                @method($action->method)
-                                @csrf
-                                <button type="submit"
-                                    {{ $actionClass->getAttributes() }}>
-                                    {!! $ruleCaption ?? $action->caption !!}
-                                </button>
-                            </form>
-                        @else
-                            <a href="{{ route($action->route, $actionClass->parameters) }}"
-                               target="{{ $action->target }}"
-                                {{ $actionClass->getAttributes() }}
-                            >
-                                <x-icon name="{{ $actionClass->getDynamicProperty('icon') }}" class="w-4 h-4" />
+                        @if($actionClass->isLinkeable)
+                            <a {{ $actionClass->getAttributes() }}>
+                                <x-icon name="{{ $actionClass->getDynamicProperty('icon') }}" class="w-4 h-4"/>
                                 {!! nbsp($actionClass->caption()) !!}
                             </a>
+                        @endif
+
+                        @if(filled($action->route) && !$actionClass->isButton)
+                            @if(strtolower($action->method) !== 'get')
+                                <form target="{{ $action->target }}"
+                                      action="{{ route($action->route, $actionClass->parameters) }}"
+                                      method="post">
+                                    @method($action->method)
+                                    @csrf
+                                    <button type="submit"
+                                        {{ $actionClass->getAttributes() }}>
+                                        {!! $ruleCaption ?? $action->caption !!}
+                                    </button>
+                                </form>
+                            @else
+                                <a href="{{ route($action->route, $actionClass->parameters) }}"
+                                   target="{{ $action->target }}"
+                                    {{ $actionClass->getAttributes() }}
+                                >
+                                    <x-icon name="{{ $actionClass->getDynamicProperty('icon') }}" class="w-4 h-4"/>
+                                    {!! nbsp($actionClass->caption()) !!}
+                                </a>
+                            @endif
                         @endif
                     @endif
                 @endif

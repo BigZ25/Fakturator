@@ -29,5 +29,15 @@ class AppServiceProvider extends ServiceProvider
 
             return $this;
         });
+
+        Button::macro('canIf', function (string $field, string $operator, $value) {
+            $this->dynamicProperties['canIf'] = [
+                'field' => $field,
+                'operator' => $operator,
+                'value' => $value,
+            ];
+
+            return $this;
+        });
     }
 }
