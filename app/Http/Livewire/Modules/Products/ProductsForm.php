@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Modules\Products;
 
+use App\Enum\App\UnitsEnum;
 use App\Enum\App\VatTypesEnum;
 use App\Http\Livewire\BaseComponents\BaseFormComponent;
 use App\Models\Modules\Products\Product;
@@ -31,6 +32,7 @@ class ProductsForm extends BaseFormComponent
 
         $this->lists = [
             'vat_types' => VatTypesEnum::getSelectList(),
+            'units' => UnitsEnum::getSelectList(),
         ];
     }
 

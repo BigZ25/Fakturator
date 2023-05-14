@@ -50,6 +50,7 @@ class InvoicesForm extends BaseFormComponent
             $this->invoice->issue_date = todayDate();
             $this->invoice->sale_date = date("Y-m-d", strtotime("+1 month", strtotime(todayDate())));
             $this->invoice->payment_date = todayDate();
+            $this->invoice->payment_method = PaymentMethodsEnum::TRANSFER;
         }
     }
 
