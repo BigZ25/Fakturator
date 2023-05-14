@@ -82,11 +82,51 @@
     @endif
 </table>
 
-@if($invoice->correction_id)
-    @include('templates.pdf.partials.items',['items' => $invoice->correction->items, 'label' => 'Przed korektą:'])
+@if($invoice->is_correction)
+    @include('templates.pdf.partials.items',['items' => $invoice->correctionParent->items, 'label' => 'Przed korektą:'])
 @endif
 
-@include('templates.pdf.partials.items',['items' => $invoice->items, 'label' => $invoice->correction_id ? 'Po korekcie:' : ''])
+@include('templates.pdf.partials.items',['items' => $invoice->items, 'label' => $invoice->is_correction ? 'Po korekcie:' : ''])
+
+@if($invoice->is_correction)
+    <table style="width: 100%; padding-top: 10px;">
+        @if(isset($label) && $label)
+            <tr>
+                <td><h6><b>{{$label}}</b></h6></td>
+            </tr>
+        @endif
+        <tr>
+            <td style="width: 100%;">
+                <table style="width: 100%" class="bordered">
+                    <tr>
+                        <th></th>
+                        <th><h6>Netto</h6></th>
+                        <th><h6>VAT</h6></th>
+                        <th><h6>Brutto</h6></th>
+                    </tr>
+                    <tr>
+                        <th class="right"><h6>Przed korektą:</h6></th>
+                        <td class="center"><h6>{{formatPriceShow($invoice->correctionParent->netto)}}</h6></td>
+                        <td class="center"><h6>{{formatPriceShow($invoice->correctionParent->vat)}}</h6></td>
+                        <td class="center"><h6>{{formatPriceShow($invoice->correctionParent->brutto)}}</h6></td>
+                    </tr>
+                    <tr>
+                        <th class="right"><h6>Po korekcie:</h6></th>
+                        <td class="center"><h6>{{formatPriceShow($invoice->netto)}}</h6></td>
+                        <td class="center"><h6>{{formatPriceShow($invoice->vat)}}</h6></td>
+                        <td class="center"><h6>{{formatPriceShow($invoice->brutto)}}</h6></td>
+                    </tr>
+                    <tr>
+                        <th class="right"><h6><b>Różnica:</b></h6></th>
+                        <td class="center"><h6>{{formatPriceShow($invoice->netto - $invoice->correctionParent->netto)}}</h6></td>
+                        <td class="center"><h6>{{formatPriceShow($invoice->vat - $invoice->correctionParent->vat)}}</h6></td>
+                        <td class="center"><h6>{{formatPriceShow($invoice->brutto - $invoice->correctionParent->brutto)}}</h6></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+@endif
 
 <table style="width: 100%; padding-top: 10px;">
     <tr>

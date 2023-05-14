@@ -55,49 +55,6 @@
                         </tr>
                     @endforeach
                 @endif
-
-                {{--                @if($invoice->correction_id)--}}
-                {{--                    <tr style="border: 0;">--}}
-                {{--                        <td style="border: 0;height: 20px;" colspan="{{class_basename($invoice) == 'Income' ? 9 : 3}}"></td>--}}
-                {{--                    </tr>--}}
-                {{--                    <tr>--}}
-                {{--                        <td style="border: 0" colspan="{{class_basename($invoice) == 'Income' ? 4 : 1}}"></td>--}}
-                {{--                        <th class="right"><h6>Przed korektą:</h6></th>--}}
-                {{--                        @if(class_basename($invoice) == 'Income')--}}
-                {{--                            <td class="center"><h6>{{formatPriceShow($invoice->correction->netto)}}</h6></td>--}}
-                {{--                            <td></td>--}}
-                {{--                            <td class="center"><h6>{{formatPriceShow($invoice->correction->vat)}}</h6></td>--}}
-                {{--                            <td class="center"><h6>{{formatPriceShow($invoice->correction->brutto)}}</h6></td>--}}
-                {{--                        @else--}}
-                {{--                            <td class="center"><h6>{{formatPriceShow($invoice->correction->amount)}}</h6></td>--}}
-                {{--                        @endif--}}
-                {{--                    </tr>--}}
-                {{--                    <tr>--}}
-                {{--                        <td style="border: 0" colspan="{{class_basename($invoice) == 'Income' ? 4 : 1}}"></td>--}}
-                {{--                        <th class="right"><h6>Po korekcie:</h6></th>--}}
-                {{--                        @if(class_basename($invoice) == 'Income')--}}
-                {{--                            <td class="center"><h6>{{formatPriceShow($invoice->netto)}}</h6></td>--}}
-                {{--                            <td></td>--}}
-                {{--                            <td class="center"><h6>{{formatPriceShow($invoice->vat)}}</h6></td>--}}
-                {{--                            <td class="center"><h6>{{formatPriceShow($invoice->brutto)}}</h6></td>--}}
-                {{--                        @else--}}
-                {{--                            <td class="center"><h6>{{formatPriceShow($invoice->amount)}}</h6></td>--}}
-                {{--                        @endif--}}
-                {{--                    </tr>--}}
-                {{--                    <tr>--}}
-                {{--                        <td style="border: 0" colspan="{{class_basename($invoice) == 'Income' ? 4 : 1}}"></td>--}}
-                {{--                        <th class="right"><h6><b>Różnica:</b></h6></th>--}}
-                {{--                        @if(class_basename($invoice) == 'Income')--}}
-                {{--                            <td class="center"><h6>{{formatPriceShow($invoice->netto - $invoice->correction->netto)}}</h6></td>--}}
-                {{--                            <td></td>--}}
-                {{--                            <td class="center"><h6>{{formatPriceShow($invoice->vat - $invoice->correction->vat)}}</h6></td>--}}
-                {{--                            <td class="center"><h6>{{formatPriceShow($invoice->brutto - $invoice->correction->brutto)}}</h6></td>--}}
-                {{--                        @else--}}
-                {{--                            <td class="center"><h6>{{formatPriceShow($invoice->amount - $invoice->correction->amount)}}</h6></td>--}}
-                {{--                        @endif--}}
-                {{--                    </tr>--}}
-                {{--                @endif--}}
-
             </table>
         </td>
     </tr>
