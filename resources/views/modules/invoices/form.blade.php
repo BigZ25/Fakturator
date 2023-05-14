@@ -1,5 +1,5 @@
 <div>
-    <form method="POST" action="{{$invoice->id ? route('invoices.update',$invoice->id) : route('invoices.store')}}" enctype="multipart/form-data" class="ajax-form">
+    <form method="POST" action="{{$invoice->id ? route('invoices.update',$invoice->id) : ($invoice->correctionParent ? route('invoices.store') . '?correction=' . $entity_id : route('invoices.store'))}}" enctype="multipart/form-data" class="ajax-form">
         @if($invoice->id)
             @method('PUT')
         @endif

@@ -28,6 +28,16 @@ class InvoicesService
             $data['user_id'] = auth()->user()->id;
             $invoice = Invoice::create($data);
             InvoiceItem::saveData($request, $invoice->id, 'invoice_id');
+
+            //korekta
+            if ($request->has('correction')) {
+                $parentInvoice = Invoice::find($request->input('correction'));
+
+                if ($parentInvoice) {
+                    $parentInvoice->update(['correction_invoice_id' => $invoice->id]);
+                }
+            }
+
             $message = 'Faktura została zapisana';
         } else {
             $invoice->update($data);
