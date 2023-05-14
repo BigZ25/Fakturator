@@ -30,6 +30,7 @@ class InvoiceRequest extends FormRequest
             'number' => array_merge(stringRules(), [Rule::unique('invoices')->where('user_id', auth()->user()->id)->ignore($this->invoice->id ?? null)]),
 
             //dane nabywcy
+            'buyer_customer_id' => idRules('customers', required: false),
             'buyer_nip' => nipRules(),
             'buyer_name' => stringRules(),
             'buyer_address' => stringRules(),

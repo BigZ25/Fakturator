@@ -19,12 +19,14 @@ class CompanyData extends Component
     public $lists;
     public $customers;
 
-    public function mount($id = null, $prefix = null, $entity = null, $datalist = false)
+    public function mount($prefix = null, $entity = null, $datalist = false)
     {
         if ($prefix) {
             $prefix = $prefix . "_";
         }
 
+        $this->prefix = $prefix;
+        $this->entity = $entity;
         $this->datalist = $datalist;
 
         $this->lists = [
@@ -34,7 +36,7 @@ class CompanyData extends Component
             ->where('user_id', '=', auth()->user()->id)
             ->get();
 
-        if ($id) {
+        if ($entity) {
             $this->data = [
                 'nip' => $entity[$prefix . 'nip'],
                 'name' => $entity[$prefix . 'name'],
@@ -55,14 +57,13 @@ class CompanyData extends Component
                 'customer_id' => null,
             ];
         }
-
-        $this->prefix = $prefix;
-        $this->entity = $entity;
     }
 
     public function render()
     {
-        $this->checkName();
+        if ($this->datalist === true) {
+            $this->checkName();
+        }
 
         return view('templates.company_data.form', [
             'entity' => $this->entity,
