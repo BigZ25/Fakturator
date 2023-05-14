@@ -17,6 +17,7 @@ class InvoiceItemsForm extends BaseItemsFormComponent
     public $totalNetto;
     public $totalVat;
     public $totalBrutto;
+    public $products;
 
     public function mount(?int $invoiceId, string $label = 'Pozycje na fakturze', bool $onlyShow = false)
     {
@@ -28,6 +29,9 @@ class InvoiceItemsForm extends BaseItemsFormComponent
             'vat_types' => VatTypesEnum::getSelectList(),
             'products' => Product::getSelectList(),
         ];
+        $this->products = Product::query()
+            ->where('user_id', '=', auth()->user()->id)
+            ->get();
 
         if ($invoiceId) {
             $invoice = Invoice::find($invoiceId);
@@ -55,6 +59,8 @@ class InvoiceItemsForm extends BaseItemsFormComponent
             $this->items[$index]['netto'] = $netto;
             $this->items[$index]['vat'] = $vat;
             $this->items[$index]['brutto'] = $brutto;
+
+            $this->checkItemName($item, $index);
         }
 
         return parent::render();
@@ -62,12 +68,37 @@ class InvoiceItemsForm extends BaseItemsFormComponent
 
     public function addItem()
     {
-        $this->items[] = array_fill_keys((new InvoiceItem())->getFillable(), null);
+        $this->items[] = array_merge(array_fill_keys((new InvoiceItem())->getFillable(), null),['connect' => true]);
     }
 
     public function removeItem($index)
     {
         unset($this->items[$index]);
         $this->items = array_values($this->items);
+    }
+
+    private function checkItemName($item, $index)
+    {
+        if((bool)$this->items[$index]['connect'] === true){
+            $product = $this->products->firstWhere('name', '=', $item['name']);
+
+            if ($product) {
+                $this->items[$index]['product_id'] = $product->id;
+                $this->items[$index]['unit'] = $product->unit;
+                $this->items[$index]['quantity'] = $product->quantity;
+                $this->items[$index]['vat_type'] = $product->vat_type;
+                $this->items[$index]['price'] = $product->price;
+            } else {
+                $this->items[$index]['product_id'] = null;
+            }
+        }
+    }
+
+    public function setLock($index){
+        $this->items[$index]['connect'] = !(bool)$this->items[$index]['connect'];
+
+        if($this->items[$index]['connect'] === false){
+            $this->items[$index]['product_id'] = null;
+        }
     }
 }

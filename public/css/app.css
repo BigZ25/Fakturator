@@ -14577,3 +14577,7 @@ video {
         height: 50px;
     }
 }
+
+input::-webkit-calendar-picker-indicator {
+    display: none !important;
+}

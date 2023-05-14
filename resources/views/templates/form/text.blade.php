@@ -1,7 +1,3 @@
 <div class="mb-2 ml-2 mr-2" style="width: {{$width ?? 50}}%">
-    {{--    @if(isset($value))--}}
-    <x-input label="{{$label}}" name="{{$name ?? ''}}" value="{{$value ?? ''}}" wire:model="{{$model ?? ''}}"/>
-    {{--    @else--}}
-    {{--        <x-input label="{{$label}}" name="{{$name}}"/>--}}
-    {{--    @endif--}}
+    <x-my-input datalist="{{$datalist ?? false}}" :options="$options ?? []" label="{{$label}}" name="{{$name ?? ''}}" value="{{$value ?? ''}}" wire:model="{{$model ?? ''}}"/>
 </div>

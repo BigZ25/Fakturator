@@ -56,6 +56,10 @@ return [
             'class' => Components\Input::class,
             'alias' => 'input',
         ],
+        'my-input' => [
+            'class' => App\Views\Components\MyInput::class,
+            'alias' => 'my-input',
+        ],
         'textarea' => [
             'class' => Components\Textarea::class,
             'alias' => 'textarea',
