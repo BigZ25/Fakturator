@@ -7,9 +7,6 @@
         <div class="pb-3">
             <x-card title="Podstawowe dane" color="bg-white flex" rounded="rounded-sm" cardClasses="card-body">
                 @livewire('templates.company-data',['entity' => $customer])
-                <div class="flex flex-wrap">
-                    @include('templates.form.text',['width' => 100,'value' => $customer->email,'name' => 'email' ,'label' => 'Adres e-mail'])
-                </div>
             </x-card>
         </div>
 

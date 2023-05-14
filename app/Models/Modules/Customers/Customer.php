@@ -16,8 +16,7 @@ class Customer extends BaseModel
         'name',
         'address',
         'postcode',
-        'city',
-        'email'
+        'city'
     ];
 
     public function getDeletionAttribute(): Collection

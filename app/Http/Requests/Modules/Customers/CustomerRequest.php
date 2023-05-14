@@ -22,7 +22,7 @@ class CustomerRequest extends FormRequest
 
     public function rules()
     {
-        return array_merge(companyDataRules(), ['email' => emailRules(false)]);
+        return companyDataRules();
     }
 }
 

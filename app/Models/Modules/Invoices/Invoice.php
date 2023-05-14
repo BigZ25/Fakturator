@@ -14,6 +14,7 @@ class Invoice extends BaseModel
     protected $fillable = [
         'user_id',
         'correction_invoice_id',
+        'buyer_customer_id',
         'number',
         'send_email',
         'buyer_nip',

@@ -17,6 +17,7 @@ class CreateInvoicesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('correction_invoice_id')->nullable();
+            $table->unsignedBigInteger('buyer_customer_id')->nullable();
             $table->string('number');
             $table->string('send_email')->nullable();
             $table->string('buyer_nip');
@@ -46,6 +47,7 @@ class CreateInvoicesTable extends Migration
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('correction_invoice_id')->references('id')->on('invoices')->onDelete('cascade');
+            $table->foreign('buyer_customer_id')->references('id')->on('customers')->nullOnDelete();
         });
     }
 

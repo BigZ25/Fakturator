@@ -16,8 +16,9 @@
                         @include('templates.form.date',['width' => 50,'value' => $invoice->issue_date ,'name' => 'issue_date','label' => 'Data wystawienia'])
                     </div>
                     <div class="flex flex-wrap">
-                        @include('templates.form.date',['width' => 50,'value' => $invoice->payment_date,'name' => 'payment_date','label' => 'Termin płatności'])
-                        @include('templates.form.date',['width' => 50,'value' => $invoice->paid_date,'name' => 'paid_date','label' => 'Zapłacono dnia'])
+                        @include('templates.form.date',['width' => 30,'value' => $invoice->payment_date,'name' => 'payment_date','label' => 'Termin płatności'])
+                        @include('templates.form.date',['width' => 30,'value' => $invoice->paid_date,'name' => 'paid_date','label' => 'Zapłacono dnia'])
+                        @include('templates.form.text',['width' => 40,'value' => $invoice->send_email,'name' => 'send_email' ,'label' => 'Adres e-mail do wysyłki'])
                     </div>
                     <div class="flex flex-wrap">
                         @include('templates.form.checkbox',['width' => 50,'value' => $invoice->is_printed,'name' => 'is_printed','label' => 'Faktura wydrukowana'])
@@ -40,10 +41,7 @@
                 <div>
                     <div x-show="isActive(1)" x-transition:enter.duration.500ms>
                         <x-card color="bg-white flex" rounded="rounded-sm" cardClasses="card-body" style>
-                            @livewire('templates.company-data',['entity' => $invoice, 'id' => $entity_id, 'prefix' => 'buyer'])
-                            <div class="flex flex-wrap">
-                                @include('templates.form.text',['width' => 100,'value' => $invoice->send_email,'name' => 'send_email' ,'label' => 'Adres e-mail'])
-                            </div>
+                            @livewire('templates.company-data',['entity' => $invoice, 'id' => $entity_id, 'prefix' => 'buyer', 'datalist' => true])
                         </x-card>
                     </div>
                     <div x-show="isActive(2)" x-transition:enter.duration.500ms>

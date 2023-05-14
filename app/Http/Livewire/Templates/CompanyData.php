@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Templates;
 
+use App\Models\Modules\Customers\Customer;
 use Exception;
 use GusApi\Exception\InvalidUserKeyException;
 use GusApi\Exception\NotFoundException;
@@ -13,13 +14,25 @@ class CompanyData extends Component
 {
     public $prefix;
     public $entity;
+    public $datalist;
     public $data;
+    public $lists;
+    public $customers;
 
-    public function mount($id = null, $prefix = null, $entity = null)
+    public function mount($id = null, $prefix = null, $entity = null, $datalist = false)
     {
         if ($prefix) {
             $prefix = $prefix . "_";
         }
+
+        $this->datalist = $datalist;
+
+        $this->lists = [
+            'customers' => Customer::getSelectList(),
+        ];
+        $this->customers = Customer::query()
+            ->where('user_id', '=', auth()->user()->id)
+            ->get();
 
         if ($id) {
             $this->data = [
@@ -28,6 +41,8 @@ class CompanyData extends Component
                 'address' => $entity[$prefix . 'address'],
                 'postcode' => $entity[$prefix . 'postcode'],
                 'city' => $entity[$prefix . 'city'],
+                'connect' => true,
+                'customer_id' => null,
             ];
         } else {
             $this->data = [
@@ -36,6 +51,8 @@ class CompanyData extends Component
                 'address' => null,
                 'postcode' => null,
                 'city' => null,
+                'connect' => true,
+                'customer_id' => null,
             ];
         }
 
@@ -45,6 +62,8 @@ class CompanyData extends Component
 
     public function render()
     {
+        $this->checkName();
+
         return view('templates.company_data.form', [
             'entity' => $this->entity,
         ]);
@@ -84,6 +103,32 @@ class CompanyData extends Component
             }
         } else {
             throw new Exception($validator->getMessageBag()->getMessages()['nip'][0]);
+        }
+    }
+
+    private function checkName()
+    {
+        if ((bool)$this->data['connect'] === true) {
+            $customer = $this->customers->firstWhere('name', '=', $this->data['name']);
+
+            if ($customer) {
+                $this->data['customer_id'] = $customer->id;
+                $this->data['nip'] = $customer->nip;
+                $this->data['address'] = $customer->address;
+                $this->data['postcode'] = $customer->postcode;
+                $this->data['city'] = $customer->city;
+            } else {
+                $this->data['customer_id'] = null;
+            }
+        }
+    }
+
+    public function setLock()
+    {
+        $this->data['connect'] = !(bool)$this->data['connect'];
+
+        if ($this->data['connect'] === false) {
+            $this->data['customer_id'] = null;
         }
     }
 }
