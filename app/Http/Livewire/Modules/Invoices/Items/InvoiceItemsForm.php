@@ -17,9 +17,11 @@ class InvoiceItemsForm extends BaseItemsFormComponent
     public $totalVat;
     public $totalBrutto;
 
-    public function mount(?int $invoiceId)
+    public function mount(?int $invoiceId, string $label = 'Pozycje na fakturze', bool $onlyShow = false)
     {
         $this->view_path = 'modules.invoices.items.form';
+        $this->label = $label;
+        $this->onlyShow = $onlyShow;
         $this->lists = [
             'units' => UnitsEnum::getSelectList(),
             'vat_types' => VatTypesEnum::getSelectList(),

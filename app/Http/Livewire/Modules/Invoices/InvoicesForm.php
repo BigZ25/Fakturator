@@ -30,10 +30,19 @@ class InvoicesForm extends BaseFormComponent
         if ($this->entity_id !== null) {
             $this->invoice = Invoice::find($this->entity_id);
 
-            if (request()->segment(count(request()->segments())) && count(request()->segments()) === 3) {
-                $this->invoice->id = null;
-                $this->invoice->number = Invoice::nextNumber(auth()->user()->id);
-                $this->title = 'Nowa faktura';
+            $numberOfSegments = count(request()->segments());
+
+            if ($numberOfSegments === 3) {
+                if (request()->segment($numberOfSegments) === 'copy') {
+                    $this->invoice->id = null;
+                    $this->invoice->number = Invoice::nextNumber(auth()->user()->id);
+                    $this->title = 'Nowa faktura';
+                } elseif (request()->segment($numberOfSegments) === 'correction') {
+                    $this->invoice->correctionParent = clone $this->invoice;
+                    $this->invoice->id = null;
+                    $this->invoice->number = $this->invoice->number . '/KOR';
+                    $this->title = 'Nowa faktura korekcyjna';
+                }
             }
         } else {
             $this->invoice = new Invoice();

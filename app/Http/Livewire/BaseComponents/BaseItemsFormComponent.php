@@ -10,9 +10,10 @@ class BaseItemsFormComponent extends Component
     public $data;
     public $items;
     public $total;
-    public $box_title;
+    public $label;
     public $lists;
     public $col;
+    public $onlyShow;
 
     public function render()
     {

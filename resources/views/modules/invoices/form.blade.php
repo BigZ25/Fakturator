@@ -4,7 +4,7 @@
             @method('PUT')
         @endif
         @csrf
-        <div class="flex pb-3 ">
+        <div class="flex pb-3">
             <div class="flex-1 pr-2">
                 <x-card title="Podstawowe dane" color="bg-white flex" rounded="rounded-sm" cardClasses="card-body">
                     <div class="flex flex-wrap">
@@ -54,7 +54,10 @@
                 </div>
             </div>
         </div>
-        @livewire('modules.invoices.items.invoice-items-form',[$entity_id])
+        @if($invoice->correctionParent)
+                @livewire('modules.invoices.items.invoice-items-form',[$invoice->correctionParent->id,'Pozycje na fakturze przed korektą',true])
+        @endif
+        @livewire('modules.invoices.items.invoice-items-form',[$entity_id,$invoice->correctionParent ? 'Pozycje na fakturze po korekcie' : 'Pozycje na fakturze'])
         @if($invoice->id === null)
             @include('templates.buttons.store')
         @else

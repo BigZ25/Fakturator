@@ -1,4 +1,4 @@
-<div>
+<div class="pb-3">
     @livewire('templates.delete')
     <x-card title="{{$box_title}}" color="bg-white" rounded="rounded-sm" cardClasses="card-body">
         <div class="flex flex-col">

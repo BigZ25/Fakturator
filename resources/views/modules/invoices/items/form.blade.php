@@ -1,5 +1,5 @@
 <div class="pb-3">
-    <x-card title="Pozycje na fakturze" color="bg-white flex" rounded="rounded-sm" cardClasses="card-body">
+    <x-card title="{{$label}}" color="bg-white flex" rounded="rounded-sm" cardClasses="card-body">
         @if(count($items) > 0)
             <div class="flex flex-wrap">
                 <div class="mb-2 ml-2 mr-2" style="width: 100%">
@@ -19,15 +19,29 @@
                         <tbody class="border">
                         @foreach($items as $index => $item)
                             <tr>
-                                @include('templates.table.form.text',['name' => 'items['.$index.'][name]','model' => 'items.'.$index.'.name','value' => $item['name'],'width' => 30])
-                                @include('templates.table.form.select',['name' => 'items['.$index.'][unit]','model' => 'items.'.$index.'.unit','value' => $item['unit'],'options' => $lists['units'],'width' => 10])
-                                @include('templates.table.form.text',['name' => 'items['.$index.'][quantity]','model' => 'items.'.$index.'.quantity','value' => $item['quantity'],'width' => 10])
-                                @include('templates.table.form.select',['name' => 'items['.$index.'][vat_type]','model' => 'items.'.$index.'.vat_type','value' => $item['vat_type'],'options' => $lists['vat_types'],'width' => 10])
-                                @include('templates.table.form.text',['name' => 'items['.$index.'][price]','model' => 'items.'.$index.'.price','value' => $item['price'],'width' => 10])
-                                <td class="text-center">{{formatPriceShow($item['netto'])}}</td>
-                                <td class="text-center">{{formatPriceShow($item['vat'])}}</td>
-                                <td class="text-center">{{formatPriceShow($item['brutto'])}}</td>
-                                @include('templates.table.form.remove',['index' => $index])
+                                @if(!$onlyShow)
+                                    @include('templates.table.form.text',['name' => 'items['.$index.'][name]','model' => 'items.'.$index.'.name','value' => $item['name'],'width' => 30])
+                                    @include('templates.table.form.select',['name' => 'items['.$index.'][unit]','model' => 'items.'.$index.'.unit','value' => $item['unit'],'options' => $lists['units'],'width' => 10])
+                                    @include('templates.table.form.text',['name' => 'items['.$index.'][quantity]','model' => 'items.'.$index.'.quantity','value' => $item['quantity'],'width' => 10])
+                                    @include('templates.table.form.select',['name' => 'items['.$index.'][vat_type]','model' => 'items.'.$index.'.vat_type','value' => $item['vat_type'],'options' => $lists['vat_types'],'width' => 10])
+                                    @include('templates.table.form.text',['name' => 'items['.$index.'][price]','model' => 'items.'.$index.'.price','value' => $item['price'],'width' => 10])
+                                    <td class="text-center">{{formatPriceShow($item['netto'])}}</td>
+                                    <td class="text-center">{{formatPriceShow($item['vat'])}}</td>
+                                    <td class="text-center">{{formatPriceShow($item['brutto'])}}</td>
+                                    @include('templates.table.form.remove',['index' => $index])
+                                @else
+                                    @include('templates.table.form.text',['value' => $item['name'],'width' => 30,'disabled' => true])
+                                    @include('templates.table.form.select',['value' => $item['unit'],'options' => $lists['units'],'width' => 10,'disabled' => true])
+                                    @include('templates.table.form.text',['value' => $item['quantity'],'width' => 10,'disabled' => true])
+                                    @include('templates.table.form.select',['value' => $item['vat_type'],'options' => $lists['vat_types'],'width' => 10,'disabled' => true])
+                                    @include('templates.table.form.text',['value' => $item['price'],'width' => 10,'disabled' => true])
+                                    <td class="text-center">{{formatPriceShow($item['netto'])}}</td>
+                                    <td class="text-center">{{formatPriceShow($item['vat'])}}</td>
+                                    <td class="text-center">{{formatPriceShow($item['brutto'])}}</td>
+                                    @if(!$onlyShow)
+                                        @include('templates.table.form.remove',['index' => $index])
+                                    @endif
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>
@@ -50,10 +64,12 @@
                 </div>
             </div>
         @endif
-        <div class="flex flex-wrap">
-            <div class="mb-2 ml-2 mr-2" style="width: 100%">
-                @include('templates.buttons.button',['color' => 'positive', 'label' => 'Dodaj pozycję','icon' => 'plus','action' => 'addItem()'])
+        @if(!$onlyShow)
+            <div class="flex flex-wrap">
+                <div class="mb-2 ml-2 mr-2" style="width: 100%">
+                    @include('templates.buttons.button',['color' => 'positive', 'label' => 'Dodaj pozycję','icon' => 'plus','action' => 'addItem()'])
+                </div>
             </div>
-        </div>
+        @endif
     </x-card>
 </div>
