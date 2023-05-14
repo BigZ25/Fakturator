@@ -28,7 +28,7 @@
                            class="{{ $theme->checkbox->inputClass }}"
                            @endif
                            type="checkbox"
-                           wire:model.defer="checkboxValues"
+                           wire:model="checkboxValues"
                            value="{{ $attribute }}">
                 </label>
             </div>
