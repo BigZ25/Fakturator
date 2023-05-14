@@ -88,7 +88,15 @@ class InvoicesIndex extends BaseIndexComponent
                 ->icon('document-add')
                 ->route('invoices.correction', ['id'])
                 ->target('_self')
-                ->canIf('correction_invoice_id', '=', null);
+                ->canIf('have_correction', '=', false);
+
+        $actions[] = Button::add('correction')
+            ->caption('Zobacz korektę')
+            ->class(buttonClass('sky'))
+            ->icon('document')
+            ->route('invoices.show', ['correction_invoice_id'])
+            ->target('_self')
+            ->canIf('have_correction', '=', true);
 
         return $actions;
     }

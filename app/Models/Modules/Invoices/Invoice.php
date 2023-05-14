@@ -116,6 +116,11 @@ class Invoice extends BaseModel
         return $this->correctionParent ? true : false;
     }
 
+    public function getHaveCorrectionAttribute()
+    {
+        return $this->correctionChild ? true : false;
+    }
+
     public function items()
     {
         return $this->hasMany(InvoiceItem::class);
