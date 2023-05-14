@@ -7,6 +7,7 @@ use App\Enum\App\VatTypesEnum;
 use App\Http\Livewire\BaseComponents\BaseItemsFormComponent;
 use App\Models\Modules\Invoices\Invoice;
 use App\Models\Modules\Invoices\InvoiceItem;
+use App\Models\Modules\Products\Product;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class InvoiceItemsForm extends BaseItemsFormComponent
@@ -25,6 +26,7 @@ class InvoiceItemsForm extends BaseItemsFormComponent
         $this->lists = [
             'units' => UnitsEnum::getSelectList(),
             'vat_types' => VatTypesEnum::getSelectList(),
+            'products' => Product::getSelectList(),
         ];
 
         if ($invoiceId) {

@@ -11,6 +11,7 @@ class InvoiceItem extends BaseModel
 {
     protected $fillable = [
         'invoice_id',
+        'product_id',
         'name',
         'unit',
         'vat_type',

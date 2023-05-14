@@ -30,4 +30,18 @@ class BaseModel extends Model
             }
         }
     }
+
+    public static function getSelectList($text = 'name')
+    {
+        $list = array();
+        $items = self::query()
+            ->where('user_id', '=', auth()->user()->id)
+            ->get();
+
+        foreach ($items as $item) {
+            array_push($list, ['id' => $item->id, 'text' => $item[$text]]);
+        }
+
+        return $list;
+    }
 }

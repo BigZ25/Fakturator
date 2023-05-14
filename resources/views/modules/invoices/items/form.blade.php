@@ -1,4 +1,5 @@
 <div class="pb-3">
+    @include('modules.invoices.items.modals.products')
     <x-card title="{{$label}}" color="bg-white flex" rounded="rounded-sm" cardClasses="card-body">
         @if(count($items) > 0)
             <div class="flex flex-wrap">
@@ -20,7 +21,8 @@
                         @foreach($items as $index => $item)
                             <tr>
                                 @if(!$onlyShow)
-                                    @include('templates.table.form.text',['name' => 'items['.$index.'][name]','model' => 'items.'.$index.'.name','value' => $item['name'],'width' => 30])
+                                    @include('templates.form.hidden',['name' => 'items['.$index.'][product_id]','value' => $item['product_id'],'model' => 'items.'.$index.'.product_id'])
+                                    @include('templates.table.form.text',['name' => 'items['.$index.'][name]','model' => 'items.'.$index.'.name','value' => $item['name'],'width' => 30,'append' => ['icon' => $item['product_id'] ? 'lock-close':'lock-open', 'color' => $item['product_id'] ? 'green' : 'red','click' => 'openProductsModal('.$index.')']])
                                     @include('templates.table.form.select',['name' => 'items['.$index.'][unit]','model' => 'items.'.$index.'.unit','value' => $item['unit'],'options' => $lists['units'],'width' => 10])
                                     @include('templates.table.form.text',['name' => 'items['.$index.'][quantity]','model' => 'items.'.$index.'.quantity','value' => $item['quantity'],'width' => 10])
                                     @include('templates.table.form.select',['name' => 'items['.$index.'][vat_type]','model' => 'items.'.$index.'.vat_type','value' => $item['vat_type'],'options' => $lists['vat_types'],'width' => 10])

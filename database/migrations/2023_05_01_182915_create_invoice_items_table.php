@@ -16,12 +16,14 @@ class CreateInvoiceItemsTable extends Migration
         Schema::create('invoice_items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('invoice_id');
+            $table->unsignedBigInteger('product_id')->nullable();
             $table->string('name');
             $table->tinyInteger('unit');
             $table->tinyInteger('vat_type');
-            $table->decimal('quantity',10,2);
+            $table->decimal('quantity', 10, 2);
             $table->decimal('price', 10, 2);
             $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->nullOnDelete();
         });
     }
 

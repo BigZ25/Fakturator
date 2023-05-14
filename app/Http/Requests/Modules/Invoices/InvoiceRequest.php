@@ -57,6 +57,7 @@ class InvoiceRequest extends FormRequest
 
             //items
             'items' => ['required', 'array', 'min:1'],
+            'items.*.product_id' => idRules('products', required: false),
             'items.*.name' => stringRules(),
             'items.*.unit' => enumRules(UnitsEnum::class),
             'items.*.vat_type' => enumRules(VatTypesEnum::class),
