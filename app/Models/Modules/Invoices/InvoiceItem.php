@@ -17,9 +17,6 @@ class InvoiceItem extends BaseModel
         'vat_type',
         'quantity',
         'price',
-        'netto',
-        'vat',
-        'brutto'
     ];
 
     protected $casts = [

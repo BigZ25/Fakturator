@@ -28,6 +28,7 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => stringRules(),
+            'unit' => enumRules(UnitsEnum::class),
             'vat_type' => enumRules(VatTypesEnum::class),
             'price' => amountRules(),
             'quantity' => quantityRules(),

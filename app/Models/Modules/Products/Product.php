@@ -15,6 +15,7 @@ class Product extends BaseModel
     protected $fillable = [
         'user_id',
         'name',
+        'unit',
         'vat_type',
         'quantity',
         'price'

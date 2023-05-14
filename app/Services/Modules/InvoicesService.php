@@ -13,7 +13,7 @@ class InvoicesService
     public static function handleRequest(InvoiceRequest $request, Invoice $invoice = null)
     {
         if (!auth()->user()->company_data_complete) {
-            throw new JsonException('Dane firmy są niekompletne. Można je uzupełnić w ustawieniach.');
+            throw new JsonException('Dane twojej firmy są niekompletne. Można je uzupełnić w ustawieniach.');
         }
 
         $data = $request->validated() + [

@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('name');
+            $table->tinyInteger('unit');
             $table->tinyInteger('vat_type');
             $table->decimal('quantity',10,2);
             $table->decimal('price', 10, 2);
