@@ -56,6 +56,15 @@ class Invoice extends BaseModel
         return $this->is_send ? "tak" : "nie";
     }
 
+    public function getToPayAttribute()
+    {
+        if ($this->is_correction) {
+            return $this->correctionParent->brutto - $this->brutto;
+        }
+
+        return $this->brutto;
+    }
+
     public function getDeletionAttribute(): Collection
     {
         $deletion = new Collection();

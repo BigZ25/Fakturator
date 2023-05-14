@@ -118,9 +118,9 @@
                     </tr>
                     <tr>
                         <th class="right"><h6><b>Różnica:</b></h6></th>
-                        <td class="center"><h6>{{formatPriceShow($invoice->netto - $invoice->correctionParent->netto)}}</h6></td>
-                        <td class="center"><h6>{{formatPriceShow($invoice->vat - $invoice->correctionParent->vat)}}</h6></td>
-                        <td class="center"><h6>{{formatPriceShow($invoice->brutto - $invoice->correctionParent->brutto)}}</h6></td>
+                        <td class="center"><h6>{{formatPriceShow($invoice->correctionParent->netto - $invoice->netto)}}</h6></td>
+                        <td class="center"><h6>{{formatPriceShow($invoice->correctionParent->vat - $invoice->vat)}}</h6></td>
+                        <td class="center"><h6>{{formatPriceShow($invoice->correctionParent->brutto - $invoice->brutto)}}</h6></td>
                     </tr>
                 </table>
             </td>
@@ -134,7 +134,7 @@
             <table style="width: 100%;border: 1px solid;">
                 <tr>
                     <td style="padding: 5px 0 0 5px;">
-                        <h5><b>Do zapłaty:</b> {{formatPriceShow($invoice->brutto)}}</h5>
+                        <h5><b>Do zapłaty:</b> {{formatPriceShow($invoice->to_pay)}}</h5>
                     </td>
                 </tr>
             </table>
