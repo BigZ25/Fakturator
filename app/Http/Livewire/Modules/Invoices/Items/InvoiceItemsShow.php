@@ -18,7 +18,10 @@ class InvoiceItemsShow extends BaseItemsShowComponent
     {
         parent::mount();
 
-        $this->box_title = 'Pozycje na fakturze';
+        if (!$this->box_title) {
+            $this->box_title = 'Pozycje na fakturze';
+        }
+
         $this->invoice = Invoice::find($this->parentId);
 
         $this->customSummary = [

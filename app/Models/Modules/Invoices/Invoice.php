@@ -111,6 +111,11 @@ class Invoice extends BaseModel
         return $this->recipient_nip || $this->recipient_name || $this->recipient_address || $this->recipient_postcode || $this->recipient_city;
     }
 
+    public function getIsCorrectionAttribute()
+    {
+        return $this->correctionParent ? true : false;
+    }
+
     public function items()
     {
         return $this->hasMany(InvoiceItem::class);
@@ -125,6 +130,6 @@ class Invoice extends BaseModel
     //oryginał
     public function correctionParent()
     {
-        return $this->hasOne(Invoice::class,'correction_invoice_id');
+        return $this->hasOne(Invoice::class, 'correction_invoice_id');
     }
 }

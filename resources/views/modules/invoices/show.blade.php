@@ -53,5 +53,8 @@
             </div>
         </div>
     </div>
-    @livewire('modules.invoices.items.invoice-items-show',['parentId' => $invoice->id])
+    @if($invoice->is_correction)
+        @livewire('modules.invoices.items.invoice-items-show',['parentId' => $invoice->correctionParent->id,'box_title' => 'Pozycje na fakturze przed korektą'])
+    @endif
+    @livewire('modules.invoices.items.invoice-items-show',['parentId' => $invoice->id,'box_title' => $invoice->correctionParent ? 'Pozycje na fakturze po korekcie' : 'Pozycje na fakturze'])
 </div>
