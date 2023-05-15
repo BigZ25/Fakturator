@@ -194,3 +194,11 @@ function passwordRules($required = true, $regex = true)
 
     return $rules;
 }
+
+function captchaRules($required = true)
+{
+    return [
+        ($required === true ? 'required' : 'nullable'),
+        'captcha'
+    ];
+}

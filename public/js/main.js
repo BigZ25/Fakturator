@@ -19,6 +19,7 @@ $(document).ready(function () {
     $(this).on('submit', '.ajax-form', function (event) {
         event.preventDefault();
         var formData = new FormData(this);
+        var captcha = $(this).data('captcha')
 
         $.ajax({
             url: $(this).attr('action'),
@@ -35,6 +36,10 @@ $(document).ready(function () {
                     window.location.reload();
             },
             error: function (_response) {
+
+                if (captcha === true) {
+                    refreshCaptcha()
+                }
 
                 var errors = _response['responseJSON'];
 
@@ -130,6 +135,10 @@ function tabs() {
             return 'px-4 py-2.5 flex justify-between items-center border-b dark:border-0 nav-header';
         }
     }
+}
+
+function refreshCaptcha(){
+    $('#captcha_img img')[0].src = $('#captcha_img img')[0].src + "?timestamp=" + new Date().getTime()
 }
 
 //my-datetime-picker

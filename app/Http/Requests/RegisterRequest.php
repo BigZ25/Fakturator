@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Session;
 
 class RegisterRequest extends FormRequest
 {
@@ -28,6 +29,7 @@ class RegisterRequest extends FormRequest
             'email' => emailRules(),
             'password' => passwordRules(),
             'confirm_password' => array_merge(passwordRules(regex: false), ['same:password']),
+            'captcha' => captchaRules(),
         ];
     }
 }
