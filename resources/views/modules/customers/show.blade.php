@@ -12,4 +12,5 @@
             @include('templates.show.timestamp',['entity' => $customer])
         </x-card>
     </div>
+    @livewire('modules.invoices.invoices-index',['inject' => true,'buyer_customer_id' => $customer->id])
 </div>

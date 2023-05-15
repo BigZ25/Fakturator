@@ -12,6 +12,9 @@ use PowerComponents\LivewirePowerGrid\PowerGridEloquent;
 
 class InvoicesIndex extends BaseIndexComponent
 {
+    public $product_id;
+    public $buyer_customer_id;
+
     public function mount(): void
     {
         parent::mount();
@@ -25,6 +28,16 @@ class InvoicesIndex extends BaseIndexComponent
 
     public function datasource(): Builder
     {
+        if ($this->product_id) {
+            return Invoice::query()->whereHas('items', function ($query) {
+                $query->where('product_id', '=', $this->product_id);
+            });
+        }
+
+        if ($this->buyer_customer_id) {
+            return Invoice::query()->where('buyer_customer_id', '=', $this->buyer_customer_id);
+        }
+
         return Invoice::query();
     }
 

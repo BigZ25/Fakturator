@@ -19,6 +19,7 @@ class BaseIndexComponent extends PowerGridComponent
     public $showRoute = null;
     public $box_title;
     public $customColumns = [];
+    public $inject;
 
     /**
      * @throws Exception
@@ -53,6 +54,14 @@ class BaseIndexComponent extends PowerGridComponent
 
     private function renderView(mixed $data): Application|Factory|View
     {
+        if ($this->inject) {
+            return view($this->powerGridTheme->layout->table, [
+                'data' => $data,
+                'theme' => $this->powerGridTheme,
+                'table' => 'livewire-powergrid::components.table',
+            ]);
+        }
+
         return view('template', [
             'path' => $this->powerGridTheme->layout->table,
             'data' => $data,
