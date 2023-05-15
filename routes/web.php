@@ -8,8 +8,12 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
-Route::get('login', [AuthController::class, 'index'])->name('login.form');
-Route::post('login', [AuthController::class, 'auth'])->name('login.auth');
+Route::get('login', [AuthController::class, 'loginForm'])->name('login.form');
+Route::post('login', [AuthController::class, 'loginPost'])->name('login.post');
+
+Route::get('register', [AuthController::class, 'RegisterForm'])->name('register.form');
+Route::post('register', [AuthController::class, 'RegisterPost'])->name('register.post');
+
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('settings', SettingsForm::class)->name('settings.form');

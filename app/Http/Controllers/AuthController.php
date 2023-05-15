@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Classes\App\AppClass;
-use App\Http\Requests\AuthRequest;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Session;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use JsonException;
 
 class AuthController extends Controller
 {
@@ -23,24 +24,49 @@ class AuthController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function index()
+    public function loginForm()
     {
-        return view('login');
+        return view('login', ['title' => 'Logowanie']);
     }
 
-    public function auth(AuthRequest $request)
+    public function registerForm()
+    {
+        return view('register', ['title' => 'Rejestracja']);
+    }
+
+    /**
+     * @throws \JsonException
+     */
+    public function loginPost(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
 
+        if (RateLimiter::tooManyAttempts($this->throttleKey($request), 2)) {
+            $this->fireLockoutEvent($request);
+
+            throw new JsonException('Zbyt wiele prób, spróbuj ponownie później.');
+        }
+
+        if (Auth::attempt($credentials)) {
             AppClass::addMessage('Zostałeś zalogowany.');
 
             return response()->json(route('home'));
         }
 
-        AppClass::addError('Błędne dane logowania');
+        RateLimiter::hit($this->throttleKey($request), 5 * 60);
 
-        return response()->json(route('login.form'));
+        throw new JsonException('Błędne dane logowania');
+    }
+
+    public function registerPost(RegisterRequest $request)
+    {
+        $user = User::create($request->validated());
+
+        Auth::loginUsingId($user->id);
+
+        AppClass::addMessage('Konto zostało utworzone.');
+
+        return response()->json(route('home'));
     }
 
     public function logout()

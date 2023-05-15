@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AuthRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
     protected $stopOnFirstFailure = true;
 
@@ -23,8 +23,11 @@ class AuthRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|string|email|max:255',
+            'name' => stringRules(),
+            'surname' => stringRules(),
+            'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string',
+            'confirm_password' => array_merge(stringRules(false), ['same:password', 'min:8']),
         ];
     }
 }

@@ -89,20 +89,21 @@ $(document).ready(function () {
         });
     });
 
-    setInterval(function () {
-        $.ajax({
-            url: "/session",
-            type: "GET",
-            dataType: 'json',
-            success: function (response) {
-                if (response.code === 440) {
-                    if (window.location.href !== response.url) {
-                        window.location.replace(response.url)
-                    }
-                }
-            }
-        });
-    }, 60 * 1000);//Co 60 sekund
+    //TODO
+    // setInterval(function () {
+    //     $.ajax({
+    //         url: "/session",
+    //         type: "GET",
+    //         dataType: 'json',
+    //         success: function (response) {
+    //             if (response.code === 440) {
+    //                 if (window.location.href !== response.url) {
+    //                     window.location.replace(response.url)
+    //                 }
+    //             }
+    //         }
+    //     });
+    // }, 60 * 1000);//Co 60 sekund
 
     function notify(title, description, icon) {
         window.$wireui.notify({
