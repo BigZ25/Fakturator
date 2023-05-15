@@ -23,6 +23,13 @@
                 <div class="flex flex-col h-full">
                     <div class="bg-gray-800 h-full">
                         <div class="p-2">
+                            @if(!auth()->user()->company_data_complete)
+                                <div class="pb-3">
+                                    <x-card color="bg-orange-500 flex" rounded="rounded-sm">
+                                        <h1 class="text-white text-lg">Kliknij <a class="hover:text-secondary-500" href="{{route('settings.form')}}" style="text-decoration: underline;">tutaj</a> aby uzupełnić dane firmy. Bez tego wystawianie faktur będzie niemożliwe.</h1>
+                                    </x-card>
+                                </div>
+                            @endif
                             @include('templates.header')
                             @include($path,$component_data ?? [])
                         </div>
