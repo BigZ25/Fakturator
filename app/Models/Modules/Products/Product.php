@@ -6,7 +6,6 @@ use App\Enum\App\VatTypesEnum;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
-use function Symfony\Component\Translation\t;
 
 class Product extends BaseModel
 {
@@ -54,11 +53,6 @@ class Product extends BaseModel
     public function getNettoAttribute()
     {
         return $this->price;
-    }
-
-    public function getVatTypeNameAttribute()
-    {
-        return VatTypesEnum::getList($this->vat_type);
     }
 
     public function getVatAttribute()

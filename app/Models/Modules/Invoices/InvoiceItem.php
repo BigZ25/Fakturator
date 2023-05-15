@@ -3,7 +3,6 @@
 namespace App\Models\Modules\Invoices;
 
 use App\Enum\App\UnitsEnum;
-use App\Enum\App\VatTypesEnum;
 use App\Models\BaseModel;
 use Illuminate\Support\Collection;
 
@@ -27,11 +26,6 @@ class InvoiceItem extends BaseModel
     public function getUnitNameAttribute()
     {
         return UnitsEnum::getList($this->unit);
-    }
-
-    public function getVatTypeNameAttribute()
-    {
-        return VatTypesEnum::getList($this->vat_type);
     }
 
     public function getNettoAttribute()

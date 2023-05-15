@@ -9,9 +9,10 @@
     <div class="pb-3">
         <x-card title="Podstawowe dane" color="bg-white" rounded="rounded-sm" cardClasses="card-body">
             @include('templates.show.row',['label' => 'Nazwa','value' => $product->name])
-            @include('templates.show.row',['label' => 'VAT','value' => $product->vat_type_name])
-            @include('templates.show.row',['label' => 'Cena','value' => formatPriceShow($product->price)])
+            @include('templates.show.row',['label' => 'Jednostka','value' => $product->unit_name])
             @include('templates.show.row',['label' => 'Ilość','value' => $product->quantity])
+            @include('templates.show.row',['label' => 'Stawka VAT','value' => $product->vat_type_name])
+            @include('templates.show.row',['label' => 'Cena','value' => formatPriceShow($product->price)])
             @include('templates.show.timestamp',['entity' => $product])
         </x-card>
     </div>

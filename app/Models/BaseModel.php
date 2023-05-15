@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enum\App\UnitsEnum;
+use App\Enum\App\VatTypesEnum;
 use Illuminate\Database\Eloquent\Model;
 
 class BaseModel extends Model
@@ -14,6 +16,16 @@ class BaseModel extends Model
     public function getFullAddressAttribute()
     {
         return $this->address . ', ' . $this->postcode . ' ' . $this->city;
+    }
+
+    public function getVatTypeNameAttribute()
+    {
+        return VatTypesEnum::getList($this->vat_type);
+    }
+
+    public function getUnitNameAttribute()
+    {
+        return UnitsEnum::getList($this->unit);
     }
 
     public static function saveData($request, $id, $fkColumn, $items = 'items')
