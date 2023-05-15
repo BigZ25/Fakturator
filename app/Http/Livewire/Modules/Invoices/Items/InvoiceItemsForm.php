@@ -68,7 +68,7 @@ class InvoiceItemsForm extends BaseItemsFormComponent
 
     public function addItem()
     {
-        $this->items[] = array_merge(array_fill_keys((new InvoiceItem())->getFillable(), null),['connect' => true]);
+        $this->items[] = array_merge(array_fill_keys((new InvoiceItem())->getFillable(), null), ['connect' => true]);
     }
 
     public function removeItem($index)
@@ -79,7 +79,11 @@ class InvoiceItemsForm extends BaseItemsFormComponent
 
     private function checkItemName($item, $index)
     {
-        if((bool)$this->items[$index]['connect'] === true){
+        if (!isset($this->items[$index]['connect'])) {
+            $this->items[$index]['connect'] = $this->items[$index]['product_id'] ?? false;
+        }
+
+        if ((bool)$this->items[$index]['connect'] === true) {
             $product = $this->products->firstWhere('name', '=', $item['name']);
 
             if ($product) {
@@ -94,10 +98,11 @@ class InvoiceItemsForm extends BaseItemsFormComponent
         }
     }
 
-    public function setLock($index){
+    public function setLock($index)
+    {
         $this->items[$index]['connect'] = !(bool)$this->items[$index]['connect'];
 
-        if($this->items[$index]['connect'] === false){
+        if ($this->items[$index]['connect'] === false) {
             $this->items[$index]['product_id'] = null;
         }
     }
