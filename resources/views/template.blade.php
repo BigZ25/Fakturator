@@ -4,7 +4,7 @@
             <div class="col-span-2">
                 <div class="flex flex-col h-full">
                     <div class="bg-gray-900 h-12">
-                        <p class="text-center text-2xl">FAKTURATOR</p>
+                        <a href="{{route('home')}}"><p class="text-center text-2xl">FAKTURATOR</p></a>
                     </div>
                     <div class="bg-gray-900 h-full">
                         <ul class="list-none hover:list-disc">
