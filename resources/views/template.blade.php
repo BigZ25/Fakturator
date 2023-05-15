@@ -23,6 +23,13 @@
                 <div class="flex flex-col h-full">
                     <div class="bg-gray-800 h-full">
                         <div class="p-2">
+                            @if(!auth()->user()->is_active)
+                                <div class="pb-3">
+                                    <x-card color="bg-orange-500 flex" rounded="rounded-sm">
+                                        <h1 class="text-white text-lg">Twoje konto nie zostało jeszcze aktywowane. Bez tego korzystanie z aplikacji będzie niemożliwe.</h1>
+                                    </x-card>
+                                </div>
+                            @endif
                             @if(!auth()->user()->company_data_complete)
                                 <div class="pb-3">
                                     <x-card color="bg-orange-500 flex" rounded="rounded-sm">

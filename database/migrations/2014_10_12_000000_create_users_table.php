@@ -24,6 +24,8 @@ class CreateUsersTable extends Migration
             $table->string('company_address')->nullable();
             $table->string('company_postcode')->nullable();
             $table->string('company_city')->nullable();
+            $table->boolean('is_active')->default(false);
+            $table->string('key')->nullable();
         });
     }
 

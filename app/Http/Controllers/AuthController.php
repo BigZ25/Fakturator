@@ -8,6 +8,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except('logout', 'activation');
     }
 
     public function loginForm()
@@ -60,7 +61,17 @@ class AuthController extends Controller
 
     public function registerPost(RegisterRequest $request)
     {
-        $user = User::create($request->validated());
+        $data = $request->validated() + ['key' => substr(uniqid(), 0, 64)];
+        $data['password'] = Hash::make($data['password']);
+
+        $user = User::create($data);
+
+        $message = '<p>Kliknij na poniższy link aby aktywować konto</p><br><a href="' . $user->activation_link . '">' . $user->activation_link . '</a>';
+
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
+
+        mail($user->email, 'Potwierdzenie rejestracji', $message, $headers);
 
         Auth::loginUsingId($user->id);
 
@@ -75,5 +86,25 @@ class AuthController extends Controller
         Auth::logout();
 
         return Redirect(route('login.form'));
+    }
+
+    public function activation($key)
+    {
+        if (auth()->user()->key === $key) {
+            if (!auth()->user()->is_active) {
+                auth()->user()->update([
+                    'key' => null,
+                    'is_active' => true,
+                ]);
+
+                AppClass::addMessage('Twoje konto zostało aktywowane.');
+            } else {
+                AppClass::addMessage('Twoje konto już jest aktywne.');
+            }
+        } else {
+            AppClass::addWarning('Link wygasł.');
+        }
+
+        return Redirect(route('home'));
     }
 }

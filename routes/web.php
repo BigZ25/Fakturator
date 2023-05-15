@@ -11,8 +11,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('aut
 Route::get('login', [AuthController::class, 'loginForm'])->name('login.form');
 Route::post('login', [AuthController::class, 'loginPost'])->name('login.post');
 
-Route::get('register', [AuthController::class, 'RegisterForm'])->name('register.form');
-Route::post('register', [AuthController::class, 'RegisterPost'])->name('register.post');
+Route::get('register', [AuthController::class, 'registerForm'])->name('register.form');
+Route::post('register', [AuthController::class, 'registerPost'])->name('register.post');
+
+Route::get('activation/{key}', [AuthController::class, 'activation'])->name('account.activation')->middleware('auth');
 
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 

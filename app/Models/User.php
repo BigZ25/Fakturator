@@ -17,7 +17,9 @@ class User extends Authenticatable
         'company_name',
         'company_address',
         'company_postcode',
-        'company_city'
+        'company_city',
+        'key',
+        'is_active'
     ];
 
     protected $hidden = [
@@ -27,5 +29,9 @@ class User extends Authenticatable
     public function getCompanyDataCompleteAttribute()
     {
         return $this->company_nip && $this->company_name && $this->company_address && $this->company_postcode && $this->company_city;
+    }
+
+    public function getActivationLinkAttribute(){
+        return route('account.activation',$this->key);
     }
 }
