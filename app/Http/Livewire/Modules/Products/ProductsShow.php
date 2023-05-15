@@ -9,7 +9,7 @@ class ProductsShow extends BaseShowComponent
 {
     public function mount(int $entity_id)
     {
-        $this->title = 'Podgląd kolekcji';
+        $this->title = 'Podgląd produktu';
         $this->view_path = 'modules.products.show';
         $this->currentModule = 'products';
         $this->breadcrumbs = [

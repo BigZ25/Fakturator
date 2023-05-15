@@ -6,32 +6,26 @@ use App\Enum\BaseEnum;
 
 class UnitsEnum implements BaseEnum
 {
-    const SERVICE = 0;
-    const PIECE = 1;
-    const SQUARE_METER = 2;
-    const HOUR = 3;
-    const HECTARE = 4;
-    const RUNNING_METER = 5;
-    const KILOMETER = 6;
-    const KILOGRAM = 7;
-    const TON = 8;
-    const CUBIC_METER = 9;
-    const MONTH = 10;
+    const PIECE = 0;
+    const SQUARE_METER = 1;
+    const HOUR = 2;
+    const HECTARE = 3;
+    const RUNNING_METER = 4;
+    const KILOGRAM = 5;
+    const TON = 6;
+    const CUBIC_METER = 7;
 
     public static function getList($id = null)
     {
         $list = [
-            self::SERVICE => "usł.",
             self::PIECE => "szt.",
             self::SQUARE_METER => "m²",
             self::HOUR => "h",
             self::HECTARE => "ha",
             self::RUNNING_METER => "mb",
-            self::KILOMETER => "km",
             self::KILOGRAM => "kg",
             self::TON => "t",
             self::CUBIC_METER => "m³",
-            self::MONTH => "m-c",
         ];
 
         if (!is_null($id)) {
