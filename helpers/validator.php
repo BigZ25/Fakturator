@@ -180,3 +180,17 @@ function companyDataRules($prefix = null)
         $prefix . 'city' => stringRules(),
     ];
 }
+
+function passwordRules($required = true, $regex = true)
+{
+    $rules = [
+        ($required === true ? 'required' : 'nullable'),
+        'string',
+    ];
+
+    if ($regex) {
+        $rules[] = 'regex:' . passwordRegex();
+    }
+
+    return $rules;
+}

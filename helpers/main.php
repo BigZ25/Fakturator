@@ -44,6 +44,18 @@ function amountRegexRule(): string
     return 'regex:/^\d{1,10}(\.\d{1,2})?$/';
 }
 
+function passwordRegex(): string
+{
+    //  Ten regex wymaga, aby hasło spełniało następujące kryteria:
+    //  Składało się z co najmniej 8 znaków.
+    //  Zawierało co najmniej jedną małą literę ([a-z]).
+    //  Zawierało co najmniej jedną dużą literę ([A-Z]).
+    //  Zawierało co najmniej jedną cyfrę (\d).
+    //  Zawierało co najmniej jeden znak specjalny spośród: @, $, !, %, *, ?, &.
+
+    return '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/';
+}
+
 function required($if)
 {
     $required = 'required';

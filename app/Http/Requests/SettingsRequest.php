@@ -26,8 +26,8 @@ class SettingsRequest extends FormRequest
             'name' => stringRules(),
             'surname' => stringRules(),
             'email' => array_merge(stringRules(), ['unique:users,email,' . auth()->id()]),
-            'new_password' => array_merge(stringRules(false), ['min:8']),//'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/'
-            'confirm_new_password' => array_merge(stringRules(false), ['required_with:new_password','min:8']),//TODO same????
+            'new_password' => passwordRules(false),
+            'confirm_new_password' => array_merge(passwordRules(false, false), ['required_with:new_password']),
         ], companyDataRules('company'));
     }
 

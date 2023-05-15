@@ -25,9 +25,9 @@ class RegisterRequest extends FormRequest
         return [
             'name' => stringRules(),
             'surname' => stringRules(),
-            'email' => 'required|string|email|max:255|unique:users,email',
-            'password' => 'required|string',
-            'confirm_password' => array_merge(stringRules(false), ['same:password', 'min:8']),
+            'email' => emailRules(),
+            'password' => passwordRules(),
+            'confirm_password' => array_merge(passwordRules(regex: false), ['same:password']),
         ];
     }
 }
