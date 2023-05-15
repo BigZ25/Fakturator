@@ -15,6 +15,8 @@ class InvoicesIndex extends BaseIndexComponent
     public $product_id;
     public $buyer_customer_id;
 
+    protected $listeners = ['downloadCsv' => 'downloadCsv'];
+
     public function mount(): void
     {
         parent::mount();
@@ -70,6 +72,12 @@ class InvoicesIndex extends BaseIndexComponent
                 ->icon('plus')
                 ->route('invoices.create', [])
                 ->target('_self'),
+
+            Button::add('downloadCsv')
+                ->caption('Eksportuj zaznaczone')
+                ->class(buttonClass('pink'))
+                ->icon('document-report')
+                ->emit('downloadCsv', ['ids' => $this->checkboxValues]),//TODO
         ];
 
         return array_merge($actions, parent::header());
@@ -112,5 +120,10 @@ class InvoicesIndex extends BaseIndexComponent
             ->canIf('have_correction', '=', true);
 
         return $actions;
+    }
+
+    public function downloadCsv($ids)
+    {
+        dd($ids);
     }
 }
