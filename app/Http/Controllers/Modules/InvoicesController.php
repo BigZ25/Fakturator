@@ -13,6 +13,8 @@ class InvoicesController extends Controller
 {
     public function store(InvoiceRequest $request)
     {
+        $this->authorize('isActive', Invoice::class);
+
         $invoice = InvoicesService::handleRequest($request);
 
         return response()->json(route('invoices.show', $invoice->id));
@@ -20,6 +22,8 @@ class InvoicesController extends Controller
 
     public function update(InvoiceRequest $request, Invoice $invoice)
     {
+        $this->authorize('isInvoiceUser', $invoice);
+
         $invoice = InvoicesService::handleRequest($request, $invoice);
 
         return response()->json(route('invoices.show', $invoice->id));
@@ -33,6 +37,7 @@ class InvoicesController extends Controller
                 ->get();
 
             foreach ($invoices as $invoice) {
+                $this->authorize('isInvoiceUser', $invoice);
                 $invoice->delete();
             }
 
@@ -41,6 +46,7 @@ class InvoicesController extends Controller
             $invoice = Invoice::find($invoiceId);
 
             if ($invoice) {
+                $this->authorize('isInvoiceUser', $invoice);
                 $invoice->delete();
 
                 AppClass::addMessage('Faktura została usunięta');
@@ -53,6 +59,8 @@ class InvoicesController extends Controller
     public function pdf(int $invoiceID)
     {
         $invoice = Invoice::find($invoiceID);
+
+        $this->authorize('isInvoiceUser', $invoice);
 
         return PDF::loadView('templates.pdf.invoice', ['invoice' => $invoice])
             ->stream('Faktura VAT nr ' . $invoice->number . '.pdf');

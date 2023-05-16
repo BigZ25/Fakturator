@@ -29,6 +29,7 @@ class InvoicesForm extends BaseFormComponent
 
         if ($this->entity_id !== null) {
             $this->invoice = Invoice::find($this->entity_id);
+            $this->authorize('isInvoiceUser', $this->invoice);
 
             $numberOfSegments = count(request()->segments());
 
@@ -45,6 +46,8 @@ class InvoicesForm extends BaseFormComponent
                 }
             }
         } else {
+            $this->authorize('isActive', Invoice::class);
+
             $this->invoice = new Invoice();
             $this->invoice->number = Invoice::nextNumber(auth()->user()->id);
             $this->invoice->issue_date = todayDate();

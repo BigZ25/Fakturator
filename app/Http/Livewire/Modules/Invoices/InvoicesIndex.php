@@ -31,16 +31,16 @@ class InvoicesIndex extends BaseIndexComponent
     public function datasource(): Builder
     {
         if ($this->product_id) {
-            return Invoice::query()->whereHas('items', function ($query) {
+            return $this->customDatasource(Invoice::query()->whereHas('items', function ($query) {
                 $query->where('product_id', '=', $this->product_id);
-            });
+            }));
         }
 
         if ($this->buyer_customer_id) {
-            return Invoice::query()->where('buyer_customer_id', '=', $this->buyer_customer_id);
+            return $this->customDatasource(Invoice::query()->where('buyer_customer_id', '=', $this->buyer_customer_id));
         }
 
-        return Invoice::query();
+        return $this->customDatasource(Invoice::query()->where('user_id', '=', auth()->user()->id));
     }
 
     public function addColumns(): PowerGridEloquent

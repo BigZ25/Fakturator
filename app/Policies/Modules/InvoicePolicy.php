@@ -10,23 +10,17 @@ class InvoicePolicy
 {
     use HandlesAuthorization;
 
-    public function __construct()
+    public function isActive(User $user)
     {
-
+        return $user->is_active;
     }
 
-    public function show(User $user, Invoice $invoice)
+    public function isInvoiceUser(User $user, Invoice $invoice)
     {
-        return !$invoice->is_in_queue;
-    }
+        if ($this->isActive($user)) {
+            return $invoice->user_id === $user->id;
+        }
 
-    public function edit(User $user, Invoice $invoice)
-    {
-        return !$invoice->is_in_queue;
-    }
-
-    public function update(User $user, Invoice $invoice)
-    {
-        return !$invoice->is_in_queue;
+        return false;
     }
 }
