@@ -1,0 +1,9 @@
+<button wire:loading.attr="disabled" wire:loading.class="!cursor-wait" type="submit" class="focus:outline-none inline-flex justify-center items-center transition-all ease-in duration-100 focus:ring-2 focus:ring-offset-2 hover:shadow-sm disabled:opacity-80 disabled:cursor-not-allowed rounded gap-x-2 text-sm px-4 py-2     ring-info-500 text-white bg-info-500 hover:bg-info-600 hover:ring-info-600
+    dark:ring-offset-slate-800 dark:bg-info-700 dark:ring-info-700
+    dark:hover:bg-info-600 dark:hover:ring-info-600 mr-2">
+    
+    Zarejestruj
+
+    
+    </button>
+<?php /**PATH C:\laragon\www\fakturator\storage\framework\views/ef05bc7c5b35f149de093adcad9c33d42c765d3f.blade.php ENDPATH**/ ?>
