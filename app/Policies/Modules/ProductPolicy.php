@@ -2,11 +2,11 @@
 
 namespace App\Policies\Modules;
 
-use App\Models\Modules\Customers\Customer;
+use App\Models\Modules\Products\Product;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CustomerPolicy
+class ProductPolicy
 {
     use HandlesAuthorization;
 
@@ -15,10 +15,10 @@ class CustomerPolicy
         return $user->is_active;
     }
 
-    public function isCustomerUser(User $user, Customer $customer)
+    public function isProductUser(User $user, Product $product)
     {
         if ($this->isActive($user)) {
-            return $customer->user_id === $user->id;
+            return $product->user_id === $user->id;
         }
 
         return false;

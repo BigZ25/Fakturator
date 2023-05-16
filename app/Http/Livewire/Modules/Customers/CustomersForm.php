@@ -30,7 +30,6 @@ class CustomersForm extends BaseFormComponent
         } else {
             $this->authorize('isActive', Customer::class);
         }
-
     }
 
     public function render()

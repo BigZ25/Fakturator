@@ -31,7 +31,7 @@ class ProductsIndex extends BaseIndexComponent
 
     public function datasource(): Builder
     {
-        return $this->customDatasource(Product::query());
+        return $this->customDatasource(Product::query()->where('user_id', '=', auth()->user()->id));
     }
 
     public function addColumns(): PowerGridEloquent

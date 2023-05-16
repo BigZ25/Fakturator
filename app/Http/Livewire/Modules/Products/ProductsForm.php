@@ -28,6 +28,9 @@ class ProductsForm extends BaseFormComponent
 
         if ($this->entity_id !== null) {
             $this->product = Product::find($this->entity_id);
+            $this->authorize('isProductUser', $this->product);
+        } else {
+            $this->authorize('isActive', Product::class);
         }
 
         $this->lists = [
