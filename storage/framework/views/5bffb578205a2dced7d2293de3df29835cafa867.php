@@ -7,10 +7,6 @@
                         <a href="<?php echo e(route('home')); ?>"><p class="text-center text-2xl">FAKTURATOR</p></a>
                     </div>
                     <div class="bg-gray-900 h-full">
-                        <div class="bg-white pl-2 text-gray-900">
-                            <i class="fas fa-fw fa-user mr-1"></i><?php echo e(auth()->user()->email); ?>
-
-                        </div>
                         <ul class="list-none hover:list-disc">
                             <?php $__currentLoopData = config('modules'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $module): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <a href="<?php echo e(route($module['route'])); ?>">

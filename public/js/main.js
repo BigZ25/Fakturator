@@ -16,26 +16,6 @@ $(document).ready(function () {
         notify('Powiadomienie', body.data('notification-content'), body.data('notification-type'))
     }
 
-    $(this).on("click", "a", function (event) {
-        var url = $(this).attr("href")
-
-        if (url) {
-            event.preventDefault()
-
-            $.ajax({
-                url: url,
-                type: 'GET',
-                contentType: 'application/json',
-                success: function (_response) {
-                    window.location.replace(url)
-                },
-                error: function (_response) {
-                    notify("Błąd", _response['responseJSON'].message, 'error')
-                }
-            })
-        }
-    })
-
     $(this).on('submit', '.ajax-form', function (event) {
         event.preventDefault()
         var formData = new FormData(this)
