@@ -7,6 +7,9 @@
                         <a href="{{route('home')}}"><p class="text-center text-2xl">FAKTURATOR</p></a>
                     </div>
                     <div class="bg-gray-900 h-full">
+                        <div class="bg-white pl-2 text-gray-900">
+                            <i class="fas fa-fw fa-user mr-1"></i>{{auth()->user()->email}}
+                        </div>
                         <ul class="list-none hover:list-disc">
                             @foreach(config('modules') as $key => $module)
                                 <a href="{{route($module['route'])}}">
