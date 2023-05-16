@@ -2,9 +2,13 @@
 /public/hot
 /public/storage
 
-/storage/*
-/storage/framework/cache/*
-!/storage/framework/cache/.gitkeep
+# Ignore all folders inside storage/framework except cache
+/storage/framework/*
+!/storage/framework/cache/
+
+# Ignore the contents of storage/framework except cache
+/storage/framework/**/*
+!/storage/framework/cache/**
 
 /vendor
 .env
