@@ -1,6 +1,0 @@
-<?php echo $__env->make('templates.show.row',['label' => 'NIP','value' => $entity[isset($prefix) && $prefix ? $prefix.'_nip' : 'nip']], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<?php echo $__env->make('templates.show.row',['label' => 'Nazwa','value' => $entity[isset($prefix) && $prefix ? $prefix.'_name' : 'name']], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<?php echo $__env->make('templates.show.row',['label' => 'Adres','value' => $entity[isset($prefix) && $prefix ? $prefix.'_address' : 'address']], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<?php echo $__env->make('templates.show.row',['label' => 'Kod pocztowy','value' => $entity[isset($prefix) && $prefix ? $prefix.'_postcode' : 'postcode']], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<?php echo $__env->make('templates.show.row',['label' => 'Miasto','value' => $entity[isset($prefix) && $prefix ? $prefix.'_city' : 'city']], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<?php /**PATH C:\laragon\www\fakturator\resources\views/templates/company_data/show.blade.php ENDPATH**/ ?>

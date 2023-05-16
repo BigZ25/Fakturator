@@ -1,15 +1,8 @@
 /node_modules
 /public/hot
 /public/storage
-
-# Ignore all folders inside storage/framework except cache
-/storage/framework/*
-!/storage/framework/cache/
-
-# Ignore the contents of storage/framework except cache
-/storage/framework/**/*
-!/storage/framework/cache/**
-
+/storage
+!/storage/framework
 /vendor
 .env
 .env.backup
