@@ -50,7 +50,6 @@ class Handler extends ExceptionHandler
     {
         // is this request asks for json?
         if ($request->hasHeader('Content-Type') && $request->header('Content-Type') == 'application/json') {
-
             /*  is this exception? */
             if (!empty($e)) {
                 // set default error message
@@ -101,6 +100,9 @@ class Handler extends ExceptionHandler
                             } elseif ($e instanceof TokenMismatchException) {
                                 $status = 400;
                                 $response['message'] = 'Sesja wygasła. Zaloguj się ponownie.';
+                            } elseif ($e instanceof AuthorizationException) {
+                                $status = 403;
+                                $response['message'] = 'Operacja niedozwolona.';
                             } else {
 
                                 // for all others check do we have method getStatusCode and try to get it
@@ -115,7 +117,8 @@ class Handler extends ExceptionHandler
             }
         } else {
             if ($e instanceof AuthorizationException) {
-                throw new HttpResponseException(response()->json(['message' => "Operacja niedozwolona"], 403));
+//                throw new HttpResponseException(response()->json(['message' => "Operacja niedozwolona"], 403));
+                return response()->view('errors.403', ['exception' => $e, 403]);
             } elseif ($e instanceof TokenMismatchException) {
                 throw new HttpResponseException(response()->json(['message' => "Sesja wygasła. Zaloguj się ponownie."], 403));
             }
