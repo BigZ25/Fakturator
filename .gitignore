@@ -3,6 +3,7 @@
 /public/storage
 
 /storage/*
+/storage/framework/cache/*
 !/storage/framework/cache/.gitkeep
 
 /vendor
