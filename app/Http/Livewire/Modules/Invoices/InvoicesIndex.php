@@ -72,12 +72,6 @@ class InvoicesIndex extends BaseIndexComponent
                 ->icon('plus')
                 ->route('invoices.create', [])
                 ->target('_self'),
-
-            Button::add('downloadCsv')
-                ->caption('Eksportuj zaznaczone')
-                ->class(buttonClass('pink'))
-                ->icon('document-report')
-                ->emit('downloadCsv', ['ids' => $this->checkboxValues]),//TODO
         ];
 
         return array_merge($actions, parent::header());
