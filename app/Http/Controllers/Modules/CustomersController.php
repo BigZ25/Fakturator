@@ -12,6 +12,8 @@ class CustomersController extends Controller
 {
     public function store(CustomerRequest $request)
     {
+        $this->authorize('isActive', Customer::class);
+
         $customer = Customer::create($request->validated() + ['user_id' => auth()->user()->id]);
 
         AppClass::addMessage('Klient został zapisany');
@@ -21,6 +23,8 @@ class CustomersController extends Controller
 
     public function update(CustomerRequest $request, Customer $customer)
     {
+        $this->authorize('isCustomerUser', $customer);
+
         $customer->update($request->validated());
 
         AppClass::addMessage('Zmiany zostały zapisane');
@@ -36,12 +40,15 @@ class CustomersController extends Controller
                 ->get();
 
             foreach ($customers as $customer) {
+                $this->authorize('isCustomerUser', $customer);
                 $customer->delete();
             }
 
             AppClass::addMessage('Klienci zostali usunięci');
         } else {
             $customer = Customer::find($customerId);
+
+            $this->authorize('isCustomerUser', $customer);
 
             if ($customer) {
                 $customer->delete();

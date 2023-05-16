@@ -26,7 +26,11 @@ class CustomersForm extends BaseFormComponent
 
         if ($this->entity_id !== null) {
             $this->customer = Customer::find($this->entity_id);
+            $this->authorize('isCustomerUser', $this->customer);
+        } else {
+            $this->authorize('isActive', Customer::class);
         }
+
     }
 
     public function render()

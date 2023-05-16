@@ -26,7 +26,7 @@ class CustomersIndex extends BaseIndexComponent
 
     public function datasource(): Builder
     {
-        return $this->customDatasource(Customer::query());
+        return $this->customDatasource(Customer::query()->where('user_id', '=', auth()->user()->id));
     }
 
     public function addColumns(): PowerGridEloquent
