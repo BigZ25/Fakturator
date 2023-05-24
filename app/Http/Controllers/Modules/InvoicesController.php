@@ -56,9 +56,9 @@ class InvoicesController extends Controller
         return response()->json(route('invoices.index'));
     }
 
-    public function pdf(int $invoiceID)
+    public function pdf($invoiceId)
     {
-        $invoice = Invoice::find($invoiceID);
+        $invoice = Invoice::find($invoiceId);
 
         $this->authorize('isInvoiceUser', $invoice);
 
