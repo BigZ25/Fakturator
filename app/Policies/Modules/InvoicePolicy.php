@@ -17,7 +17,6 @@ class InvoicePolicy
 
     public function isInvoiceUser(User $user, Invoice $invoice)
     {
-        return false;
         if ($this->isActive($user)) {
             return $invoice->user_id === $user->id;
         }
