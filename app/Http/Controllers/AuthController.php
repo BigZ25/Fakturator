@@ -42,7 +42,7 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        if (RateLimiter::tooManyAttempts($this->throttleKey($request), 2)) {
+        if (RateLimiter::tooManyAttempts($this->throttleKey($request), 5)) {
             $this->fireLockoutEvent($request);
 
             throw new JsonException('Zbyt wiele prób, spróbuj ponownie później.');
@@ -62,7 +62,7 @@ class AuthController extends Controller
     public function registerPost(RegisterRequest $request)
     {
         $data = $request->validated() + ['key' => substr(uniqid(), 0, 64)];
-        $data['password'] = Hash::make($data['password']);
+        $data['password'] = bcrypt($data['password']);
 
         $user = User::create($data);
 

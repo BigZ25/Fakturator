@@ -27,7 +27,11 @@ class InvoiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'number' => array_merge(stringRules(), [Rule::unique('invoices')->where('user_id', auth()->user()->id)->ignore($this->invoice->id ?? null)]),
+            'number' => array_merge(stringRules(), [
+                Rule::unique('invoices')
+                    ->where('user_id', auth()->user()->id)
+                    ->ignore($this->invoice->id ?? null)
+            ]),
 
             //dane nabywcy
             'buyer_customer_id' => idRules('customers', required: false),
@@ -56,7 +60,7 @@ class InvoiceRequest extends FormRequest
             'is_send' => boolRules(),
             'notes' => stringRules(false),
 
-            //items
+            //pozycje
             'items' => ['required', 'array', 'min:1'],
             'items.*.product_id' => idRules('products', required: false),
             'items.*.name' => stringRules(),

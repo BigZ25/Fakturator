@@ -118,7 +118,7 @@ class Handler extends ExceptionHandler
         } else {
             if ($e instanceof AuthorizationException) {
 //                throw new HttpResponseException(response()->json(['message' => "Operacja niedozwolona"], 403));
-                return response()->view('errors.403', ['exception' => $e, 403]);
+                return response()->view('errors.403', ['exception' => $e, 403],403);
             } elseif ($e instanceof TokenMismatchException) {
                 throw new HttpResponseException(response()->json(['message' => "Sesja wygasła. Zaloguj się ponownie."], 403));
             }

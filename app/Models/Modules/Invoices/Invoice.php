@@ -4,12 +4,13 @@ namespace App\Models\Modules\Invoices;
 
 use App\Enum\App\PaymentMethodsEnum;
 use App\Models\BaseModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 
 class Invoice extends BaseModel
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
 
     protected $fillable = [
         'user_id',

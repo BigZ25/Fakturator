@@ -32,4 +32,11 @@ class RegisterRequest extends FormRequest
             'captcha' => captchaRules(),
         ];
     }
+
+    public function messages()
+    {
+        return[
+            'captcha.captcha' => 'Wynik jest nie poprawny',
+        ];
+    }
 }

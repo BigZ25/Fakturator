@@ -92,7 +92,9 @@ class CompanyData extends Component
 
                 $this->data['nip'] = $gusReport->getNip();
                 $this->data['name'] = $gusReport->getName();
-                $this->data['address'] = $gusReport->getStreet() . ' ' . $gusReport->getPropertyNumber() . ($gusReport->getApartmentNumber() ? '/' . $gusReport->getApartmentNumber() : '');
+                $this->data['address'] = $gusReport->getStreet() . ' ' .
+                    $gusReport->getPropertyNumber() .
+                    ($gusReport->getApartmentNumber() ? '/' . $gusReport->getApartmentNumber() : '');
                 $this->data['postcode'] = $gusReport->getZipCode();
                 $this->data['city'] = $gusReport->getPostCity();
 

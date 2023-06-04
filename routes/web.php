@@ -21,9 +21,9 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('settings', SettingsForm::class)->name('settings.form');
 Route::put('settings', [SettingsController::class, 'store'])->name('settings.store');
 
-include_once 'modules/invoices.php';
-include_once 'modules/products.php';
-include_once 'modules/customers.php';
+require 'modules/invoices.php';
+require 'modules/products.php';
+require 'modules/customers.php';
 
 //Sprawdź sesję
 Route::get('session', function () {

@@ -4,10 +4,13 @@ namespace App\Models\Modules\Invoices;
 
 use App\Enum\App\UnitsEnum;
 use App\Models\BaseModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Collection;
 
 class InvoiceItem extends BaseModel
 {
+    use HasFactory;
+
     protected $fillable = [
         'invoice_id',
         'product_id',

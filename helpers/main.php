@@ -1,6 +1,7 @@
 <?php
 
 use App\Enum\App\VatTypesEnum;
+use Illuminate\Support\Facades\Route;
 
 include('validator.php');
 include('files.php');
@@ -171,4 +172,12 @@ function vatValue($netto, int $vatType)
         VatTypesEnum::VAT_TYPE_5 => $netto * 0.05,
         default => 0,
     };
+}
+
+function entityId($string)
+{
+    $routeCollection = Route::getFacadeRoot()->getRoutes();
+    $route = $routeCollection->match(request()->create($string, 'GET'));
+
+    return (int)$route->parameters()['entity_id'];
 }

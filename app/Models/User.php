@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    use HasFactory;
+
     public $timestamps = false;
 
     protected $fillable = [
@@ -31,7 +34,8 @@ class User extends Authenticatable
         return $this->company_nip && $this->company_name && $this->company_address && $this->company_postcode && $this->company_city;
     }
 
-    public function getActivationLinkAttribute(){
-        return route('account.activation',$this->key);
+    public function getActivationLinkAttribute()
+    {
+        return route('account.activation', $this->key);
     }
 }
