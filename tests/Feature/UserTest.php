@@ -26,6 +26,30 @@ class UserTest extends TestCase
         $response->assertOk();
     }
 
+    public function testPasswordRegex()
+    {
+        $validPasswords = [
+            'Password1!',
+            'SecurePassword123@',
+            'Test123$',
+        ];
+
+        $invalidPasswords = [
+            'password',
+            '12345678',
+            'Password',
+            'password123',
+        ];
+
+        foreach ($validPasswords as $password) {
+            $this->assertMatchesRegularExpression(passwordRegex(), $password);
+        }
+
+        foreach ($invalidPasswords as $password) {
+            $this->assertDoesNotMatchRegularExpression(passwordRegex(), $password);
+        }
+    }
+
     public function testToManyAttempts()
     {
         $user = User::factory()->create([
