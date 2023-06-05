@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 use JsonException;
 use Tests\TestCase;
 
@@ -39,5 +40,23 @@ class UserTest extends TestCase
         }
 
         $this->assertEquals('Zbyt wiele prób, spróbuj ponownie później.', $response->exception->getMessage());
+    }
+
+    public function testPasswordHashing()
+    {
+        $password = 'secret';
+        $hashedPassword = bcrypt($password);
+
+        $this->assertTrue(Hash::check($password, $hashedPassword));
+    }
+
+    public function testInvalidPassword()
+    {
+        $password = 'secret';
+        $invalidPassword = 'incorrect';
+
+        $hashedPassword = Hash::make($password);
+
+        $this->assertFalse(Hash::check($invalidPassword, $hashedPassword));
     }
 }
