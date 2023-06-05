@@ -72,10 +72,7 @@ class UserTest extends TestCase
         $hashedPassword = bcrypt($password);
 
         $this->assertTrue(Hash::check($password, $hashedPassword));
-    }
 
-    public function testInvalidPassword()
-    {
         $password = 'secret';
         $invalidPassword = 'incorrect';
 
