@@ -8,6 +8,3 @@ app.reset:
 
 app.migrate:
 	php artisan migrate
-
-app.migrate.rollback:
-	php artisan migrate:rollback
